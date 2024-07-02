@@ -24,7 +24,7 @@ const Weather: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const { isLoaded, isSignedIn, user } = useUser();
+  const { isLoaded, user } = useUser();
 
   const { setContext } = useSchematicContext();
   const { identify, track } = useSchematicEvents();
@@ -74,7 +74,7 @@ const Weather: React.FC = () => {
         company: {
           keys: { id: user.id },
           name: user.username!,
-          traits: { image_url: "https://" },
+          traits: { imageUrl: user.imageUrl },
         },
         keys: { id: user.id },
         name: user.username!,
