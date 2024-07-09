@@ -2,6 +2,7 @@
 
 import { useUser } from "@clerk/nextjs";
 import {
+  useSchematic,
   useSchematicContext,
   useSchematicEvents,
   useSchematicFlag,
@@ -63,21 +64,21 @@ const Weather: React.FC = () => {
     if (isLoaded && user && setContext && identify) {
       const context = {
         company: {
-          clerkId: user.id,
+          id: user.id,
         },
         user: {
-          clerkId: user.id,
+          id: user.id,
         },
       };
       void setContext(context);
       void identify({
         company: {
           keys: { id: user.id },
-          name: user.username!,
-          traits: { imageUrl: user.imageUrl },
+          name: user.username ?? user.fullName ?? user.id,
+          traits: { logoUrl: user.imageUrl },
         },
         keys: { id: user.id },
-        name: user.username!,
+        name: user.username ?? user.fullName ?? user.id,
         traits: { status: "active" },
       });
     }

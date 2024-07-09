@@ -4,7 +4,7 @@ import { SchematicProvider } from "@schematichq/schematic-react";
 import Weather from "@/components/Weather";
 
 export default function Home() {
-  const schematicPubKey = process.env.SCHEMATIC_PUBLISHABLE_KEY!;
+  const schematicPubKey = process.env.NEXT_PUBLIC_SCHEMATIC_PUBLISHABLE_KEY!;
   return (
     <SchematicProvider publishableKey={schematicPubKey}>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
