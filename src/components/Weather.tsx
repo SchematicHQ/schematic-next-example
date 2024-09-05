@@ -2,7 +2,6 @@
 
 import { useUser } from "@clerk/nextjs";
 import {
-  useSchematic,
   useSchematicContext,
   useSchematicEvents,
   useSchematicFlag,
