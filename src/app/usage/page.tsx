@@ -1,5 +1,6 @@
 import Usage from "@/components/Usage";
 import { Suspense } from "react";
+import ClientWrapper from "@/components/ClientWrapper";
 import { SchematicClient } from "@schematichq/schematic-typescript-node";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 
@@ -7,7 +8,7 @@ export default async function UsageAndPlan() {
   const apiKey = process.env.SCHEMATIC_SECRET_KEY;
   if (!apiKey) {
     return (
-      <div className="p-24">
+      <div className="w-full max-w-5xl">
         <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
         <p>
           No Schematic API key found. Please set the{" "}
@@ -21,7 +22,7 @@ export default async function UsageAndPlan() {
 
   if (!userId) {
     return (
-      <div className="p-24">
+      <div className="w-full max-w-5xl">
         <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
         <p>Unauthorized. Please log in to view this page.</p>
       </div>
@@ -57,18 +58,20 @@ export default async function UsageAndPlan() {
     const accessToken = resp.data?.token;
 
     return (
-      <div className="p-24">
-        <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
-        <Suspense fallback={<div>Loading usage data...</div>}>
-          <Usage accessToken={accessToken} />
-        </Suspense>
-      </div>
+      <ClientWrapper>
+        <div className="w-full max-w-5xl">
+          <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
+          <Suspense fallback={<div>Loading usage data...</div>}>
+            <Usage accessToken={accessToken} />
+          </Suspense>
+        </div>
+      </ClientWrapper>
     );
   } catch (error) {
     console.error("Error fetching temporary access token:", error);
 
     return (
-      <div className="p-24">
+      <div className="w-full max-w-5xl">
         <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
         <p>
           An error occurred while fetching usage data. Please try again later.

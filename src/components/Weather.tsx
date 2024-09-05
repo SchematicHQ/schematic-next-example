@@ -2,7 +2,6 @@
 
 import { useUser } from "@clerk/nextjs";
 import {
-  useSchematicContext,
   useSchematicEvents,
   useSchematicFlag,
 } from "@schematichq/schematic-react";
@@ -31,7 +30,6 @@ const Weather: React.FC = () => {
   const orgId = org?.id ?? "";
   const orgName = org?.name ?? userName ?? "";
 
-  const { setContext } = useSchematicContext();
   const { identify, track } = useSchematicEvents();
   const weatherSearchFlag = useSchematicFlag("weather-search");
 
@@ -65,13 +63,7 @@ const Weather: React.FC = () => {
   );
 
   useEffect(() => {
-    if (isLoaded && user && setContext && identify) {
-      // TODO: SetContext should be unnecessary
-      const context = {
-        company: { id: orgId },
-        user: { id: user.id },
-      };
-      void setContext(context);
+    if (isLoaded && user && identify) {
       void identify({
         company: {
           keys: { id: orgId },
@@ -83,10 +75,10 @@ const Weather: React.FC = () => {
         traits: { status: "active" },
       });
     }
-  }, [isLoaded, user, setContext, identify]);
+  }, [isLoaded, user, identify]);
 
   useEffect(() => {
-    if (isLoaded && user && setContext && track) {
+    if (isLoaded && user && track) {
       void track({
         company: { id: orgId },
         event: "search",
@@ -94,7 +86,7 @@ const Weather: React.FC = () => {
         user: { id: user.id },
       });
     }
-  }, [isLoaded, user, setContext, track, fetchedLocation]);
+  }, [isLoaded, user, track, fetchedLocation]);
 
   useEffect(() => {
     fetchWeather(location);
