@@ -6,11 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
-    "start": "next start",
+    "start": "next start -p 3001",
     "lint": "next lint"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.1.4",
+    "@schematichq/schematic-react": "^0.1.7",
     "axios": "^1.7.2",
     "lodash.debounce": "^4.0.8",
     "next": "14.2.3",

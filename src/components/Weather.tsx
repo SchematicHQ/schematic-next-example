@@ -1,5 +1,12 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
+import {
+  useSchematic,
+  useSchematicContext,
+  useSchematicEvents,
+  useSchematicFlag,
+} from "@schematichq/schematic-react";
 import axios from "axios";
 import debounce from "lodash.debounce";
 import React, { useEffect, useCallback, useState, useMemo } from "react";
@@ -17,6 +24,12 @@ const Weather: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  const { isLoaded, user } = useUser();
+
+  const { setContext } = useSchematicContext();
+  const { identify, track } = useSchematicEvents();
+  const weatherSearchFlag = useSchematicFlag("weather-search");
 
   const fetchWeather = useCallback(async (location: string) => {
     try {
@@ -48,6 +61,41 @@ const Weather: React.FC = () => {
   );
 
   useEffect(() => {
+    if (isLoaded && user && setContext && identify) {
+      const context = {
+        company: {
+          id: user.id,
+        },
+        user: {
+          id: user.id,
+        },
+      };
+      void setContext(context);
+      void identify({
+        company: {
+          keys: { id: user.id },
+          name: user.username ?? user.fullName ?? user.id,
+          traits: { logoUrl: user.imageUrl },
+        },
+        keys: { id: user.id },
+        name: user.username ?? user.fullName ?? user.id,
+        traits: { status: "active" },
+      });
+    }
+  }, [isLoaded, user, setContext, identify]);
+
+  useEffect(() => {
+    if (isLoaded && user && setContext && track) {
+      void track({
+        company: { clerkId: user.id },
+        event: "search",
+        traits: { search: fetchedLocation },
+        user: { clerkId: user.id },
+      });
+    }
+  }, [isLoaded, user, setContext, track, fetchedLocation]);
+
+  useEffect(() => {
     fetchWeather(location);
   }, [fetchWeather]);
 
@@ -56,6 +104,10 @@ const Weather: React.FC = () => {
     setLocation(newLocation);
     debouncedFetchWeather(newLocation);
   };
+
+  if (!weatherSearchFlag) {
+    return <div>No access!</div>;
+  }
 
   return (
     <div className="weather-container">
