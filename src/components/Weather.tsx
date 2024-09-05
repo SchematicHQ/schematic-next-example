@@ -25,6 +25,11 @@ const Weather: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const { isLoaded, user } = useUser();
+  const userName = user?.username ?? user?.fullName ?? user?.id;
+  const { organizationMemberships } = user ?? {};
+  const org = organizationMemberships?.[0]?.organization;
+  const orgId = org?.id ?? "";
+  const orgName = org?.name ?? userName ?? "";
 
   const { setContext } = useSchematicContext();
   const { identify, track } = useSchematicEvents();
@@ -61,23 +66,20 @@ const Weather: React.FC = () => {
 
   useEffect(() => {
     if (isLoaded && user && setContext && identify) {
+      // TODO: SetContext should be unnecessary
       const context = {
-        company: {
-          id: user.id,
-        },
-        user: {
-          id: user.id,
-        },
+        company: { id: orgId },
+        user: { id: user.id },
       };
       void setContext(context);
       void identify({
         company: {
-          keys: { id: user.id },
-          name: user.username ?? user.fullName ?? user.id,
+          keys: { id: orgId },
+          name: orgName,
           traits: { logoUrl: user.imageUrl },
         },
         keys: { id: user.id },
-        name: user.username ?? user.fullName ?? user.id,
+        name: userName,
         traits: { status: "active" },
       });
     }
@@ -86,10 +88,10 @@ const Weather: React.FC = () => {
   useEffect(() => {
     if (isLoaded && user && setContext && track) {
       void track({
-        company: { clerkId: user.id },
+        company: { id: orgId },
         event: "search",
         traits: { search: fetchedLocation },
-        user: { clerkId: user.id },
+        user: { id: user.id },
       });
     }
   }, [isLoaded, user, setContext, track, fetchedLocation]);

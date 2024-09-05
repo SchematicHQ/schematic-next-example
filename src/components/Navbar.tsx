@@ -6,7 +6,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="text-white text-xl font-bold">Schematic</div>
         <SignedIn>
-          <UserButton afterSignOutUrl={window.location.href} />
+          <UserButton />
         </SignedIn>
       </div>
     </nav>
