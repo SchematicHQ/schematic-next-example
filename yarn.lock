@@ -273,12 +273,13 @@
     cross-fetch "^4.0.0"
     uuid "^9.0.0"
 
-"@schematichq/schematic-react@0.2.0-rc.2":
-  version "0.2.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-react/-/schematic-react-0.2.0-rc.2.tgz#bc451555c98ab645d3706ef8804fed1c8ff0f132"
-  integrity sha512-/YQ2bnfm9eKAy5Yq4bG1nC87yiAQCLHULtTMcldsIXyS8i8Uw2EB+EqKKI1U9vlC5knnUpTlA3KD+r3gvaqBfw==
+"@schematichq/schematic-react@0.2.0-rc.3":
+  version "0.2.0-rc.3"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-react/-/schematic-react-0.2.0-rc.3.tgz#8f177baccdbf1a97f1f51ed87d0a9681a867fa64"
+  integrity sha512-je2HSxFkRxJnapudmDy8U74jq0gGJc+g+eg4VlV7B6r4a9GGrFOCe9iV19Ql7aIhlkWU3Q5NgmLyiSXEO7827Q==
   dependencies:
     "@schematichq/schematic-js" "^0.1.13"
+    lodash.merge "^4.6.2"
     pako "^2.1.0"
     styled-components "^6.1.12"
 

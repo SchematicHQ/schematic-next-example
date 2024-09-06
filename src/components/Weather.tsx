@@ -32,6 +32,7 @@ const Weather: React.FC = () => {
 
   const { identify, track } = useSchematicEvents();
   const weatherSearchFlag = useSchematicFlag("weather-search");
+  const humidityFlag = useSchematicFlag("humidity");
 
   const fetchWeather = useCallback(async (location: string) => {
     try {
@@ -81,7 +82,7 @@ const Weather: React.FC = () => {
     if (isLoaded && user && track) {
       void track({
         company: { id: orgId },
-        event: "search",
+        event: "weather-search",
         traits: { search: fetchedLocation },
         user: { id: user.id },
       });
@@ -125,7 +126,7 @@ const Weather: React.FC = () => {
                 <span className="temp">{weatherData?.temp}°F</span>
               </div>
               <div className="weather-stats">
-                <p>Humidity: {weatherData?.humidity}%</p>
+                {humidityFlag && <p>Humidity: {weatherData?.humidity}%</p>}
                 <p>Wind Speed: {weatherData?.windSpeed} km/h</p>
               </div>
             </div>
