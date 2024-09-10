@@ -1,82 +1,66 @@
-import Usage from "@/components/Usage";
-import { Suspense } from "react";
-import ClientWrapper from "@/components/ClientWrapper";
-import { SchematicClient } from "@schematichq/schematic-typescript-node";
-import { auth, clerkClient } from "@clerk/nextjs/server";
+"use client";
 
-export default async function UsageAndPlan() {
-  const apiKey = process.env.SCHEMATIC_SECRET_KEY;
-  if (!apiKey) {
+import React, { useEffect, useState } from "react";
+import { SchematicEmbed } from "@schematichq/schematic-react";
+
+export default function UsageAndPlan() {
+  const [error, setError] = useState<string | null>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/accessToken");
+      const result = await response.json();
+      if ("accessToken" in result) {
+        setAccessToken(result.accessToken);
+      }
+      setError(null);
+    } catch (error) {
+      console.error(error);
+      setError("Error fetching data");
+      setAccessToken(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const componentId = process.env.NEXT_PUBLIC_SCHEMATIC_COMPONENT_ID;
+  if (!componentId) {
+    console.error(
+      "Missing Schematic component ID (NEXT_PUBLIC_SCHEMATIC_COMPONENT_ID)",
+    );
+
+    return <div>Not found</div>;
+  }
+
+  if (isLoading) {
     return (
-      <div className="w-full max-w-5xl">
+      <>
         <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
-        <p>
-          No Schematic API key found. Please set the{" "}
-          <code>SCHEMATIC_SECRET_KEY</code> environment variable.
-        </p>
-      </div>
+        <p>Loading...</p>
+      </>
     );
   }
 
-  const { userId } = auth();
-
-  if (!userId) {
+  if (error || !accessToken) {
     return (
-      <div className="w-full max-w-5xl">
+      <>
         <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
-        <p>Unauthorized. Please log in to view this page.</p>
-      </div>
+        <p>{error ?? "Unknown error"}</p>
+      </>
     );
   }
 
-  const organizationMemberships =
-    await clerkClient.users.getOrganizationMembershipList({
-      userId,
-    });
-
-  if (organizationMemberships.data.length === 0) {
-    return (
-      <div className="p-24">
-        <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
-        <p>Must belong to an organization</p>
-      </div>
-    );
-  }
-
-  const orgId = organizationMemberships.data[0].organization.id;
-
-  const schematicClient = new SchematicClient({ apiKey });
-
-  try {
-    const resp = await schematicClient.accesstokens.issueTemporaryAccessToken({
-      resourceType: "company",
-      lookup: {
-        id: orgId,
-      },
-    });
-
-    const accessToken = resp.data?.token;
-
-    return (
-      <ClientWrapper>
-        <div className="w-full max-w-5xl">
-          <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
-          <Suspense fallback={<div>Loading usage data...</div>}>
-            <Usage accessToken={accessToken} />
-          </Suspense>
-        </div>
-      </ClientWrapper>
-    );
-  } catch (error) {
-    console.error("Error fetching temporary access token:", error);
-
-    return (
-      <div className="w-full max-w-5xl">
-        <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
-        <p>
-          An error occurred while fetching usage data. Please try again later.
-        </p>
-      </div>
-    );
-  }
+  return (
+    <>
+      <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
+      <SchematicEmbed accessToken={accessToken} id={componentId} />
+    </>
+  );
 }

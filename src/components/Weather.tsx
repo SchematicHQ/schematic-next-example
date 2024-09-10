@@ -69,7 +69,6 @@ const Weather: React.FC = () => {
         company: {
           keys: { id: orgId },
           name: orgName,
-          traits: { logoUrl: user.imageUrl },
         },
         keys: { id: user.id },
         name: userName,
