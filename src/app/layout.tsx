@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import SchematicWrapper from "@/components/SchematicWrapper";
 import ClientWrapper from "@/components/ClientWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,14 +20,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="flex flex-col min-h-screen">
-          <SchematicWrapper>
-            <ClientWrapper>
-              <Navbar />
-              <main className="flex-grow flex flex-col items-center justify-center p-24">
-                <div className="w-full max-w-5xl">{children}</div>
-              </main>
-            </ClientWrapper>
-          </SchematicWrapper>
+          <ClientWrapper>
+            <Navbar />
+            <main className="flex-grow flex flex-col items-center justify-center p-24">
+              <div className="w-full max-w-5xl">{children}</div>
+            </main>
+          </ClientWrapper>
         </div>
       </body>
     </html>
