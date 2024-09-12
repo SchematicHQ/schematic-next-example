@@ -67,10 +67,10 @@ const Weather: React.FC = () => {
     if (isLoaded && user && identify) {
       void identify({
         company: {
-          keys: { id: orgId },
+          keys: { clerkId: orgId },
           name: orgName,
         },
-        keys: { id: user.id },
+        keys: { clerkId: user.id },
         name: userName,
         traits: { status: "active" },
       });
@@ -80,10 +80,10 @@ const Weather: React.FC = () => {
   useEffect(() => {
     if (isLoaded && user && track) {
       void track({
-        company: { id: orgId },
+        company: { clerkId: orgId },
         event: "weather-search",
         traits: { search: fetchedLocation },
-        user: { id: user.id },
+        user: { clerkId: user.id },
       });
     }
   }, [isLoaded, user, track, fetchedLocation]);
