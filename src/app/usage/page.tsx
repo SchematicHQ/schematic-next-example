@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { SchematicEmbed } from "@schematichq/schematic-react";
 
+import Loader from "../../components/Loader";
+
 export default function UsageAndPlan() {
   const [error, setError] = useState<string | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
@@ -43,7 +45,7 @@ export default function UsageAndPlan() {
     return (
       <>
         <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
-        <p>Loading...</p>
+        <Loader />
       </>
     );
   }

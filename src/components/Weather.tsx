@@ -1,13 +1,16 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import {
   useSchematicEvents,
   useSchematicFlag,
+  useSchematicIsPending,
 } from "@schematichq/schematic-react";
 import axios from "axios";
 import debounce from "lodash.debounce";
 import React, { useEffect, useCallback, useState, useMemo } from "react";
+
+import Loader from "./Loader";
+import useSchematicContext from "../hooks/useSchematicContext";
 
 interface WeatherData {
   description: string;
@@ -23,14 +26,9 @@ const Weather: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const { isLoaded, user } = useUser();
-  const userName = user?.username ?? user?.fullName ?? user?.id;
-  const { organizationMemberships } = user ?? {};
-  const org = organizationMemberships?.[0]?.organization;
-  const orgId = org?.id ?? "";
-  const orgName = org?.name ?? userName ?? "";
-
+  const schematicIsPending = useSchematicIsPending();
   const { identify, track } = useSchematicEvents();
+  const schematicContext = useSchematicContext();
   const weatherSearchFlag = useSchematicFlag("weather-search");
   const humidityFlag = useSchematicFlag("humidity");
 
@@ -48,6 +46,7 @@ const Weather: React.FC = () => {
       setFetchedLocation(location);
       setLoading(false);
       setError(null);
+      trackWeatherSearch();
     } catch (err) {
       setError("Failed to fetch weather data");
       setLoading(false);
@@ -64,30 +63,33 @@ const Weather: React.FC = () => {
   );
 
   useEffect(() => {
-    if (isLoaded && user && identify) {
+    const { company, user } = schematicContext ?? {};
+    if (company && user) {
       void identify({
         company: {
-          keys: { clerkId: orgId },
-          name: orgName,
+          keys: company.keys,
+          name: company.name,
         },
-        keys: { clerkId: user.id },
-        name: userName,
-        traits: { status: "active" },
+        keys: user.keys,
+        name: user.name,
+        traits: user.traits,
       });
     }
-  }, [isLoaded, user, identify]);
+  }, [schematicContext, identify]);
 
-  useEffect(() => {
-    if (isLoaded && user && track) {
+  const trackWeatherSearch = () => {
+    const { company, user } = schematicContext ?? {};
+    if (company && user) {
       void track({
-        company: { clerkId: orgId },
+        company: company.keys,
         event: "weather-search",
         traits: { search: fetchedLocation },
-        user: { clerkId: user.id },
+        user: user.keys,
       });
     }
-  }, [isLoaded, user, track, fetchedLocation]);
+  };
 
+  // Initial search
   useEffect(() => {
     fetchWeather(location);
   }, [fetchWeather]);
@@ -98,7 +100,7 @@ const Weather: React.FC = () => {
     debouncedFetchWeather(newLocation);
   };
 
-  if (!weatherSearchFlag) {
+  if (!schematicIsPending && !weatherSearchFlag) {
     return <div>No access!</div>;
   }
 
@@ -112,8 +114,8 @@ const Weather: React.FC = () => {
         className="location-input"
       />
       <div className="weather-info">
-        {loading ? (
-          <div className="loading">Loading...</div>
+        {loading || schematicIsPending ? (
+          <Loader />
         ) : error ? (
           <div className="error">{error}</div>
         ) : (
