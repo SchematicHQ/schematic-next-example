@@ -18,7 +18,7 @@ export default function ClientWrapper({
   }
 
   // This is necessary to ensure that SchematicProvider is not rendered server-side
-  // In the future, we will provide a more NextJS-specific solution for this.
+  // In the future, we will provide a more Next.js-specific solution for this.
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
