@@ -1,9 +1,36 @@
 "use client";
 
-import Loader from "./Loader";
 import React, { useEffect, useState } from "react";
 import { SchematicProvider } from "@schematichq/schematic-react";
 import { ClerkProvider } from "@clerk/nextjs";
+import { useSchematicEvents } from "@schematichq/schematic-react";
+
+import Loader from "./Loader";
+import useSchematicContext from "../hooks/useSchematicContext";
+
+const SchematicWrapped: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const { identify } = useSchematicEvents();
+  const schematicContext = useSchematicContext();
+
+  useEffect(() => {
+    const { company, user } = schematicContext ?? {};
+    if (company && user) {
+      void identify({
+        company: {
+          keys: company.keys,
+          name: company.name,
+        },
+        keys: user.keys,
+        name: user.name,
+        traits: user.traits,
+      });
+    }
+  }, [schematicContext, identify]);
+
+  return children;
+};
 
 export default function ClientWrapper({
   children,
@@ -19,16 +46,16 @@ export default function ClientWrapper({
 
   // This is necessary to ensure that SchematicProvider is not rendered server-side
   // In the future, we will provide a more Next.js-specific solution for this.
-  const [isMounted, setIsMounted] = useState(false);
+  const [isClientSide, setIsClientSide] = useState(false);
   useEffect(() => {
-    setIsMounted(true);
+    setIsClientSide(true);
   }, []);
 
   return (
     <ClerkProvider>
-      {isMounted ? (
+      {isClientSide ? (
         <SchematicProvider publishableKey={schematicPubKey}>
-          {children}
+          <SchematicWrapped>{children}</SchematicWrapped>
         </SchematicProvider>
       ) : (
         <Loader />

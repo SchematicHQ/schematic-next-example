@@ -25,23 +25,30 @@ const Weather: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
   const schematicIsPending = useSchematicIsPending();
-  const { identify, track } = useSchematicEvents();
+  const { track } = useSchematicEvents();
   const schematicContext = useSchematicContext();
-  const weatherSearchFlag = useSchematicFlag("weather-search");
   const humidityFlag = useSchematicFlag("humidity");
+  const weatherSearchFlag = useSchematicFlag("weather-search");
+  const windSpeedFlag = useSchematicFlag("wind-speed");
+  console.log({
+    humidityFlag,
+    schematicIsPending,
+    weatherSearchFlag,
+    windSpeedFlag,
+  });
 
+  // Fetch weather data for location and report usage
   const fetchWeather = useCallback(async (location: string) => {
     try {
       const response = await axios.get(`https://wttr.in/${location}?format=j1`);
       const data = response.data;
       const currentCondition = data.current_condition[0];
       setWeatherData({
-        temp: parseFloat(currentCondition.temp_F),
-        humidity: parseFloat(currentCondition.humidity),
-        windSpeed: parseFloat(currentCondition.windspeedKmph),
         description: currentCondition.weatherDesc[0].value,
+        humidity: parseFloat(currentCondition.humidity),
+        temp: parseFloat(currentCondition.temp_F),
+        windSpeed: parseFloat(currentCondition.windspeedKmph),
       });
       setFetchedLocation(location);
       setLoading(false);
@@ -53,6 +60,7 @@ const Weather: React.FC = () => {
     }
   }, []);
 
+  // Debounce weather search
   const debouncedFetchWeather = useMemo(
     () =>
       debounce((location: string) => {
@@ -62,21 +70,7 @@ const Weather: React.FC = () => {
     [fetchWeather],
   );
 
-  useEffect(() => {
-    const { company, user } = schematicContext ?? {};
-    if (company && user) {
-      void identify({
-        company: {
-          keys: company.keys,
-          name: company.name,
-        },
-        keys: user.keys,
-        name: user.name,
-        traits: user.traits,
-      });
-    }
-  }, [schematicContext, identify]);
-
+  // Report search usage to Schematic
   const trackWeatherSearch = () => {
     const { company, user } = schematicContext ?? {};
     if (company && user) {
@@ -128,7 +122,9 @@ const Weather: React.FC = () => {
               </div>
               <div className="weather-stats">
                 {humidityFlag && <p>Humidity: {weatherData?.humidity}%</p>}
-                <p>Wind Speed: {weatherData?.windSpeed} km/h</p>
+                {windSpeedFlag && (
+                  <p>Wind Speed: {weatherData?.windSpeed} km/h</p>
+                )}
               </div>
             </div>
           </>
