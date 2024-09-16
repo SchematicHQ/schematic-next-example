@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useUser } from "@clerk/nextjs";
 
-const useSchematicContext = () => {
+const useAuthContext = () => {
   const { isLoaded, user } = useUser();
 
   return useMemo(() => {
@@ -34,4 +34,4 @@ const useSchematicContext = () => {
   }, [isLoaded, user]);
 };
 
-export default useSchematicContext;
+export default useAuthContext;
