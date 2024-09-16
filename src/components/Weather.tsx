@@ -10,7 +10,6 @@ import debounce from "lodash.debounce";
 import React, { useEffect, useCallback, useState, useMemo } from "react";
 
 import Loader from "./Loader";
-import useAuthContext from "../hooks/useAuthContext";
 
 interface WeatherData {
   description: string;
@@ -25,25 +24,11 @@ const Weather: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const schematicIsPending = useSchematicIsPending();
   const { track } = useSchematicEvents();
-  const authContext = useAuthContext();
+  const schematicIsPending = useSchematicIsPending();
   const humidityFlag = useSchematicFlag("humidity");
   const weatherSearchFlag = useSchematicFlag("weather-search");
   const windSpeedFlag = useSchematicFlag("wind-speed");
-
-  // Report search usage to Schematic
-  const trackWeatherSearch = () => {
-    const { company, user } = authContext ?? {};
-    if (company && user) {
-      void track({
-        company: company.keys,
-        event: "weather-search",
-        traits: { search: fetchedLocation },
-        user: user.keys,
-      });
-    }
-  };
 
   // Fetch weather data for location and report usage
   const fetchWeather = useCallback(async (location: string) => {
@@ -60,7 +45,12 @@ const Weather: React.FC = () => {
       setFetchedLocation(location);
       setLoading(false);
       setError(null);
-      trackWeatherSearch();
+
+      // Track weather search usage
+      track({
+        event: "weather-search",
+        traits: { search: fetchedLocation },
+      });
     } catch (err) {
       setError("Failed to fetch weather data");
       setLoading(false);

@@ -10,7 +10,7 @@ export default function UsageAndPlan() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchData = async () => {
+  const fetchAccessToken = async () => {
     setIsLoading(true);
     try {
       const response = await fetch("/api/accessToken");
@@ -29,7 +29,7 @@ export default function UsageAndPlan() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchAccessToken();
   }, []);
 
   const componentId = process.env.NEXT_PUBLIC_SCHEMATIC_COMPONENT_ID;
