@@ -6,16 +6,16 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { useSchematicEvents } from "@schematichq/schematic-react";
 
 import Loader from "./Loader";
-import useSchematicContext from "../hooks/useSchematicContext";
+import useAuthContext from "../hooks/useAuthContext";
 
 const SchematicWrapped: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { identify } = useSchematicEvents();
-  const schematicContext = useSchematicContext();
+  const authContext = useAuthContext();
 
   useEffect(() => {
-    const { company, user } = schematicContext ?? {};
+    const { company, user } = authContext ?? {};
     if (company && user) {
       void identify({
         company: {
@@ -27,7 +27,7 @@ const SchematicWrapped: React.FC<{ children: React.ReactNode }> = ({
         traits: user.traits,
       });
     }
-  }, [schematicContext, identify]);
+  }, [authContext, identify]);
 
   return children;
 };
