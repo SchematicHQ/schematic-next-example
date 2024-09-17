@@ -1,13 +1,15 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
 import {
   useSchematicEvents,
   useSchematicFlag,
+  useSchematicIsPending,
 } from "@schematichq/schematic-react";
 import axios from "axios";
 import debounce from "lodash.debounce";
 import React, { useEffect, useCallback, useState, useMemo } from "react";
+
+import Loader from "./Loader";
 
 interface WeatherData {
   description: string;
@@ -22,38 +24,40 @@ const Weather: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
-  const { isLoaded, user } = useUser();
-  const userName = user?.username ?? user?.fullName ?? user?.id;
-  const { organizationMemberships } = user ?? {};
-  const org = organizationMemberships?.[0]?.organization;
-  const orgId = org?.id ?? "";
-  const orgName = org?.name ?? userName ?? "";
-
-  const { identify, track } = useSchematicEvents();
-  const weatherSearchFlag = useSchematicFlag("weather-search");
+  const { track } = useSchematicEvents();
+  const schematicIsPending = useSchematicIsPending();
   const humidityFlag = useSchematicFlag("humidity");
+  const weatherSearchFlag = useSchematicFlag("weather-search");
+  const windSpeedFlag = useSchematicFlag("wind-speed");
 
+  // Fetch weather data for location and report usage
   const fetchWeather = useCallback(async (location: string) => {
     try {
       const response = await axios.get(`https://wttr.in/${location}?format=j1`);
       const data = response.data;
       const currentCondition = data.current_condition[0];
       setWeatherData({
-        temp: parseFloat(currentCondition.temp_F),
-        humidity: parseFloat(currentCondition.humidity),
-        windSpeed: parseFloat(currentCondition.windspeedKmph),
         description: currentCondition.weatherDesc[0].value,
+        humidity: parseFloat(currentCondition.humidity),
+        temp: parseFloat(currentCondition.temp_F),
+        windSpeed: parseFloat(currentCondition.windspeedKmph),
       });
       setFetchedLocation(location);
       setLoading(false);
       setError(null);
+
+      // Track weather search usage
+      track({
+        event: "weather-search",
+        traits: { search: fetchedLocation },
+      });
     } catch (err) {
       setError("Failed to fetch weather data");
       setLoading(false);
     }
   }, []);
 
+  // Debounce weather search
   const debouncedFetchWeather = useMemo(
     () =>
       debounce((location: string) => {
@@ -63,31 +67,7 @@ const Weather: React.FC = () => {
     [fetchWeather],
   );
 
-  useEffect(() => {
-    if (isLoaded && user && identify) {
-      void identify({
-        company: {
-          keys: { clerkId: orgId },
-          name: orgName,
-        },
-        keys: { clerkId: user.id },
-        name: userName,
-        traits: { status: "active" },
-      });
-    }
-  }, [isLoaded, user, identify]);
-
-  useEffect(() => {
-    if (isLoaded && user && track) {
-      void track({
-        company: { clerkId: orgId },
-        event: "weather-search",
-        traits: { search: fetchedLocation },
-        user: { clerkId: user.id },
-      });
-    }
-  }, [isLoaded, user, track, fetchedLocation]);
-
+  // Initial search
   useEffect(() => {
     fetchWeather(location);
   }, [fetchWeather]);
@@ -98,7 +78,7 @@ const Weather: React.FC = () => {
     debouncedFetchWeather(newLocation);
   };
 
-  if (!weatherSearchFlag) {
+  if (!schematicIsPending && !weatherSearchFlag) {
     return <div>No access!</div>;
   }
 
@@ -112,8 +92,8 @@ const Weather: React.FC = () => {
         className="location-input"
       />
       <div className="weather-info">
-        {loading ? (
-          <div className="loading">Loading...</div>
+        {loading || schematicIsPending ? (
+          <Loader />
         ) : error ? (
           <div className="error">{error}</div>
         ) : (
@@ -126,7 +106,9 @@ const Weather: React.FC = () => {
               </div>
               <div className="weather-stats">
                 {humidityFlag && <p>Humidity: {weatherData?.humidity}%</p>}
-                <p>Wind Speed: {weatherData?.windSpeed} km/h</p>
+                {windSpeedFlag && (
+                  <p>Wind Speed: {weatherData?.windSpeed} km/h</p>
+                )}
               </div>
             </div>
           </>

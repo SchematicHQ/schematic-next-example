@@ -3,12 +3,14 @@
 import React, { useEffect, useState } from "react";
 import { SchematicEmbed } from "@schematichq/schematic-react";
 
+import Loader from "../../components/Loader";
+
 export default function UsageAndPlan() {
   const [error, setError] = useState<string | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchData = async () => {
+  const fetchAccessToken = async () => {
     setIsLoading(true);
     try {
       const response = await fetch("/api/accessToken");
@@ -27,7 +29,7 @@ export default function UsageAndPlan() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchAccessToken();
   }, []);
 
   const componentId = process.env.NEXT_PUBLIC_SCHEMATIC_COMPONENT_ID;
@@ -43,7 +45,7 @@ export default function UsageAndPlan() {
     return (
       <>
         <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
-        <p>Loading...</p>
+        <Loader />
       </>
     );
   }
