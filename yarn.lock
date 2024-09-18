@@ -273,16 +273,17 @@
     cross-fetch "^4.0.0"
     uuid "^9.0.0"
 
-"@schematichq/schematic-react@0.2.0-rc.6":
-  version "0.2.0-rc.6"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-react/-/schematic-react-0.2.0-rc.6.tgz#15728b32e7051fea83eb9aa549cfbd158349bf45"
-  integrity sha512-CRhHG9KwG1A9IRfoxEma85wEGC+ge7wcAX3A/tEqA6ESxBcQTtoihwZxs4FiaHV15pPVU0LkMrE4cZSH4k1A5g==
+"@schematichq/schematic-react@0.2.0-rc.7":
+  version "0.2.0-rc.7"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-react/-/schematic-react-0.2.0-rc.7.tgz#181d816d97bbd82b2608a1e6105069a86b1201e2"
+  integrity sha512-nQ9CjTJLpxGtuJJScfcMJo7TG4yv2hFW+CollsWSxUBcyLIOz7LGmsOzqtDtjqKkgfwNv81bW6sHIgkW60GVWA==
   dependencies:
     "@schematichq/schematic-js" "^0.1.14"
     "@stripe/react-stripe-js" "^2.8.0"
     "@stripe/stripe-js" "^4.3.0"
     lodash.merge "^4.6.2"
     pako "^2.1.0"
+    pluralize "^8.0.0"
     styled-components "^6.1.13"
 
 "@schematichq/schematic-typescript-node@^1.1.4":
@@ -2370,6 +2371,11 @@ pirates@^4.0.1:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/pirates/-/pirates-4.0.6.tgz#3018ae32ecfcff6c29ba2267cbf21166ac1f36b9"
   integrity sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==
+
+pluralize@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
+  integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
 
 possible-typed-array-names@^1.0.0:
   version "1.0.0"
