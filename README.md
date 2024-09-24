@@ -1,8 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is an example app demonstrating how to use [Schematic](https://schematichq.com) in a Next.js app with Clerk authentication.
+
+## Prerequisites
+
+In order to use this example app, you'll need:
+
+1. A Schematic account - this example app assumes a Schematic account with several flags set up (`weather-search`, `humidity`, and `wind-speed`
+2. A Clerk account
+
+In order to make full use of the capabilities of Schematic components, you'll also need:
+
+1. A Stripe account
+2. Stripe customer IDs stored in private metadata on your Clerk companies
 
 ## Getting Started
 
-First, run the development server:
+1. Set up your Schematic account; add features for "Weather Search", "Humidity", and "Wind Speed", create some plans and entitlements for these features, connect your Stripe account, and connect your Clerk account.
+
+2. Set up your `.env` file:
+
+```bash
+cp .env.example .env
+```
+
+3. In the [Schematic app](https://app.schematichq.com), create a component and store its component ID in your `.env` file:
+
+```bash
+NEXT_PUBLIC_SCHEMATIC_COMPONENT_ID="your-component-id"
+```
+
+4. In the [Schematic app](https://app.schematichq.com), create a new API key and store both the publishable key and secret in your `.env` file:
+
+```bash
+NEXT_PUBLIC_SCHEMATIC_PUBLISHABLE_KEY="api_"
+SCHEMATIC_SECRET_KEY="sch_dev_"
+```
+
+5. Store your Clerk secret and publishable keys in your .env file:
+
+```bash
+CLERK_SECRET_KEY="sk_test_"
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_"
+```
+
+6. Install dependencies:
+
+```bash
+npm install
+# or
+yarn
+# or
+pnpm install
+```
+
+7. Run the development server:
 
 ```bash
 npm run dev
@@ -14,23 +64,4 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+8. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
