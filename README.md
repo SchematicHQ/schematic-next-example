@@ -4,7 +4,7 @@ This is an example app demonstrating how to use [Schematic](https://schematichq.
 
 In order to use this example app, you'll need:
 
-1. A Schematic account - this example app assumes a Schematic account with several flags set up (`weather-search`, `humidity`, and `wind-speed`
+1. A Schematic account
 2. A Clerk account
 
 In order to make full use of the capabilities of Schematic components, you'll also need:
