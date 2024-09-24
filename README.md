@@ -1,4 +1,4 @@
-This is an example app demonstrating how to use [Schematic](https://schematichq.com) in a Next.js app with Clerk authentication.
+This is an example app demonstrating how to use [Schematic](https://schematichq.com) in a Next.js app with Clerk authentication. This app uses [schematic-react](https://github.com/schematichq/schematic-js/tree/main/react) for usage tracking and entitlement management via feature flags, and uses [schematic-components](https://github.com/schematichq/schematic-js/tree/main/components) for an embedded customer portal experience.
 
 ## Prerequisites
 
@@ -65,3 +65,69 @@ bun dev
 ```
 
 8. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## How it Works
+
+1. First, we wrap our client-side code with the `<SchematicProvider>` provider:
+
+```tsx
+<SchematicProvider publishableKey={schematicPubKey}></SchematicProvider>
+```
+
+2. Then, we set a user context with the `identify` function from the `useSchematicEvents` hook; this is called in the `ClientWrapper` component, which wraps all client-side code.
+
+```ts
+const { identify } = useSchematicEvents();
+const authContext = useAuthContext();
+
+useEffect(() => {
+    const { company, user } = authContext ?? {};
+    if (company && user) {
+        void identify({
+            company: {
+                keys: company.keys,
+                name: company.name,
+            },
+            keys: user.keys,
+            name: user.name,
+            traits: user.traits,
+        });
+    }
+}, [authContext, identify]);
+```
+
+3. When we complete a weather search, we log that usage to Schematic using the `track` function from the `useSchematicEvents` hook:
+
+```ts
+track({ event: "weather-search" });
+```
+
+4. To enforce entitlements, we use the `useSchematicFlag` hook in various locations:
+
+```ts
+const humidityFlag = useSchematicFlag("humidity");
+
+{
+    humidityFlag && <p>Humidity: {weatherData?.humidity}%</p>;
+}
+```
+
+5. To display our customer portal, we use the `SchematicEmbed` component:
+
+```tsx
+<SchematicEmbed accessToken={accessToken} id={componentId} />
+```
+
+6. To provide a temporary access token for our embedded component, we implement a backend route to exchange a secret access token for a temporary, company-scoped access token:
+
+```ts
+const schematicClient = new SchematicClient({ apiKey });
+const resp = await schematicClient.accesstokens.issueTemporaryAccessToken({
+    resourceType: "company",
+    lookup: {
+        clerkId: orgId,
+    },
+});
+const accessToken = resp.data?.token;
+return NextResponse.json({ accessToken });
+```
