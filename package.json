@@ -10,13 +10,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^5.6.4",
-    "@schematichq/schematic-components": "^0.3.1",
+    "@clerk/nextjs": "^5.7.1",
+    "@schematichq/schematic-components": "^0.3.3",
     "@schematichq/schematic-react": "^1.0.0",
     "@schematichq/schematic-typescript-node": "^1.1.4",
     "@stripe/react-stripe-js": "^2.8.0",
     "@stripe/stripe-js": "^4.4.0",
     "axios": "^1.7.4",
+    "cookie": "^0.7.2",
     "lodash.debounce": "^4.0.8",
     "next": "^14.2.10",
     "react": "^18",
