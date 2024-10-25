@@ -278,20 +278,20 @@
     styled-components "^6.1.13"
     uuid "^10.0.0"
 
-"@schematichq/schematic-js@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-js/-/schematic-js-1.0.0.tgz#8d07775636ecd63cfc81b8535ba8f3df636cf33e"
-  integrity sha512-UbEoUz4DVR8Awqc7AwVCwEVdE2eWSUP7El1Uu6FN/AcVOkmi6MhwOmtecQdtNFQWQ5+hf3O+L5l5zA+5WYSERw==
+"@schematichq/schematic-js@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-js/-/schematic-js-1.0.2.tgz#a86930d67736f6066d67e7506eee56fe31d1e237"
+  integrity sha512-bERtEYVBvd93tgsmqnSh38ffGk1+sbr+Faac2HejxZvwLiG7qCX1Swsw/ux/QyCaQ2V6mqBIclZbLgStfqJOWg==
   dependencies:
     cross-fetch "^4.0.0"
     uuid "^10.0.0"
 
-"@schematichq/schematic-react@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-react/-/schematic-react-1.0.0.tgz#1300f31099e4ab3849e19809ae228349b791f849"
-  integrity sha512-HHPa9jJs92DNiPjJ32LJ9Jg0UnuU1a9eEoKNziEgjxr5dCS2nV5Rs2+SDbmVmJLNQ8jRWXrISikbkiEX3q2s+Q==
+"@schematichq/schematic-react@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-react/-/schematic-react-1.0.2.tgz#3965442928bb3e8e3ba5cca53da7a71ed9ac5f9e"
+  integrity sha512-aUKrwb6g3QvOwjDRvEQfIxBHFZp1pG+dnh+RipNKs1glGQV873q3NcvolINKjzGK58Vm4dc5wp7AEOmj3agSig==
   dependencies:
-    "@schematichq/schematic-js" "^1.0.0"
+    "@schematichq/schematic-js" "^1.0.2"
 
 "@schematichq/schematic-typescript-node@^1.1.5":
   version "1.1.5"
