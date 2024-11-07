@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^5.7.1",
-    "@schematichq/schematic-components": "^0.3.13",
+    "@schematichq/schematic-components": "^0.4.0-rc.1",
     "@schematichq/schematic-react": "^1.0.2",
     "@schematichq/schematic-typescript-node": "^1.1.5",
     "@stripe/react-stripe-js": "^2.8.0",
