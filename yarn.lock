@@ -286,10 +286,10 @@
     cross-fetch "^4.0.0"
     uuid "^10.0.0"
 
-"@schematichq/schematic-react@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-react/-/schematic-react-1.0.2.tgz#3965442928bb3e8e3ba5cca53da7a71ed9ac5f9e"
-  integrity sha512-aUKrwb6g3QvOwjDRvEQfIxBHFZp1pG+dnh+RipNKs1glGQV873q3NcvolINKjzGK58Vm4dc5wp7AEOmj3agSig==
+"@schematichq/schematic-react@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-react/-/schematic-react-1.0.3.tgz#874252d7a29aa4bf8dd632be6d9ec129e838d636"
+  integrity sha512-VhF9cgXuPsyR4gPPIoE2f8M/dp1NzNxRmvdgmsOlHL7VIwpBAl9rIHTpWmKeDduAyMq7TAVzyY4fI06pLA4QnQ==
   dependencies:
     "@schematichq/schematic-js" "^1.0.2"
 
