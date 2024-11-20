@@ -265,12 +265,12 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.3.tgz#391d528054f758f81e53210f1a1eebcf1a8b1d20"
   integrity sha512-qC/xYId4NMebE6w/V33Fh9gWxLgURiNYgVNObbJl2LZv0GUUItCcCqC5axQSwRaAgaxl2mELq1rMzlswaQ0Zxg==
 
-"@schematichq/schematic-components@^0.4.0-rc.2":
-  version "0.4.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.4.0-rc.2.tgz#c59626faefc61661fbfa56ccb53bd35ef22f4f2b"
-  integrity sha512-IzfdOA648w3XkuprNvKWbYzSzC8WDPiu0qsLCH+jzMYpCjBzNzShVTLn7O+eexHUXnBBORtfoj5oZu412J8XiA==
+"@schematichq/schematic-components@^0.4.0-rc.3":
+  version "0.4.0-rc.3"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.4.0-rc.3.tgz#3e5f12b4aaafd5b890aaadc506dbf05d6db33711"
+  integrity sha512-gXEdLnwWljZ4Kxpp4k4sY9nOLs5AjWcmbiEaRETHMx6zPkA1LtvUXaFC5jGT/oeZ+n3/B+Vih4j8S0esPxrP2g==
   dependencies:
-    "@stripe/stripe-js" "^4.10.0"
+    "@stripe/stripe-js" "^5.2.0"
     classnames "^2.5.1"
     lodash "^4.17.21"
     pako "^2.1.0"
@@ -312,15 +312,15 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^4.10.0":
-  version "4.10.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-4.10.0.tgz#5c785f9a5a500113d69d98c16061e0addd1c0305"
-  integrity sha512-KrMOL+sH69htCIXCaZ4JluJ35bchuCCznyPyrbN8JXSGQfwBI1SuIEMZNwvy8L8ykj29t6sa5BAAiL7fNoLZ8A==
-
 "@stripe/stripe-js@^4.4.0":
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-4.4.0.tgz#7b5b84c1366ef4916df7ac2c95c80cf79613f83e"
   integrity sha512-p1WeTOwnAyXQ9I5/YC3+JXoUB6NKMR4qGjBobie2+rgYa3ftUTRS2L5qRluw/tGACty5SxqnfORCdsaymD1XjQ==
+
+"@stripe/stripe-js@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-5.2.0.tgz#2d696ed622def8c4407c658d8294c3e0365b0f1b"
+  integrity sha512-2ZpEaezx3S0QPtnske175NDaLvUvaVKd4ePHpUN0QF/uV4BBBBRUy5BvQONDym+utbbW0QhSJoiRPnp4FS+4Vg==
 
 "@swc/counter@^0.1.3":
   version "0.1.3"
