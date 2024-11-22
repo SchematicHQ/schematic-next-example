@@ -265,10 +265,10 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.3.tgz#391d528054f758f81e53210f1a1eebcf1a8b1d20"
   integrity sha512-qC/xYId4NMebE6w/V33Fh9gWxLgURiNYgVNObbJl2LZv0GUUItCcCqC5axQSwRaAgaxl2mELq1rMzlswaQ0Zxg==
 
-"@schematichq/schematic-components@^0.4.0-rc.3":
-  version "0.4.0-rc.3"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.4.0-rc.3.tgz#3e5f12b4aaafd5b890aaadc506dbf05d6db33711"
-  integrity sha512-gXEdLnwWljZ4Kxpp4k4sY9nOLs5AjWcmbiEaRETHMx6zPkA1LtvUXaFC5jGT/oeZ+n3/B+Vih4j8S0esPxrP2g==
+"@schematichq/schematic-components@^0.4.0-rc.4":
+  version "0.4.0-rc.4"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.4.0-rc.4.tgz#b3e58d33aeca80d4471f41f28d66e416cbcdc5c1"
+  integrity sha512-zUrlKFLh7ZxUIf2PHpTJFTzi6WAm6wWc6s8BzQFeIsp0RnGLh4KFnddAsZaDgoxFemjhFqlSRCGBeuS/m5vrqg==
   dependencies:
     "@stripe/stripe-js" "^5.2.0"
     classnames "^2.5.1"
@@ -293,10 +293,10 @@
   dependencies:
     "@schematichq/schematic-js" "^1.0.2"
 
-"@schematichq/schematic-typescript-node@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-typescript-node/-/schematic-typescript-node-1.1.5.tgz#edbb9530c70975cb84bd067a92aca34f135df982"
-  integrity sha512-cfh09AtwXf0IYgrcsilaVKexv3n/QklGyje3iDI2Xkubdk+ibv40ZbQgL0apRSxwguEZl6Z50FdteORT2LH4ug==
+"@schematichq/schematic-typescript-node@^1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-typescript-node/-/schematic-typescript-node-1.1.6.tgz#8b6d55bc0c306612366966483ef9c35b0be8bb5c"
+  integrity sha512-br4k0tMz3LJLLgUDF2PSNDQWPS5oqN2xDGFBjFKPGcf+VD+BJUxRfUOQSMnzD2hifC6SNIBlYAa5uLh/14Tecg==
   dependencies:
     form-data "^4.0.0"
     formdata-node "^6.0.3"
@@ -305,17 +305,12 @@
     readable-stream "^4.5.2"
     url-join "4.0.1"
 
-"@stripe/react-stripe-js@^2.8.0":
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-2.8.0.tgz#ffb6c13ed8dca45fbc234890c8ccfcf94a28893a"
-  integrity sha512-Vf1gNEuBxA9EtxiLghm2ZWmgbADNMJw4HW6eolUu0DON/6mZvWZgk0KHolN0sozNJwYp0i/8hBsDBcBUWcvnbw==
+"@stripe/react-stripe-js@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-3.0.0.tgz#8970af4283478662a277870ddb1ea173de635ba8"
+  integrity sha512-Crn9t+uvfEJnFSEE8Le9Boj3+J4QdB7DrIa+VyhDgTAHC1z9fk7d/cfSrjNO2RcdRh9zN9Blk/XKccHq9kUlTw==
   dependencies:
     prop-types "^15.7.2"
-
-"@stripe/stripe-js@^4.4.0":
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-4.4.0.tgz#7b5b84c1366ef4916df7ac2c95c80cf79613f83e"
-  integrity sha512-p1WeTOwnAyXQ9I5/YC3+JXoUB6NKMR4qGjBobie2+rgYa3ftUTRS2L5qRluw/tGACty5SxqnfORCdsaymD1XjQ==
 
 "@stripe/stripe-js@^5.2.0":
   version "5.2.0"
