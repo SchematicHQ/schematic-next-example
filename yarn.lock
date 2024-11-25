@@ -265,10 +265,10 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.3.tgz#391d528054f758f81e53210f1a1eebcf1a8b1d20"
   integrity sha512-qC/xYId4NMebE6w/V33Fh9gWxLgURiNYgVNObbJl2LZv0GUUItCcCqC5axQSwRaAgaxl2mELq1rMzlswaQ0Zxg==
 
-"@schematichq/schematic-components@^0.4.0-rc.4":
-  version "0.4.0-rc.4"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.4.0-rc.4.tgz#b3e58d33aeca80d4471f41f28d66e416cbcdc5c1"
-  integrity sha512-zUrlKFLh7ZxUIf2PHpTJFTzi6WAm6wWc6s8BzQFeIsp0RnGLh4KFnddAsZaDgoxFemjhFqlSRCGBeuS/m5vrqg==
+"@schematichq/schematic-components@^0.4.0-rc.5":
+  version "0.4.0-rc.5"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.4.0-rc.5.tgz#45134d50d29ce4d84a91fbb4eacb2da94c850b4a"
+  integrity sha512-wWQxVGC8O3JJTdYBcrW+dk4gCzPM/YEXohc6e0boQazi99fgKl1x7fGJ+T5ejcrZFUmcelF6ViynIrKaG/vtVA==
   dependencies:
     "@stripe/stripe-js" "^5.2.0"
     classnames "^2.5.1"
