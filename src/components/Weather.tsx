@@ -1,5 +1,6 @@
 "use client";
 
+import { useOrganization } from "@clerk/nextjs";
 import {
   useSchematicEvents,
   useSchematicFlag,
@@ -24,13 +25,42 @@ const Weather: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [pinnedLocations, _setPinnedLocations] = useState<string[]>([]);
   const { track } = useSchematicEvents();
   const schematicIsPending = useSchematicIsPending();
   const humidityFlag = useSchematicFlag("humidity");
   const weatherSearchFlag = useSchematicFlag("weather-search");
   const windSpeedFlag = useSchematicFlag("wind-speed");
+  const addPinnedLocationFlag = useSchematicFlag("pinned-locations");
+  const { organization } = useOrganization();
 
-  // Fetch weather data for location and report usage
+  const setPinnedLocations = useCallback(
+    (locations: string[]) => {
+      _setPinnedLocations(locations);
+
+      try {
+        fetch("/api/pins", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ locations }),
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [_setPinnedLocations],
+  );
+
+  useEffect(() => {
+    if (organization) {
+      const savedLocations = (organization.publicMetadata.locations ??
+        []) as string[];
+      _setPinnedLocations(savedLocations);
+    }
+  }, [organization, _setPinnedLocations]);
+
   const fetchWeather = useCallback(async (location: string) => {
     try {
       const response = await axios.get(`https://wttr.in/${location}?format=j1`);
@@ -46,7 +76,6 @@ const Weather: React.FC = () => {
       setLoading(false);
       setError(null);
 
-      // Track weather search usage
       track({
         event: "weather-search",
         traits: { search: fetchedLocation },
@@ -57,7 +86,6 @@ const Weather: React.FC = () => {
     }
   }, []);
 
-  // Debounce weather search
   const debouncedFetchWeather = useMemo(
     () =>
       debounce((location: string) => {
@@ -67,7 +95,6 @@ const Weather: React.FC = () => {
     [fetchWeather],
   );
 
-  // Initial search
   useEffect(() => {
     fetchWeather(location);
   }, [fetchWeather]);
@@ -78,63 +105,183 @@ const Weather: React.FC = () => {
     debouncedFetchWeather(newLocation);
   };
 
+  const handlePinLocation = () => {
+    if (!pinnedLocations.includes(fetchedLocation)) {
+      setPinnedLocations([...pinnedLocations, fetchedLocation]);
+    }
+  };
+
+  const handleUnpinLocation = (locationToRemove: string) => {
+    setPinnedLocations(
+      pinnedLocations.filter((loc) => loc !== locationToRemove),
+    );
+  };
+
+  const handlePinnedLocationClick = (pinnedLocation: string) => {
+    setLocation(pinnedLocation);
+    setLoading(true);
+    fetchWeather(pinnedLocation);
+  };
+
   if (!schematicIsPending && !weatherSearchFlag) {
     return <div>No access!</div>;
   }
 
   return (
-    <div className="weather-container">
-      <input
-        type="text"
-        value={location}
-        onChange={handleChange}
-        placeholder="Enter location"
-        className="location-input"
-      />
-      <div className="weather-info">
-        {loading || schematicIsPending ? (
-          <Loader />
-        ) : error ? (
-          <div className="error">{error}</div>
-        ) : (
-          <>
-            <h2>Current Weather in {fetchedLocation}</h2>
-            <p className="description">{weatherData?.description}</p>
-            <div className="weather-details">
-              <div className="weather-temp">
-                <span className="temp">{weatherData?.temp}°F</span>
+    <div className="app-container">
+      {pinnedLocations.length > 0 && (
+        <div className="sidebar">
+          <h3 className="sidebar-title">Pinned Locations</h3>
+          <div className="pinned-locations">
+            {pinnedLocations.map((pinnedLocation) => (
+              <div key={pinnedLocation} className="pinned-location">
+                <button
+                  onClick={() => handlePinnedLocationClick(pinnedLocation)}
+                  className="location-button"
+                >
+                  {pinnedLocation}
+                </button>
+                <button
+                  onClick={() => handleUnpinLocation(pinnedLocation)}
+                  className="unpin-button"
+                  aria-label="Remove location"
+                >
+                  ×
+                </button>
               </div>
-              <div className="weather-stats">
-                {humidityFlag && <p>Humidity: {weatherData?.humidity}%</p>}
-                {windSpeedFlag && (
-                  <p>Wind Speed: {weatherData?.windSpeed} km/h</p>
-                )}
+            ))}
+          </div>
+        </div>
+      )}
+      <div className="weather-container">
+        <div className="search-container">
+          <input
+            type="text"
+            value={location}
+            onChange={handleChange}
+            placeholder="Enter location"
+            className="location-input"
+          />
+          {addPinnedLocationFlag && (
+            <button onClick={handlePinLocation} className="pin-button">
+              Pin Location
+            </button>
+          )}
+        </div>
+        <div className="weather-info">
+          {loading || schematicIsPending ? (
+            <Loader />
+          ) : error ? (
+            <div className="error">{error}</div>
+          ) : (
+            <>
+              <h2>Current Weather in {fetchedLocation}</h2>
+              <p className="description">{weatherData?.description}</p>
+              <div className="weather-details">
+                <div className="weather-temp">
+                  <span className="temp">{weatherData?.temp}°F</span>
+                </div>
+                <div className="weather-stats">
+                  {humidityFlag && <p>Humidity: {weatherData?.humidity}%</p>}
+                  {windSpeedFlag && (
+                    <p>Wind Speed: {weatherData?.windSpeed} km/h</p>
+                  )}
+                </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </div>
       </div>
       <style jsx>{`
+        .app-container {
+          display: flex;
+          gap: 20px;
+          max-width: 800px;
+          margin: 40px auto;
+        }
+        .sidebar {
+          width: 200px;
+          background-color: #1e1e1e;
+          border: 1px solid #333;
+          border-radius: 10px;
+          padding: 20px;
+          color: #fff;
+        }
+        .sidebar-title {
+          margin-top: 0;
+          margin-bottom: 15px;
+          font-size: 1.2em;
+        }
+        .pinned-locations {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .pinned-location {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+        }
+        .location-button {
+          flex: 1;
+          text-align: left;
+          padding: 8px;
+          background-color: #333;
+          border: 1px solid #555;
+          border-radius: 5px;
+          color: #fff;
+          cursor: pointer;
+        }
+        .location-button:hover {
+          background-color: #444;
+        }
+        .unpin-button {
+          padding: 4px 8px;
+          background-color: #333;
+          border: 1px solid #555;
+          border-radius: 5px;
+          color: #fff;
+          cursor: pointer;
+          font-size: 18px;
+          line-height: 1;
+        }
+        .unpin-button:hover {
+          background-color: #444;
+        }
         .weather-container {
+          flex: 1;
           text-align: center;
           padding: 30px;
           border: 1px solid #333;
           border-radius: 10px;
           background-color: #1e1e1e;
-          max-width: 500px;
-          margin: 40px auto;
           color: #fff;
           font-family: "Helvetica Neue", Arial, sans-serif;
+        }
+        .search-container {
+          display: flex;
+          gap: 10px;
+          justify-content: center;
+          margin-bottom: 25px;
         }
         .location-input {
           padding: 15px;
           border-radius: 5px;
           border: 1px solid #555;
-          margin-bottom: 25px;
-          width: 80%;
-          max-width: 350px;
+          width: 250px;
           background-color: #333;
           color: #fff;
+        }
+        .pin-button {
+          padding: 15px;
+          background-color: #333;
+          border: 1px solid #555;
+          border-radius: 5px;
+          color: #fff;
+          cursor: pointer;
+        }
+        .pin-button:hover {
+          background-color: #444;
         }
         .weather-info {
           font-family: Arial, sans-serif;
