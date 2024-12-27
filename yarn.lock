@@ -272,18 +272,18 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.3.tgz#391d528054f758f81e53210f1a1eebcf1a8b1d20"
   integrity sha512-qC/xYId4NMebE6w/V33Fh9gWxLgURiNYgVNObbJl2LZv0GUUItCcCqC5axQSwRaAgaxl2mELq1rMzlswaQ0Zxg==
 
-"@schematichq/schematic-components@^0.4.0-rc.7":
-  version "0.4.0-rc.7"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.4.0-rc.7.tgz#b664d4a09fc4e9768ae6943f749df155ab89d700"
-  integrity sha512-UFy0gak1THomwxauwwngLIGlMg74DWGVid9Q64bCKLE58f1/yWw3mQwnDYPj1u/g8VvGswEpmyvUPZSrSMF6rQ==
+"@schematichq/schematic-components@^0.4.0-rc.11":
+  version "0.4.0-rc.11"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.4.0-rc.11.tgz#d07628eabe5aeb2e92ec5d8b90721219eda758af"
+  integrity sha512-xKGytN7rPCJwIZKo5um+5SV//MP/PU9F4QaM3KOHGhGPc1b2fBzakkxtDObmNlFhmvWJ3FARNnHoC+izsC9sww==
   dependencies:
-    "@stripe/stripe-js" "^5.2.0"
+    "@stripe/stripe-js" "^5.4.0"
     classnames "^2.5.1"
-    i18next "^24.0.2"
+    i18next "^24.2.0"
     lodash "^4.17.21"
     pako "^2.1.0"
     pluralize "^8.0.0"
-    react-i18next "^15.1.1"
+    react-i18next "^15.2.0"
     styled-components "^6.1.13"
     uuid "^11.0.3"
 
@@ -325,6 +325,11 @@
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-5.2.0.tgz#2d696ed622def8c4407c658d8294c3e0365b0f1b"
   integrity sha512-2ZpEaezx3S0QPtnske175NDaLvUvaVKd4ePHpUN0QF/uV4BBBBRUy5BvQONDym+utbbW0QhSJoiRPnp4FS+4Vg==
+
+"@stripe/stripe-js@^5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-5.4.0.tgz#847e870ddfe9283432526867857a4c1fba9b11ed"
+  integrity sha512-3tfMbSvLGB+OsJ2MsjWjWo+7sp29dwx+3+9kG/TEnZQJt+EwbF/Nomm43cSK+6oXZA9uhspgyrB+BbrPRumx4g==
 
 "@swc/counter@^0.1.3":
   version "0.1.3"
@@ -1731,10 +1736,10 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^24.0.2:
-  version "24.0.2"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-24.0.2.tgz#00ee14417675e5733902d60e0bbd424c1ecd2a5f"
-  integrity sha512-D88xyIGcWAKwBTAs4RSqASi8NXR/NhCVSTM4LDbdoU8qb/5dcEZjNCLDhtQBB7Epw/Cp1w2vH/3ujoTbqLSs5g==
+i18next@^24.2.0:
+  version "24.2.0"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-24.2.0.tgz#344c15a6f3b43d02aed78e2b08532e5b170951b4"
+  integrity sha512-ArJJTS1lV6lgKH7yEf4EpgNZ7+THl7bsGxxougPYiXRTJ/Fe1j08/TBpV9QsXCIYVfdE/HWG/xLezJ5DOlfBOA==
   dependencies:
     "@babel/runtime" "^7.23.2"
 
@@ -2574,10 +2579,10 @@ react-dom@^18:
     loose-envify "^1.1.0"
     scheduler "^0.23.2"
 
-react-i18next@^15.1.1:
-  version "15.1.3"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-15.1.3.tgz#172c3905038ea4f90699a19949a0084b5641c94f"
-  integrity sha512-J11oA30FbM3NZegUZjn8ySK903z6PLBz/ZuBYyT1JMR0QPrW6PFXvl1WoUhortdGi9dM0m48/zJQlPskVZXgVw==
+react-i18next@^15.2.0:
+  version "15.2.0"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-15.2.0.tgz#6b51650e1e93eb4d235a4d533fcf61b3bbf4ea10"
+  integrity sha512-iJNc8111EaDtVTVMKigvBtPHyrJV+KblWG73cUxqp+WmJCcwkzhWNFXmkAD5pwP2Z4woeDj/oXDdbjDsb3Gutg==
   dependencies:
     "@babel/runtime" "^7.25.0"
     html-parse-stringify "^3.0.1"
