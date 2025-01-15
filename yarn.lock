@@ -287,20 +287,20 @@
     styled-components "^6.1.14"
     uuid "^11.0.4"
 
-"@schematichq/schematic-js@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-js/-/schematic-js-1.0.2.tgz#a86930d67736f6066d67e7506eee56fe31d1e237"
-  integrity sha512-bERtEYVBvd93tgsmqnSh38ffGk1+sbr+Faac2HejxZvwLiG7qCX1Swsw/ux/QyCaQ2V6mqBIclZbLgStfqJOWg==
+"@schematichq/schematic-js@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-js/-/schematic-js-1.1.0.tgz#d7d1cd90dadeafefd1e1912a315efe4a5d34fe81"
+  integrity sha512-yKrGJ9XkwmcsgITRvhZ5S1EJp2SpsZDpm5t14vxR07FNTpmzSENX9VPCQJByvqoaSdnWOF9X+X/vonMYQ+X2Jg==
   dependencies:
     cross-fetch "^4.0.0"
-    uuid "^10.0.0"
+    uuid "^11.0.1"
 
-"@schematichq/schematic-react@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-react/-/schematic-react-1.0.3.tgz#874252d7a29aa4bf8dd632be6d9ec129e838d636"
-  integrity sha512-VhF9cgXuPsyR4gPPIoE2f8M/dp1NzNxRmvdgmsOlHL7VIwpBAl9rIHTpWmKeDduAyMq7TAVzyY4fI06pLA4QnQ==
+"@schematichq/schematic-react@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-react/-/schematic-react-1.1.0.tgz#c6a95501078fb5431fdfd108447352ebbdc4b8d0"
+  integrity sha512-E+fFfcH63cmXwGfJbXaiZ35dgKCzLny6tV49f4cc3n4XX9FBR8Upl9giIlLpXDiyZD/H7qWL0QAgNAPxabGwMw==
   dependencies:
-    "@schematichq/schematic-js" "^1.0.2"
+    "@schematichq/schematic-js" "^1.1.0"
 
 "@schematichq/schematic-typescript-node@^1.1.6":
   version "1.1.6"
@@ -3219,10 +3219,10 @@ util-deprecate@^1.0.2:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
 
-uuid@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-10.0.0.tgz#5a95aa454e6e002725c79055fd42aaba30ca6294"
-  integrity sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==
+uuid@^11.0.1:
+  version "11.0.5"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-11.0.5.tgz#07b46bdfa6310c92c3fb3953a8720f170427fc62"
+  integrity sha512-508e6IcKLrhxKdBbcA2b4KQZlLVp2+J5UwQ6F7Drckkc5N9ZJwFa4TgWtsww9UG8fGHbm6gbV19TdM5pQ4GaIA==
 
 uuid@^11.0.4:
   version "11.0.4"
