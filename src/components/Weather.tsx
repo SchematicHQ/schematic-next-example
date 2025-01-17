@@ -4,7 +4,9 @@ import { useOrganization } from "@clerk/nextjs";
 import {
   useSchematicEvents,
   useSchematicFlag,
+  useSchematicFlagCheck,
   useSchematicIsPending,
+  UsagePeriod,
 } from "@schematichq/schematic-react";
 import axios from "axios";
 import debounce from "lodash.debounce";
@@ -19,6 +21,34 @@ interface WeatherData {
   windSpeed: number;
 }
 
+const Overage = (props: {
+  searchAllocation?: number;
+  usagePeriod?: UsagePeriod;
+  usageResetAt?: Date;
+}) => {
+  const { searchAllocation, usagePeriod, usageResetAt } = props;
+  const usagePeriodDisplay = usagePeriod
+    ? {
+        [UsagePeriod.CURRENT_DAY]: " for today",
+        [UsagePeriod.CURRENT_WEEK]: " for this week",
+        [UsagePeriod.CURRENT_MONTH]: " for this month",
+        [UsagePeriod.ALL_TIME]: "",
+      }[usagePeriod]
+    : "";
+
+  return (
+    <div>
+      <div>
+        You have used all {searchAllocation} of your weather searches
+        {usagePeriodDisplay}.
+      </div>
+      {usageResetAt && (
+        <div>You can search again at {usageResetAt.toLocaleString()}.</div>
+      )}
+    </div>
+  );
+};
+
 const Weather: React.FC = () => {
   const [location, setLocation] = useState<string>("Atlanta");
   const [fetchedLocation, setFetchedLocation] = useState<string>("Atlanta");
@@ -29,7 +59,13 @@ const Weather: React.FC = () => {
   const { track } = useSchematicEvents();
   const schematicIsPending = useSchematicIsPending();
   const humidityFlag = useSchematicFlag("humidity");
-  const weatherSearchFlag = useSchematicFlag("weather-search");
+  const {
+    featureAllocation: weatherSearchAllocation,
+    featureUsageExceeded: weatherSearchUsageExceeded,
+    featureUsagePeriod: weatherSearchUsagePeriod,
+    featureUsageResetAt: weatherSearchUsageResetAt,
+    value: weatherSearchFlag,
+  } = useSchematicFlagCheck("weather-search");
   const windSpeedFlag = useSchematicFlag("wind-speed");
   const addPinnedLocationFlag = useSchematicFlag("pinned-locations");
   const { organization } = useOrganization();
@@ -123,8 +159,29 @@ const Weather: React.FC = () => {
     fetchWeather(pinnedLocation);
   };
 
-  if (!schematicIsPending && !weatherSearchFlag) {
-    return <div>No access!</div>;
+  if (schematicIsPending) {
+    return <Loader />;
+  }
+
+  if (weatherSearchUsageExceeded) {
+    return (
+      <Overage
+        searchAllocation={weatherSearchAllocation}
+        usagePeriod={weatherSearchUsagePeriod}
+        usageResetAt={weatherSearchUsageResetAt}
+      />
+    );
+  }
+
+  if (!weatherSearchFlag) {
+    return (
+      <div>
+        <div>Weather search is not available in your plan!</div>
+        <div>
+          <a href="/usage">Upgrade your plan</a> for access to weather search.
+        </div>
+      </div>
+    );
   }
 
   return (
