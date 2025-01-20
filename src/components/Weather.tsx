@@ -4,7 +4,7 @@ import { useOrganization } from "@clerk/nextjs";
 import {
   useSchematicEvents,
   useSchematicFlag,
-  useSchematicFlagCheck,
+  useSchematicEntitlement,
   useSchematicIsPending,
   UsagePeriod,
 } from "@schematichq/schematic-react";
@@ -65,7 +65,7 @@ const Weather: React.FC = () => {
     featureUsagePeriod: weatherSearchUsagePeriod,
     featureUsageResetAt: weatherSearchUsageResetAt,
     value: weatherSearchFlag,
-  } = useSchematicFlagCheck("weather-search");
+  } = useSchematicEntitlement("weather-search");
   const windSpeedFlag = useSchematicFlag("wind-speed");
   const addPinnedLocationFlag = useSchematicFlag("pinned-locations");
   const { organization } = useOrganization();
