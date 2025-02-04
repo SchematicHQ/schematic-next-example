@@ -97,30 +97,35 @@ const Weather: React.FC = () => {
     }
   }, [organization, _setPinnedLocations]);
 
-  const fetchWeather = useCallback(async (location: string) => {
-    try {
-      const response = await axios.get(`https://wttr.in/${location}?format=j1`);
-      const data = response.data;
-      const currentCondition = data.current_condition[0];
-      setWeatherData({
-        description: currentCondition.weatherDesc[0].value,
-        humidity: parseFloat(currentCondition.humidity),
-        temp: parseFloat(currentCondition.temp_F),
-        windSpeed: parseFloat(currentCondition.windspeedKmph),
-      });
-      setFetchedLocation(location);
-      setLoading(false);
-      setError(null);
+  const fetchWeather = useCallback(
+    async (location: string) => {
+      try {
+        const response = await axios.get(
+          `https://wttr.in/${location}?format=j1`,
+        );
+        const data = response.data;
+        const currentCondition = data.current_condition[0];
+        setWeatherData({
+          description: currentCondition.weatherDesc[0].value,
+          humidity: parseFloat(currentCondition.humidity),
+          temp: parseFloat(currentCondition.temp_F),
+          windSpeed: parseFloat(currentCondition.windspeedKmph),
+        });
+        setFetchedLocation(location);
+        setLoading(false);
+        setError(null);
 
-      track({
-        event: "weather-search",
-        traits: { search: fetchedLocation },
-      });
-    } catch (err) {
-      setError("Failed to fetch weather data");
-      setLoading(false);
-    }
-  }, []);
+        track({
+          event: "weather-search",
+          traits: { search: fetchedLocation },
+        });
+      } catch {
+        setError("Failed to fetch weather data");
+        setLoading(false);
+      }
+    },
+    [fetchedLocation, track],
+  );
 
   const debouncedFetchWeather = useMemo(
     () =>
@@ -133,7 +138,7 @@ const Weather: React.FC = () => {
 
   useEffect(() => {
     fetchWeather(location);
-  }, [fetchWeather]);
+  }, [fetchWeather, location]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newLocation = event.target.value;

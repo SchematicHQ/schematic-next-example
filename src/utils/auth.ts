@@ -8,18 +8,18 @@ export class AuthError extends Error {
 }
 
 export async function getAuthOrgId() {
-  const { userId } = auth();
+  const { userId } = await auth();
   if (!userId) {
     throw new AuthError("User not logged in");
   }
 
   let organizationMemberships;
   try {
-    organizationMemberships =
-      await clerkClient.users.getOrganizationMembershipList({
-        userId,
-      });
-  } catch (error) {
+    const client = await clerkClient();
+    organizationMemberships = await client.users.getOrganizationMembershipList({
+      userId,
+    });
+  } catch {
     throw new AuthError("Failed to fetch organization memberships");
   }
 

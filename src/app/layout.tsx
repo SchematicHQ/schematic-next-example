@@ -22,7 +22,7 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           <ClientWrapper>
             <Navbar />
-            <main className="flex-grow flex flex-col items-center justify-center px-4 py-8 md:p-24">
+            <main className="grow flex flex-col items-center justify-center px-4 py-8 md:p-24">
               <div className="w-full max-w-5xl">{children}</div>
             </main>
           </ClientWrapper>

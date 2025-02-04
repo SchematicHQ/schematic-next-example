@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       traits: { numLocations },
     });
 
-    await clerkClient.organizations.updateOrganizationMetadata(orgId, {
+    (await clerkClient()).organizations.updateOrganizationMetadata(orgId, {
       publicMetadata: { locations },
     });
 
