@@ -344,35 +344,35 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.5.tgz#3a1c12c959010a55c17d46b395ed3047b545c246"
   integrity sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==
 
-"@schematichq/schematic-components@^0.4.0-rc.16":
-  version "0.4.0-rc.16"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.4.0-rc.16.tgz#2b2dd574652545d490cfd0784708661f2aa3c711"
-  integrity sha512-SikhoF5+meMvemn903vgxjDuZZ58IyHo1ZMG5QnDL/DP1yU/2OGy1bq6XMeUqZvhrtgYx5d5H0M6dBxzUHdGDQ==
+"@schematichq/schematic-components@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.4.0.tgz#3993394c81c54cfaab7f1af6a435a785560138ed"
+  integrity sha512-PYR/WUAlR8bVUOMbfyxqtJQJ0bVnhND+eR0jUAgecU0uU12kR8jit4F5MS8fQb2KJZdGGBy9TTQs3MAs5h84Zw==
   dependencies:
-    "@stripe/stripe-js" "^5.4.0"
+    "@stripe/stripe-js" "^5.6.0"
     classnames "^2.5.1"
-    i18next "^24.2.0"
+    i18next "^24.2.2"
     lodash "^4.17.21"
     pako "^2.1.0"
     pluralize "^8.0.0"
     react-i18next "^15.4.0"
     styled-components "^6.1.14"
-    uuid "^11.0.4"
+    uuid "^11.0.5"
 
-"@schematichq/schematic-js@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-js/-/schematic-js-1.1.0.tgz#d7d1cd90dadeafefd1e1912a315efe4a5d34fe81"
-  integrity sha512-yKrGJ9XkwmcsgITRvhZ5S1EJp2SpsZDpm5t14vxR07FNTpmzSENX9VPCQJByvqoaSdnWOF9X+X/vonMYQ+X2Jg==
+"@schematichq/schematic-js@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-js/-/schematic-js-1.2.1.tgz#5dc8050857df1e0bc8c33b14b261741cf223cde9"
+  integrity sha512-AVMQl3JyoKd5TLH05XXJbsn3pjcYbIsT6y75q4tI7BQEr68oF6fKyq5bkqU/ih3+Sc11LE9xBHw4C8R7I7NIkA==
   dependencies:
-    cross-fetch "^4.0.0"
-    uuid "^11.0.1"
+    cross-fetch "^4.1.0"
+    uuid "^11.0.5"
 
-"@schematichq/schematic-react@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-react/-/schematic-react-1.1.1.tgz#1a66d933327f0afad5f329dab472b2b46d98668b"
-  integrity sha512-9+pKfPN9aYDIhKd31GRtTQvcJPjBbocRnwpaExfnUEMmW4GBmdO7rKWS4MR625cxCCH3OlM6tvhoWRUvL7tg7w==
+"@schematichq/schematic-react@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-react/-/schematic-react-1.2.2.tgz#b8610419ed7d4be5a33c0941920cd8fcb1a1ab66"
+  integrity sha512-uqmtPOXiE2UUK/WKitg3b+RzABAPik9JwxWIv2BYjPiX7C48TTvZcy0GY8ui/r8rMnrRBhoOA6x996nI4+wuRg==
   dependencies:
-    "@schematichq/schematic-js" "^1.1.0"
+    "@schematichq/schematic-js" "^1.2.1"
 
 "@schematichq/schematic-typescript-node@^1.1.8":
   version "1.1.8"
@@ -392,11 +392,6 @@
   integrity sha512-+JzYFgUivVD7koqYV7LmLlt9edDMAwKH7XhZAHFQMo7NeRC+6D2JmQGzp9tygWerzwttwFLlExGp4rAOvD6l9g==
   dependencies:
     prop-types "^15.7.2"
-
-"@stripe/stripe-js@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-5.4.0.tgz#847e870ddfe9283432526867857a4c1fba9b11ed"
-  integrity sha512-3tfMbSvLGB+OsJ2MsjWjWo+7sp29dwx+3+9kG/TEnZQJt+EwbF/Nomm43cSK+6oXZA9uhspgyrB+BbrPRumx4g==
 
 "@stripe/stripe-js@^5.6.0":
   version "5.6.0"
@@ -1083,12 +1078,12 @@ cookie@1.0.2, cookie@^1.0.2:
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-1.0.2.tgz#27360701532116bd3f1f9416929d176afe1e4610"
   integrity sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==
 
-cross-fetch@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-4.0.0.tgz#f037aef1580bb3a1a35164ea2a848ba81b445983"
-  integrity sha512-e4a5N8lVvuLgAWgnCrLr2PP0YyDOTHa9H/Rj54dirp61qXnNq46m82bRhNqIA5VccJtWBvPTFRV3TtvHUKPB1g==
+cross-fetch@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-4.1.0.tgz#8f69355007ee182e47fa692ecbaa37a52e43c3d2"
+  integrity sha512-uKm5PU+MHTootlWEY+mZ4vvXoCn4fLQxT9dSc1sXVMSFkINTJVN8cAQROpwcKm8bJ/c7rgZVIBWzH5T78sNZZw==
   dependencies:
-    node-fetch "^2.6.12"
+    node-fetch "^2.7.0"
 
 cross-spawn@^7.0.2:
   version "7.0.6"
@@ -2074,10 +2069,10 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^24.2.0:
-  version "24.2.0"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-24.2.0.tgz#344c15a6f3b43d02aed78e2b08532e5b170951b4"
-  integrity sha512-ArJJTS1lV6lgKH7yEf4EpgNZ7+THl7bsGxxougPYiXRTJ/Fe1j08/TBpV9QsXCIYVfdE/HWG/xLezJ5DOlfBOA==
+i18next@^24.2.2:
+  version "24.2.2"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-24.2.2.tgz#3ba3d213302068d569142737f03f30929de696de"
+  integrity sha512-NE6i86lBCKRYZa5TaUDkU5S4HFgLIEJRLr3Whf2psgaxBleQ2LC1YW1Vc+SCgkAW7VEzndT6al6+CzegSUHcTQ==
   dependencies:
     "@babel/runtime" "^7.23.2"
 
@@ -2731,7 +2726,7 @@ no-case@^3.0.4:
     lower-case "^2.0.2"
     tslib "^2.0.3"
 
-node-fetch@2.7.0, node-fetch@^2.6.12:
+node-fetch@2.7.0, node-fetch@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.7.0.tgz#d0f0fa6e3e2dc1d27efcd8ad99d550bda94d187d"
   integrity sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==
@@ -3754,15 +3749,10 @@ use-sync-external-store@^1.2.0:
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.2.tgz#c3b6390f3a30eba13200d2302dcdf1e7b57b2ef9"
   integrity sha512-PElTlVMwpblvbNqQ82d2n6RjStvdSoNe9FG28kNfz3WiXilJm4DdNkEzRhCZuIDwY8U08WVihhGR5iRqAwfDiw==
 
-uuid@^11.0.1:
+uuid@^11.0.5:
   version "11.0.5"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-11.0.5.tgz#07b46bdfa6310c92c3fb3953a8720f170427fc62"
   integrity sha512-508e6IcKLrhxKdBbcA2b4KQZlLVp2+J5UwQ6F7Drckkc5N9ZJwFa4TgWtsww9UG8fGHbm6gbV19TdM5pQ4GaIA==
-
-uuid@^11.0.4:
-  version "11.0.4"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-11.0.4.tgz#37943977894ef806d2919a7ca3f89d6e23c60bac"
-  integrity sha512-IzL6VtTTYcAhA/oghbFJ1Dkmqev+FpQWnCBaKq/gUluLxliWvO8DPFWfIviRmYbtaavtSQe4WBL++rFjdcGWEg==
 
 void-elements@3.1.0:
   version "3.1.0"
