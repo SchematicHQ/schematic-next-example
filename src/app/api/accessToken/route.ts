@@ -12,7 +12,8 @@ export async function GET(_request: NextRequest) {
 
   try {
     const { orgId } = await getAuthOrgId();
-    const schematicClient = new SchematicClient({ apiKey });
+    const basePath = process.env.NEXT_PUBLIC_SCHEMATIC_API_URL;
+    const schematicClient = new SchematicClient({ apiKey, basePath });
 
     const resp = await schematicClient.accesstokens.issueTemporaryAccessToken({
       resourceType: "company",

@@ -53,7 +53,12 @@ export default function ClientWrapper({
   return (
     <ClerkProvider>
       {isClientSide ? (
-        <SchematicProvider publishableKey={schematicPubKey}>
+        <SchematicProvider
+          publishableKey={schematicPubKey}
+          apiUrl={process.env.NEXT_PUBLIC_SCHEMATIC_API_URL}
+          eventUrl={process.env.NEXT_PUBLIC_SCHEMATIC_EVENT_URL}
+          webSocketUrl={process.env.NEXT_PUBLIC_SCHEMATIC_WEBSOCKET_URL}
+        >
           <SchematicWrapped>{children}</SchematicWrapped>
         </SchematicProvider>
       ) : (
