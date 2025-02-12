@@ -15,7 +15,8 @@ export async function POST(request: NextRequest) {
 
   try {
     const { orgId } = await getAuthOrgId();
-    const schematicClient = new SchematicClient({ apiKey });
+    const basePath = process.env.NEXT_PUBLIC_SCHEMATIC_API_URL;
+    const schematicClient = new SchematicClient({ apiKey, basePath });
 
     await schematicClient.companies.upsertCompany({
       keys: { clerkId: orgId },
