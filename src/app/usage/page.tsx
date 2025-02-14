@@ -59,10 +59,17 @@ export default function UsageAndPlan() {
     );
   }
 
+  const apiUrl = process.env.NEXT_PUBLIC_SCHEMATIC_API_URL;
+  const apiConfig = apiUrl ? { basePath: apiUrl } : undefined;
+
   return (
     <>
       <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
-      <SchematicEmbed accessToken={accessToken} id={componentId} />
+      <SchematicEmbed
+        accessToken={accessToken}
+        apiConfig={apiConfig}
+        id={componentId}
+      />
     </>
   );
 }
