@@ -21,7 +21,8 @@ const useAuthContext = () => {
 
     return {
       company: {
-        keys: { clerkId: orgId },
+        // Leave this here -- we need an org that doesn't have unlimited access
+        keys: { clerkId: "org_2mWlIxdJTYJuafeCwsHJgb2RENx" },
         name: orgName,
         traits: { status: "active" },
       },

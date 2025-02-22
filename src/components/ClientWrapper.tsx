@@ -6,8 +6,9 @@ import {
   SchematicProvider,
   useSchematicEvents,
 } from "@schematichq/schematic-react";
-import Loader from "./Loader";
+// import Loader from "./Loader";
 import useAuthContext from "../hooks/useAuthContext";
+import TestComponent from "./TestComponent";
 
 const SchematicWrapped: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -62,7 +63,10 @@ export default function ClientWrapper({
           <SchematicWrapped>{children}</SchematicWrapped>
         </SchematicProvider>
       ) : (
-        <Loader />
+        // <Loader />
+        <SchematicProvider publishableKey={schematicPubKey}>
+          <TestComponent />
+        </SchematicProvider>
       )}
     </ClerkProvider>
   );
