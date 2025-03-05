@@ -344,12 +344,12 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.5.tgz#3a1c12c959010a55c17d46b395ed3047b545c246"
   integrity sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==
 
-"@schematichq/schematic-components@^0.4.7":
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.4.7.tgz#1948e6997e94dbe683bd6beceb749f9abe45b180"
-  integrity sha512-cRAIJe0P/347g53RW+Je60hvasoLiMIvZZ5Ssb6YgPh5+2WswVT7dWQMFud4Vwp5flQeTRrR/Rpl7UfBIXxT+A==
+"@schematichq/schematic-components@^0.4.8":
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.4.8.tgz#765c25f15bfbe8b0261f8604f5de279fcc1a93eb"
+  integrity sha512-ej6gd1m6MS0IbfQdeNqObN737W94BTe+5caMolH7ompP5rc1WZhq4MFoj4TLYVlbkgaLIIW3NDqNJQZ2j3QzHA==
   dependencies:
-    "@stripe/stripe-js" "^5.6.0"
+    "@stripe/stripe-js" "^5.8.0"
     classnames "^2.5.1"
     i18next "^24.2.2"
     lodash "^4.17.21"
@@ -393,15 +393,15 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^5.6.0":
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-5.6.0.tgz#cbb5b5f6110f870ca7de7e8ea3d189e9525a1019"
-  integrity sha512-w8CEY73X/7tw2KKlL3iOk679V9bWseE4GzNz3zlaYxcTjmcmWOathRb0emgo/QQ3eoNzmq68+2Y2gxluAv3xGw==
-
 "@stripe/stripe-js@^5.7.0":
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-5.7.0.tgz#ab4ce04a033e8a5bf9cddb9958aa2f85a3c8d22a"
   integrity sha512-9pCOK3AH75hDKPRyJm9PO5TA3aHZ/PVlIBOZwpi6mABxwr6mMIBjqgZEUThIE5zFEkOmaKXwxBgTsVKC29x+mQ==
+
+"@stripe/stripe-js@^5.8.0":
+  version "5.9.1"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-5.9.1.tgz#1df2df7413872abd1214eff51564d8e12b5df804"
+  integrity sha512-vMT/J35RqPM/yq12v9keZnS7qeq69ku/HLJO3Ry8HmFDHvpLK21LGnjwoDlHvwHJOK8TlCznBKwabTQUY+yqiw==
 
 "@swc/counter@0.1.3":
   version "0.1.3"
