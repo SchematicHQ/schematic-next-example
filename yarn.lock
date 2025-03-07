@@ -344,10 +344,10 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.5.tgz#3a1c12c959010a55c17d46b395ed3047b545c246"
   integrity sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==
 
-"@schematichq/schematic-components@^0.4.8":
-  version "0.4.8"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.4.8.tgz#765c25f15bfbe8b0261f8604f5de279fcc1a93eb"
-  integrity sha512-ej6gd1m6MS0IbfQdeNqObN737W94BTe+5caMolH7ompP5rc1WZhq4MFoj4TLYVlbkgaLIIW3NDqNJQZ2j3QzHA==
+"@schematichq/schematic-components@^0.4.9":
+  version "0.4.9"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.4.9.tgz#14ce951725b09d3c69d356d911f6a37d66b943a4"
+  integrity sha512-XK6cSejwSt+TJb0GNKsXKDYgA9SAMCnpGe1yH0ECj9nlkEgiP8U1z2yP1S8u6+XEOKSeUTHC22g0h1CD8Mxwrw==
   dependencies:
     "@stripe/stripe-js" "^5.8.0"
     classnames "^2.5.1"
