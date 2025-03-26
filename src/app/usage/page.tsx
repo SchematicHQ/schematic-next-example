@@ -69,6 +69,7 @@ export default function UsageAndPlan() {
         accessToken={accessToken}
         apiConfig={apiConfig}
         id={componentId}
+        debug
       />
     </>
   );
