@@ -10,7 +10,13 @@ import {
 } from "@schematichq/schematic-react";
 import axios from "axios";
 import debounce from "lodash.debounce";
-import React, { useEffect, useCallback, useState, useMemo } from "react";
+import React, {
+  useEffect,
+  useCallback,
+  useState,
+  useMemo,
+  useRef,
+} from "react";
 
 import Loader from "./Loader";
 
@@ -127,6 +133,7 @@ const Weather: React.FC = () => {
     [fetchedLocation, track],
   );
 
+  // Debounce the fetchWeather so we don't search on every keystroke
   const debouncedFetchWeather = useMemo(
     () =>
       debounce((location: string) => {
@@ -136,8 +143,13 @@ const Weather: React.FC = () => {
     [fetchWeather],
   );
 
+  // Search once on initial page load
+  const initialLoadRef = useRef(true);
   useEffect(() => {
-    fetchWeather(location);
+    if (initialLoadRef.current) {
+      fetchWeather(location);
+      initialLoadRef.current = false;
+    }
   }, [fetchWeather, location]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
