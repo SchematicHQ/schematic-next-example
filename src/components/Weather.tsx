@@ -67,6 +67,7 @@ const Weather: React.FC = () => {
   const humidityFlag = useSchematicFlag("humidity");
   const {
     featureAllocation: weatherSearchAllocation,
+    featureUsage: weatherSearchUsage,
     featureUsageExceeded: weatherSearchUsageExceeded,
     featureUsagePeriod: weatherSearchUsagePeriod,
     featureUsageResetAt: weatherSearchUsageResetAt,
@@ -228,6 +229,13 @@ const Weather: React.FC = () => {
         </div>
       )}
       <div className="weather-container">
+        {!schematicIsPending &&
+          typeof weatherSearchUsage !== "undefined" &&
+          typeof weatherSearchAllocation !== "undefined" && (
+            <div className="usage-pill">
+              {weatherSearchUsage} / {weatherSearchAllocation} used
+            </div>
+          )}
         <div className="search-container">
           <input
             type="text"
@@ -331,6 +339,18 @@ const Weather: React.FC = () => {
           background-color: #1e1e1e;
           color: #fff;
           font-family: "Helvetica Neue", Arial, sans-serif;
+          position: relative;
+        }
+        .usage-pill {
+          position: absolute;
+          top: 15px;
+          right: 15px;
+          background-color: rgba(0, 0, 0, 0.4);
+          color: rgba(255, 255, 255, 0.9);
+          padding: 5px 10px;
+          border-radius: 15px;
+          font-size: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
         }
         .search-container {
           display: flex;
