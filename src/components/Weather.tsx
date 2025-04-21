@@ -107,6 +107,11 @@ const Weather: React.FC = () => {
   const fetchWeather = useCallback(
     async (location: string) => {
       try {
+        track({
+          event: "weather-search",
+          traits: { search: fetchedLocation },
+        });
+
         const response = await axios.get(
           `https://wttr.in/${location}?format=j1`,
         );
@@ -121,11 +126,6 @@ const Weather: React.FC = () => {
         setFetchedLocation(location);
         setLoading(false);
         setError(null);
-
-        track({
-          event: "weather-search",
-          traits: { search: fetchedLocation },
-        });
       } catch {
         setError("Failed to fetch weather data");
         setLoading(false);
