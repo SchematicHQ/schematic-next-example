@@ -67,6 +67,7 @@ const Weather: React.FC = () => {
   const humidityFlag = useSchematicFlag("humidity");
   const {
     featureAllocation: weatherSearchAllocation,
+    featureUsage: weatherSearchUsage,
     featureUsageExceeded: weatherSearchUsageExceeded,
     featureUsagePeriod: weatherSearchUsagePeriod,
     featureUsageResetAt: weatherSearchUsageResetAt,
@@ -106,6 +107,11 @@ const Weather: React.FC = () => {
   const fetchWeather = useCallback(
     async (location: string) => {
       try {
+        track({
+          event: "weather-search",
+          traits: { search: fetchedLocation },
+        });
+
         const response = await axios.get(
           `https://wttr.in/${location}?format=j1`,
         );
@@ -120,11 +126,6 @@ const Weather: React.FC = () => {
         setFetchedLocation(location);
         setLoading(false);
         setError(null);
-
-        track({
-          event: "weather-search",
-          traits: { search: fetchedLocation },
-        });
       } catch {
         setError("Failed to fetch weather data");
         setLoading(false);
@@ -228,6 +229,13 @@ const Weather: React.FC = () => {
         </div>
       )}
       <div className="weather-container">
+        {!schematicIsPending &&
+          typeof weatherSearchUsage !== "undefined" &&
+          typeof weatherSearchAllocation !== "undefined" && (
+            <div className="usage-pill">
+              {weatherSearchUsage} / {weatherSearchAllocation} used
+            </div>
+          )}
         <div className="search-container">
           <input
             type="text"
@@ -331,6 +339,17 @@ const Weather: React.FC = () => {
           background-color: #1e1e1e;
           color: #fff;
           font-family: "Helvetica Neue", Arial, sans-serif;
+          position: relative;
+        }
+        .usage-pill {
+          float: right;
+          background-color: rgba(0, 0, 0, 0.4);
+          color: rgba(255, 255, 255, 0.9);
+          padding: 5px 10px;
+          margin: -15px -15px 0 20px;
+          border-radius: 15px;
+          font-size: 12px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
         }
         .search-container {
           display: flex;
@@ -342,11 +361,13 @@ const Weather: React.FC = () => {
           padding: 15px;
           border-radius: 5px;
           border: 1px solid #555;
-          width: 250px;
+          width: 100%;
+          max-width: 250px;
           background-color: #333;
           color: #fff;
         }
         .pin-button {
+          line-height: 1.15;
           padding: 15px;
           background-color: #333;
           border: 1px solid #555;
@@ -368,6 +389,7 @@ const Weather: React.FC = () => {
         .weather-details {
           display: flex;
           flex-direction: row;
+          flex-wrap: wrap;
           justify-content: center;
           align-items: center;
           margin-top: 25px;
