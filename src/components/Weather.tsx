@@ -342,12 +342,11 @@ const Weather: React.FC = () => {
           position: relative;
         }
         .usage-pill {
-          position: absolute;
-          top: 15px;
-          right: 15px;
+          float: right;
           background-color: rgba(0, 0, 0, 0.4);
           color: rgba(255, 255, 255, 0.9);
           padding: 5px 10px;
+          margin: -15px -15px 0 20px;
           border-radius: 15px;
           font-size: 12px;
           border: 1px solid rgba(255, 255, 255, 0.2);
@@ -362,11 +361,13 @@ const Weather: React.FC = () => {
           padding: 15px;
           border-radius: 5px;
           border: 1px solid #555;
-          width: 250px;
+          width: 100%;
+          max-width: 250px;
           background-color: #333;
           color: #fff;
         }
         .pin-button {
+          line-height: 1.15;
           padding: 15px;
           background-color: #333;
           border: 1px solid #555;
@@ -388,6 +389,7 @@ const Weather: React.FC = () => {
         .weather-details {
           display: flex;
           flex-direction: row;
+          flex-wrap: wrap;
           justify-content: center;
           align-items: center;
           margin-top: 25px;
