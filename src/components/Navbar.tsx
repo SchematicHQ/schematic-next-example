@@ -7,12 +7,22 @@ const Navbar = () => {
   return (
     <nav className="w-full bg-gray-800 p-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link
-          href="/"
-          className="text-white text-xl font-bold hover:text-gray-300"
-        >
-          Schematic
-        </Link>
+        <div className="flex items-center space-x-4">
+          <Link
+            href="/"
+            className="text-white text-xl font-bold hover:text-gray-300"
+          >
+            Schematic
+          </Link>
+        </div>
+
+        <div className="flex items-center space-x-4">
+          <div className="text-gray-500">Features</div>
+          <div className="text-gray-500">Docs</div>
+          <Link href="/pricing" className="text-white hover:text-gray-300">
+            Pricing
+          </Link>
+        </div>
 
         <div className="flex items-center space-x-4">
           <Link href="/usage" className="text-white hover:text-gray-300">
