@@ -66,9 +66,11 @@ export default function UsageAndPlan() {
   const apiConfig = apiUrl ? { basePath: apiUrl } : undefined;
 
   return (
-    <EmbedProvider apiConfig={apiConfig} debug>
-      <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
-      <SchematicEmbed accessToken={accessToken} id={componentId} />
-    </EmbedProvider>
+    <>
+      <EmbedProvider apiConfig={apiConfig} debug>
+        <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
+        <SchematicEmbed accessToken={accessToken} id={componentId} />
+      </EmbedProvider>
+    </>
   );
 }

@@ -17,8 +17,6 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center space-x-4">
-          <div className="text-gray-500">Features</div>
-          <div className="text-gray-500">Docs</div>
           <Link href="/pricing" className="text-white hover:text-gray-300">
             Pricing
           </Link>
