@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import {
   EmbedProvider,
   SchematicEmbed,
 } from "@schematichq/schematic-components";
+import React, { useEffect, useState } from "react";
 
 import Loader from "../../components/Loader";
 
