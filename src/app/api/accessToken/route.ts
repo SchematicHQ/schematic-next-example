@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
 import { SchematicClient } from "@schematichq/schematic-typescript-node";
+import { NextRequest, NextResponse } from "next/server";
 
 import { getAuthOrgId, AuthError } from "../../../utils/auth";
 

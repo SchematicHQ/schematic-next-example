@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
-import { SchematicClient } from "@schematichq/schematic-typescript-node";
-import { getAuthOrgId, AuthError } from "../../../utils/auth";
 import { clerkClient } from "@clerk/nextjs/server";
+import { SchematicClient } from "@schematichq/schematic-typescript-node";
+import { NextRequest, NextResponse } from "next/server";
+
+import { getAuthOrgId, AuthError } from "../../../utils/auth";
 
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 export async function POST(request: NextRequest) {
