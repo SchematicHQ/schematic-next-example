@@ -15,7 +15,7 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@babel/runtime@^7.26.10", "@babel/runtime@^7.27.6":
+"@babel/runtime@^7.27.1", "@babel/runtime@^7.27.6":
   version "7.27.6"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.27.6.tgz#ec4070a04d76bae8ddbb10770ba55714a417b7c6"
   integrity sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==
@@ -422,26 +422,20 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.5.tgz#3a1c12c959010a55c17d46b395ed3047b545c246"
   integrity sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==
 
-"@schematichq/schematic-components@^0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.8.1.tgz#4b7a16c21921c6489443ea580450bc6ed1682282"
-  integrity sha512-MjIoqg4faXfkLQOmER7sKlsYiwn+ip6kh4Qg/1ljFCuE68cpj79ZxsP6Y2rbVDsJnxdgt+lX1PzuXjxHsZiNJw==
+"@schematichq/schematic-components@^0.7.16":
+  version "0.7.16"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-0.7.16.tgz#9b6bd46c5300cb78e751a1ae439dc07ddfd8b635"
+  integrity sha512-37OAhaTkQBZaAIioNh8xW8CIuc2CRQyO0FViXBW8QK5oiKWBdmVt05f4lnX4llwUMOGKsUMer1S/ACMDhYUroQ==
   dependencies:
-    "@schematichq/schematic-icons" "^0.3.1"
-    "@stripe/stripe-js" "^7.0.0"
+    "@stripe/stripe-js" "^7.3.0"
     classnames "^2.5.1"
-    i18next "^24.2.3"
+    i18next "^25.1.1"
     lodash "^4.17.21"
     pako "^2.1.0"
     pluralize "^8.0.0"
     react-i18next "^15.4.1"
     styled-components "^6.1.17"
     uuid "^11.1.0"
-
-"@schematichq/schematic-icons@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-icons/-/schematic-icons-0.3.1.tgz#d7bb82b728d649812c71218e542a815f011f973a"
-  integrity sha512-bbbZ2DbekZ3aYjXgFw3CWpENn0V0RGqeYopI+t1cKDJHVZAZ0emIb6NXObpvj5dTzff2hl3gSfW+JwR58B4Nxg==
 
 "@schematichq/schematic-js@^1.2.3":
   version "1.2.3"
@@ -477,12 +471,7 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-7.0.0.tgz#21b847c731aad01084cdf4b4e6a4c56063b29586"
-  integrity sha512-0AWkP+hoIXB5O34FGY7jh687ZPlOqLqMkJDkiSXcp4TaWWidnxjsZSp0xkjyAWbIz4+j1BFXDAK01Rqb7ceBRA==
-
-"@stripe/stripe-js@^7.4.0":
+"@stripe/stripe-js@^7.3.0", "@stripe/stripe-js@^7.4.0":
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-7.4.0.tgz#0076116ca6f994f40aa439ccf2e891a251ff2814"
   integrity sha512-lQHQPfXPTBeh0XFjq6PqSBAyR7umwcJbvJhXV77uGCUDD6ymXJU/f2164ydLMLCCceNuPlbV9b+1smx98efwWQ==
@@ -2382,12 +2371,12 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^24.2.3:
-  version "24.2.3"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-24.2.3.tgz#3a05f72615cbd7c00d7e348667e2aabef1df753b"
-  integrity sha512-lfbf80OzkocvX7nmZtu7nSTNbrTYR52sLWxPtlXX1zAhVw8WEnFk4puUkCR4B1dNQwbSpEHHHemcZu//7EcB7A==
+i18next@^25.1.1:
+  version "25.2.1"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.2.1.tgz#23cf8794904f551f577558d93c84b0fb6cd489a2"
+  integrity sha512-+UoXK5wh+VlE1Zy5p6MjcvctHXAhRwQKCxiJD8noKZzIXmnAX8gdHX5fLPA3MEVxEN4vbZkQFy8N0LyD9tUqPw==
   dependencies:
-    "@babel/runtime" "^7.26.10"
+    "@babel/runtime" "^7.27.1"
 
 ieee754@^1.2.1:
   version "1.2.1"
@@ -3321,10 +3310,10 @@ prelude-ls@^1.2.1:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
-prettier@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.6.0.tgz#18ec98d62cb0757a5d4eab40253ff3e6d0fc8dea"
-  integrity sha512-ujSB9uXHJKzM/2GBuE0hBOUgC77CN3Bnpqa+g80bkv3T3A93wL/xlzDATHhnhkzifz/UE2SNOvmbTz5hSkDlHw==
+prettier@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.6.1.tgz#cc3bce21c09a477b1e987b76ce9663925d86ae44"
+  integrity sha512-5xGWRa90Sp2+x1dQtNpIpeOQpTDBs9cZDmA/qs2vDNN2i18PdapqY7CmBeyLlMuGqXJRIOPaCaVZTLNQRWUH/A==
 
 process@^0.11.10:
   version "0.11.10"
