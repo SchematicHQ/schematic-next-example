@@ -17,6 +17,12 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center space-x-4">
+          <Link href="/pricing" className="text-white hover:text-gray-300">
+            Pricing
+          </Link>
+        </div>
+
+        <div className="flex items-center space-x-4">
           <Link href="/usage" className="text-white hover:text-gray-300">
             Usage
           </Link>

@@ -1,6 +1,9 @@
 "use client";
 
-import { SchematicEmbed } from "@schematichq/schematic-components";
+import {
+  EmbedProvider,
+  SchematicEmbed,
+} from "@schematichq/schematic-components";
 import React, { useEffect, useState } from "react";
 
 import Loader from "../../components/Loader";
@@ -63,13 +66,9 @@ export default function UsageAndPlan() {
   const apiConfig = apiUrl ? { basePath: apiUrl } : undefined;
 
   return (
-    <>
+    <EmbedProvider apiConfig={apiConfig} debug>
       <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
-      <SchematicEmbed
-        apiConfig={apiConfig}
-        accessToken={accessToken}
-        id={componentId}
-      />
-    </>
+      <SchematicEmbed accessToken={accessToken} id={componentId} />
+    </EmbedProvider>
   );
 }
