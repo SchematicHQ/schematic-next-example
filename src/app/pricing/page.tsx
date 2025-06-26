@@ -8,7 +8,7 @@ export default function Pricing() {
   const apiConfig = apiUrl ? { basePath: apiUrl } : undefined;
 
   return (
-    <EmbedProvider apiKey={apiKey} apiConfig={apiConfig} debug>
+    <EmbedProvider apiKey={apiKey} apiConfig={apiConfig}>
       <h1 className="text-2xl font-bold mb-4">Pricing</h1>
       <PricingTable callToActionUrl="/usage" />
     </EmbedProvider>

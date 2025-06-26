@@ -10,8 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.23.0",
-    "@schematichq/schematic-components": "^0.8.1",
+    "@clerk/nextjs": "^6.23.1",
+    "@schematichq/schematic-components": "^0.7.16",
     "@schematichq/schematic-react": "^1.2.5",
     "@schematichq/schematic-typescript-node": "^1.1.11",
     "@stripe/react-stripe-js": "^3.7.0",
@@ -24,7 +24,7 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.10",
+    "@tailwindcss/postcss": "^4.1.11",
     "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^24.0.4",
     "@types/react": "^19.1.8",
@@ -35,8 +35,8 @@
     "eslint-config-next": "^15.3.4",
     "eslint-plugin-import": "^2.32.0",
     "postcss": "^8.5.6",
-    "prettier": "^3.6.0",
-    "tailwindcss": "^4.1.10",
+    "prettier": "^3.6.1",
+    "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
