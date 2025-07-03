@@ -422,12 +422,12 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.5.tgz#3a1c12c959010a55c17d46b395ed3047b545c246"
   integrity sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==
 
-"@schematichq/schematic-components@1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-1.0.3.tgz#3bc3c18102b6eda634feb945ce275a6c06a232c4"
-  integrity sha512-MsiF9sJONYK9exM1Ng8GPSyUUUQsuBBewonWxyMc2uohUVjFIgbLdxpDrbeQo+G2QwQnU72ihTpvansAJ5QhMA==
+"@schematichq/schematic-components@1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-1.0.5.tgz#7c00a8c75398804889b6221e32790599ecc37001"
+  integrity sha512-6CpCh5NtlzB0K+IFa6PZk1L3AmCn2e9FCPy2Qn74quxu2DmZs8Zo0nAqPC3AeJbK2332YChwcoUG18RMexk2mQ==
   dependencies:
-    "@schematichq/schematic-icons" "^0.5.1"
+    "@schematichq/schematic-icons" "^0.5.2"
     "@stripe/stripe-js" "^7.4.0"
     classnames "^2.5.1"
     i18next "^25.1.3"
@@ -437,10 +437,10 @@
     styled-components "^6.1.19"
     uuid "^11.1.0"
 
-"@schematichq/schematic-icons@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-icons/-/schematic-icons-0.5.1.tgz#c71a07015aa8b72ab68fdb34884d1e45a322bf07"
-  integrity sha512-uk/h5ht1YyRsOvVJ7MaIHteicRJeu7vOifHNnPK6K1z6K7UU0sGtVsArfm4ghNAwS1TDcaHc+AyVYW62GuuTKg==
+"@schematichq/schematic-icons@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-icons/-/schematic-icons-0.5.2.tgz#7a41ceb16b32cc717d6ea8f951095e33fb79ffb7"
+  integrity sha512-uVr2H9Kc4hOfP2eP+xVP22TtsW6DsQUjBf4WQ4+vfyKu/CDo/iUcf3AbMtzp/3Xt43LpMjm5GykCjcwgMueFbw==
   dependencies:
     styled-components "^6.1.19"
 
