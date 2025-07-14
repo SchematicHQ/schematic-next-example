@@ -9,7 +9,7 @@ import {
   UsagePeriod,
 } from "@schematichq/schematic-react";
 import axios from "axios";
-import debounce from "lodash.debounce";
+import debounce from "lodash/debounce";
 import React, {
   useEffect,
   useCallback,
