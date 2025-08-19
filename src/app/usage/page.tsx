@@ -1,12 +1,33 @@
 "use client";
 
 import {
+  Button,
+  CheckoutDialog,
   EmbedProvider,
-  SchematicEmbed,
+  useEmbed,
 } from "@schematichq/schematic-components";
 import React, { useEffect, useState } from "react";
 
 import Loader from "../../components/Loader";
+
+function Test({ accessToken }: { accessToken: string }) {
+  const { layout, hydrate, setAccessToken, setLayout } = useEmbed();
+
+  useEffect(() => {
+    setAccessToken(accessToken);
+  }, [setAccessToken, accessToken]);
+
+  useEffect(() => {
+    hydrate();
+  }, [hydrate]);
+
+  return (
+    <>
+      <Button onClick={() => setLayout("checkout")}>Checkout</Button>
+      {layout === "checkout" && <CheckoutDialog />}
+    </>
+  );
+}
 
 export default function UsageAndPlan() {
   const [error, setError] = useState<string | null>(null);
@@ -68,7 +89,7 @@ export default function UsageAndPlan() {
   return (
     <EmbedProvider apiConfig={apiConfig} debug>
       <h1 className="text-2xl font-bold mb-4">Usage & Plan</h1>
-      <SchematicEmbed accessToken={accessToken} id={componentId} />
+      <Test accessToken={accessToken} />
     </EmbedProvider>
   );
 }
