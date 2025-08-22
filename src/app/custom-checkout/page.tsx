@@ -17,14 +17,15 @@ function Checkout() {
   const { layout, stale, hydrate, setAccessToken, setLayout } = useEmbed();
 
   const checkout = useCallback(async () => {
+    setError(undefined);
     setIsLoading(true);
+
     try {
       const response = await fetch("/api/accessToken");
       const result = await response.json();
       if ("accessToken" in result) {
         setAccessToken(result.accessToken);
       }
-      setError(undefined);
     } catch (error) {
       if (error instanceof Error) {
         setError(error);
