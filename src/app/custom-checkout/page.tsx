@@ -40,21 +40,20 @@ function Checkout() {
     }
   }, [stale, hydrate]);
 
+  const buttonColor = error ? "red" : "cyan";
+  const loaderWidth = isLoading ? 4 : 0;
+
   return (
     <>
       <button
-        className="group appearance-none text-lg font-sans font-medium leading-none flex justify-center items-center w-fit px-6 py-4 rounded-lg text-black bg-cyan-500 border-transparent duration-100 hover:bg-cyan-400 hover:cursor-pointer"
+        className={`group appearance-none text-lg font-sans font-medium leading-none flex justify-center items-center w-fit px-6 py-4 rounded-lg text-black bg-${buttonColor}-500 border-transparent duration-100 hover:bg-${buttonColor}-400 hover:cursor-pointer`}
         onClick={checkout}
       >
         <div
-          className={
-            isLoading
-              ? "w-4 h-4 mr-2 rounded-full border-[0.125rem] border-cyan-300 border-t-cyan-700 duration-100 animate-spin group-hover:border-cyan-200 group-hover:border-t-cyan-600"
-              : "w-0 h-0 mr-0 border-0 animate-spin"
-          }
+          className={`w-${loaderWidth} h-${loaderWidth} mr-${loaderWidth / 2} rounded-full border-[${0.015625 * loaderWidth}rem] border-cyan-300 border-t-cyan-700 duration-100 animate-spin group-hover:border-cyan-200 group-hover:border-t-cyan-600`}
         />
         {error && (
-          <div className="text-xs font-sans font-black flex justify-center items-center w-4 h-4 mr-2 rounded-full text-red-800 bg-red-400">
+          <div className="text-xs font-sans font-black flex justify-center items-center w-4 h-4 mr-2 rounded-full text-red-500 bg-black">
             !
           </div>
         )}
