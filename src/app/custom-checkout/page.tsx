@@ -1,10 +1,8 @@
 "use client";
 
 import {
-  Button,
   CheckoutDialog,
   EmbedProvider,
-  Icon,
   useEmbed,
 } from "@schematichq/schematic-components";
 import { useCallback, useEffect, useState } from "react";
@@ -44,16 +42,24 @@ function Checkout() {
 
   return (
     <>
-      <Button
-        $color={error ? "danger" : "primary"}
-        $variant="ghost"
-        $size="sm"
-        $isLoading={isLoading}
+      <button
+        className="group appearance-none text-lg font-sans font-medium leading-none flex justify-center items-center w-fit px-6 py-4 rounded-lg text-black bg-cyan-500 border-transparent duration-100 hover:bg-cyan-400 hover:cursor-pointer"
         onClick={checkout}
       >
-        {error && <Icon name="exclamation-rounded-filled" />}
+        <div
+          className={
+            isLoading
+              ? "w-4 h-4 mr-2 rounded-full border-[0.125rem] border-cyan-300 border-t-cyan-700 duration-100 animate-spin group-hover:border-cyan-200 group-hover:border-t-cyan-600"
+              : "w-0 h-0 mr-0 border-0 animate-spin"
+          }
+        />
+        {error && (
+          <div className="text-xs font-sans font-black flex justify-center items-center w-4 h-4 mr-2 rounded-full text-red-800 bg-red-400">
+            !
+          </div>
+        )}
         Checkout
-      </Button>
+      </button>
       {layout === "checkout" && <CheckoutDialog />}
     </>
   );

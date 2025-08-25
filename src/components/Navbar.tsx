@@ -16,9 +16,16 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-8">
           <Link href="/pricing" className="text-white hover:text-gray-300">
             Pricing
+          </Link>
+
+          <Link
+            href="/custom-checkout"
+            className="text-white hover:text-gray-300"
+          >
+            Custom Checkout
           </Link>
         </div>
 
