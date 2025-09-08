@@ -437,19 +437,19 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.5.tgz#3a1c12c959010a55c17d46b395ed3047b545c246"
   integrity sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==
 
-"@schematichq/schematic-components@1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-1.5.0.tgz#628164f565102e51228dc3bbad97977c042989e1"
-  integrity sha512-jLajsdMBsIrF1nxEdQfWf0OrgDxoSUkOeesGHjMKMEPrgFxLaqOOchWYwgQIbRtZbvnrIKshIvTMimu1QdmihA==
+"@schematichq/schematic-components@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-1.6.0.tgz#a65d52635c0598303ee9ea359bcca7ca26a16648"
+  integrity sha512-f9efYIzunsotkaJS7WQNyBJqC3UxmOrU19YWNIX4C+WXBqTDAdR6NEkZPhYtjoKe0E4U/t3OPCICigrbOQLNeQ==
   dependencies:
     "@schematichq/schematic-icons" "^0.5.2"
     "@stripe/stripe-js" "^7.9.0"
-    i18next "^25.5.0"
+    i18next "^25.5.2"
     lodash "^4.17.21"
     pako "^2.1.0"
     react-i18next "^15.7.3"
     styled-components "^6.1.19"
-    uuid "^11.1.0"
+    uuid "^12.0.0"
 
 "@schematichq/schematic-icons@^0.5.2":
   version "0.5.2"
@@ -2381,10 +2381,10 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^25.5.0:
-  version "25.5.0"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.5.0.tgz#f78cac230a5d293c50be0629a7a65b2c57157e92"
-  integrity sha512-Mm2CgIq0revRFbBvfzqW9kDw1r44M4VDWC+YNRx9vTo5bU/iogSdEAC2HEonDA4czEce/iSbAkK90Tw7UrRZKA==
+i18next@^25.5.2:
+  version "25.5.2"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.5.2.tgz#16efa309e154d46dac7583e6a315ccb47e3e3a10"
+  integrity sha512-lW8Zeh37i/o0zVr+NoCHfNnfvVw+M6FQbRp36ZZ/NyHDJ3NJVpp2HhAUyU9WafL5AssymNoOjMRB48mmx2P6Hw==
   dependencies:
     "@babel/runtime" "^7.27.6"
 
@@ -4106,10 +4106,10 @@ uuid@^11.0.5:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-11.0.5.tgz#07b46bdfa6310c92c3fb3953a8720f170427fc62"
   integrity sha512-508e6IcKLrhxKdBbcA2b4KQZlLVp2+J5UwQ6F7Drckkc5N9ZJwFa4TgWtsww9UG8fGHbm6gbV19TdM5pQ4GaIA==
 
-uuid@^11.1.0:
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-11.1.0.tgz#9549028be1753bb934fc96e2bca09bb4105ae912"
-  integrity sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==
+uuid@^12.0.0:
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-12.0.0.tgz#114e150a140571af7b188c5c2a8d8493755fb587"
+  integrity sha512-USe1zesMYh4fjCA8ZH5+X5WIVD0J4V1Jksm1bFTVBX2F/cwSXt0RO5w/3UXbdLKmZX65MiWV+hwhSS8p6oBTGA==
 
 void-elements@3.1.0:
   version "3.1.0"
