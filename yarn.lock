@@ -437,10 +437,10 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.5.tgz#3a1c12c959010a55c17d46b395ed3047b545c246"
   integrity sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==
 
-"@schematichq/schematic-components@1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-1.6.0.tgz#a65d52635c0598303ee9ea359bcca7ca26a16648"
-  integrity sha512-f9efYIzunsotkaJS7WQNyBJqC3UxmOrU19YWNIX4C+WXBqTDAdR6NEkZPhYtjoKe0E4U/t3OPCICigrbOQLNeQ==
+"@schematichq/schematic-components@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-1.6.1.tgz#a0e00a50fed66f8a83557ae1d31ef804922156eb"
+  integrity sha512-RCYlXZSeK4X+BQ4xbR/FBvUt1KwRsLKqfpOFsrvtWHPLt2iyIWUvYtwbm+naSaufc4PAN6lACMA4sQCeogwxug==
   dependencies:
     "@schematichq/schematic-icons" "^0.5.2"
     "@stripe/stripe-js" "^7.9.0"
@@ -449,7 +449,7 @@
     pako "^2.1.0"
     react-i18next "^15.7.3"
     styled-components "^6.1.19"
-    uuid "^12.0.0"
+    uuid "^13.0.0"
 
 "@schematichq/schematic-icons@^0.5.2":
   version "0.5.2"
@@ -4106,10 +4106,10 @@ uuid@^11.0.5:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-11.0.5.tgz#07b46bdfa6310c92c3fb3953a8720f170427fc62"
   integrity sha512-508e6IcKLrhxKdBbcA2b4KQZlLVp2+J5UwQ6F7Drckkc5N9ZJwFa4TgWtsww9UG8fGHbm6gbV19TdM5pQ4GaIA==
 
-uuid@^12.0.0:
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-12.0.0.tgz#114e150a140571af7b188c5c2a8d8493755fb587"
-  integrity sha512-USe1zesMYh4fjCA8ZH5+X5WIVD0J4V1Jksm1bFTVBX2F/cwSXt0RO5w/3UXbdLKmZX65MiWV+hwhSS8p6oBTGA==
+uuid@^13.0.0:
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-13.0.0.tgz#263dc341b19b4d755eb8fe36b78d95a6b65707e8"
+  integrity sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==
 
 void-elements@3.1.0:
   version "3.1.0"
