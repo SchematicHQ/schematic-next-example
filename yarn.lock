@@ -437,13 +437,13 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.5.tgz#3a1c12c959010a55c17d46b395ed3047b545c246"
   integrity sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==
 
-"@schematichq/schematic-components@2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.0.2.tgz#bf956ee5fae06820813268b014e55506a35c4063"
-  integrity sha512-x1/9gnIE0SvQahhszjGvJlLcwf7b8OuWMpJybdwXCReKPsmRfmSh+hswDYGPjgkrWu+aoAawuYti6bO9TXSpIQ==
+"@schematichq/schematic-components@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.1.0.tgz#903f381318fc603efff91a4245a674a2641475ea"
+  integrity sha512-q4V7eU+xC/tbqrlBZaJcCnueVOQuTQpimhKjyRuA6tj+5DrhYih/JV+pYBgdfLsHESlEruDIVNTwFLLu70I9lg==
   dependencies:
     "@schematichq/schematic-icons" "^0.5.2"
-    "@stripe/stripe-js" "^8.1.0"
+    "@stripe/stripe-js" "^8.2.0"
     i18next "^25.6.0"
     lodash "^4.17.21"
     pako "^2.1.0"
@@ -497,10 +497,10 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^8.1.0":
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-8.1.0.tgz#d162df9f0a58b9d08c4fb7a4a670e8c90491c14e"
-  integrity sha512-bhhi0iSHDFRa2pPVv3WOHC6x/iGEu5AZqIiAvXsT8VOucsEre9gzgsK0jFzbzfGW2eeubF+mCdTTYwNAQCMJKg==
+"@stripe/stripe-js@^8.2.0":
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-8.3.0.tgz#80c173b03fe3cce51c502c3c0652010b45e6cff4"
+  integrity sha512-hmC3u0anySPI+As+wFGrKG38pXnXAUqyiitnYeYknEOslcDM96AkBdMNxKYOopecuP/v1HMbclUEq8/DKKn+6w==
 
 "@swc/helpers@0.5.15":
   version "0.5.15"
