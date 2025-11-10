@@ -15,11 +15,6 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@babel/runtime@^7.27.6":
-  version "7.27.6"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.27.6.tgz#ec4070a04d76bae8ddbb10770ba55714a417b7c6"
-  integrity sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==
-
 "@clerk/backend@^2.4.2":
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/@clerk/backend/-/backend-2.4.2.tgz#01005d5f937998189af487c5b53e6f5103731b41"
@@ -437,17 +432,15 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.5.tgz#3a1c12c959010a55c17d46b395ed3047b545c246"
   integrity sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==
 
-"@schematichq/schematic-components@2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.1.2.tgz#6cf498d0c1e38cdd4aa1a7fb6dccc5f059b22a18"
-  integrity sha512-YhFoFuzdXA6MLKG9nQRSFKn3xW0VEq/AZdh4eGpgb8fVxkvVya9foca5I0EjZsSqryl7DV8jMr0w7bScFxvLcQ==
+"@schematichq/schematic-components@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.2.0.tgz#1e050f68dc67322c8aef3c18b5d2c63e6dd96d8b"
+  integrity sha512-aj5kzWKH9RiXdPwGnCOl6BD6vLlZzJ0rqUjbtUIkmGWb3Gv7lFBa5htpm1XB//dSbBL/3HSf9/brDwRBUB4Odg==
   dependencies:
     "@schematichq/schematic-icons" "^0.5.2"
     "@stripe/stripe-js" "^8.3.0"
-    i18next "^25.6.1"
     lodash "^4.17.21"
     pako "^2.1.0"
-    react-i18next "16.1.6"
     styled-components "^6.1.19"
     uuid "^13.0.0"
 
@@ -2374,20 +2367,6 @@ hasown@^2.0.0, hasown@^2.0.1, hasown@^2.0.2:
   dependencies:
     function-bind "^1.1.2"
 
-html-parse-stringify@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/html-parse-stringify/-/html-parse-stringify-3.0.1.tgz#dfc1017347ce9f77c8141a507f233040c59c55d2"
-  integrity sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==
-  dependencies:
-    void-elements "3.1.0"
-
-i18next@^25.6.1:
-  version "25.6.1"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.6.1.tgz#fb2ae1ae54b4ad2dd0b672a7a12b20cde33bcd5c"
-  integrity sha512-yUWvdXtalZztmKrKw3yz/AvSP3yKyqIkVPx/wyvoYy9lkLmwzItLxp0iHZLG5hfVQ539Jor4XLO+U+NHIXg7pw==
-  dependencies:
-    "@babel/runtime" "^7.27.6"
-
 ieee754@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"
@@ -3347,14 +3326,6 @@ react-dom@^19.1.0:
   dependencies:
     scheduler "^0.26.0"
 
-react-i18next@16.1.6:
-  version "16.1.6"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-16.1.6.tgz#ca10c5f8df6d939af26b4d3fa86e2737cd5c0c45"
-  integrity sha512-62Iy0TO/2hJpTa80XaTIbHM4yjpile1YNieeg70vmdi91N2L3Q3MuxXBT0n6JpsryT88utpkqv0QbnIrDSxbAQ==
-  dependencies:
-    "@babel/runtime" "^7.27.6"
-    html-parse-stringify "^3.0.1"
-
 react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -4105,11 +4076,6 @@ uuid@^13.0.0:
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-13.0.0.tgz#263dc341b19b4d755eb8fe36b78d95a6b65707e8"
   integrity sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==
-
-void-elements@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
-  integrity sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==
 
 webidl-conversions@^3.0.0:
   version "3.0.1"
