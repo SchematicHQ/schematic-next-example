@@ -12,7 +12,7 @@ function Checkout() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error>();
 
-  const { layout, stale, hydrate, setAccessToken, setLayout } = useEmbed();
+  const { layout, stale, hydrate, setAccessToken, initializeWithPlan } = useEmbed();
 
   const checkout = useCallback(async () => {
     setError(undefined);
@@ -23,6 +23,14 @@ function Checkout() {
       const result = await response.json();
       if ("accessToken" in result) {
         setAccessToken(result.accessToken);
+        initializeWithPlan({
+          planId: "plan_LF8sduVDqib",
+          skipped: {
+            planStage: true,
+            addOnStage: true
+          },
+          hideSkipped: true
+        });
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -30,9 +38,8 @@ function Checkout() {
       }
     } finally {
       setIsLoading(false);
-      setLayout("checkout");
     }
-  }, [setAccessToken, setLayout]);
+  }, [setAccessToken, initializeWithPlan]);
 
   useEffect(() => {
     if (stale) {
@@ -72,7 +79,8 @@ function Checkout() {
 export default function CustomCheckout() {
   return (
     <EmbedProvider settings={{ ...embedSettings }}>
-      <div className="flex justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
+        <h1 className="text-2xl mb-4 text-center max-w-[40rem]">This button will launch a checkout with the <b>Pro Plan</b> pre-selected and drop you straight into checkout.</h1>
         <Checkout />
       </div>
     </EmbedProvider>
