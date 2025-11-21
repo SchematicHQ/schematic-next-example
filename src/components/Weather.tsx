@@ -56,8 +56,10 @@ const Overage = (props: {
 };
 
 const Weather: React.FC = () => {
-  const [location, setLocation] = useState<string>("Atlanta");
-  const [fetchedLocation, setFetchedLocation] = useState<string>("Atlanta");
+  const defaultLocation = "San Francisco";
+  const [location, setLocation] = useState<string>(defaultLocation);
+  const [fetchedLocation, setFetchedLocation] =
+    useState<string>(defaultLocation);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
