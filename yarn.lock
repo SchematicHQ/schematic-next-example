@@ -433,10 +433,10 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.5.tgz#3a1c12c959010a55c17d46b395ed3047b545c246"
   integrity sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==
 
-"@schematichq/schematic-components@2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.2.1.tgz#1bd763a75a5e7c44cd8dff914c755ef7521477a8"
-  integrity sha512-mDAuNgQMKhKYe/HIOR0pIj3uhNJilxDaIRd5Gc2gBeWeX5N+9vBU/WGWhHpv2804vS3GkuSACtaokdagghKkMw==
+"@schematichq/schematic-components@2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.3.1.tgz#167abe28e0d678765aa028b738afb4e5305dbf1a"
+  integrity sha512-1UZkJo5UMYjbTdq0IL6cnWfVy2PJzysggrjaIJOFP1snjPq8X6uccboXG26oqMXcx5kPtlZrXVqjeKq0OUcTRw==
   dependencies:
     "@schematichq/schematic-icons" "^0.5.2"
     "@stripe/stripe-js" "^8.4.0"
