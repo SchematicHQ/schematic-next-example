@@ -6,6 +6,7 @@ import {
   useEmbed,
 } from "@schematichq/schematic-components";
 import { useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { embedSettings } from "../embedSettings";
 
 function CheckoutButton({
@@ -86,7 +87,7 @@ function Checkout() {
   return (
     <>
       <CheckoutButton error={error} isLoading={isLoading} onClick={checkout} />
-      {layout === "checkout" && <CheckoutDialog />}
+      {layout === "checkout" && createPortal(<CheckoutDialog />, document.body)}
     </>
   );
 }
