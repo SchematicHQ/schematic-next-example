@@ -443,18 +443,18 @@
   resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.10.5.tgz"
   integrity sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==
 
-"@schematichq/schematic-components@2.5.1":
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.5.1.tgz#cd1b0748aef0ee0500ece8fae09d8f071fb29d6f"
-  integrity sha512-zg23GUSieDCwXMkINl+O9GhriLquxxcDlHRIMQ16/8ECYgPpM0TxqI8arjKG4IAko3ADJy7iUIhiLbZX8crDyg==
+"@schematichq/schematic-components@2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.6.0.tgz#d1e9fcebb3b0132c4c2b3984f8929b569719f9c7"
+  integrity sha512-TEAe/lF/+3hCjm2b//k1LTp84iukvOIX0Vis52e6HEebVqa4bwgMs5zTPm8b66U65+/eddfmCpVg7RehGe5JSQ==
   dependencies:
     "@schematichq/schematic-icons" "^0.5.2"
-    "@stripe/stripe-js" "^8.6.3"
-    i18next "^25.8.0"
+    "@stripe/stripe-js" "^8.7.0"
+    i18next "^25.8.4"
     lodash "^4.17.23"
     pako "^2.1.0"
     react-i18next "16.1.6"
-    styled-components "^6.3.8"
+    styled-components "^6.3.9"
     uuid "^13.0.0"
 
 "@schematichq/schematic-icons@^0.5.2":
@@ -503,10 +503,10 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^8.6.3":
-  version "8.6.3"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-8.6.3.tgz#9a0e0afced80d756a0b823ccfc0ea7792c47cc54"
-  integrity sha512-MQsPNsMMprOu+p+BWYvD69aPjD52yQNXZaENRQX7IkbWqu7lp9k04D+RPeHWJEsuyzmCCoHx3Kqqf3tcXPoNvQ==
+"@stripe/stripe-js@^8.7.0":
+  version "8.7.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-8.7.0.tgz#5e875a25768de2be1f69e9b4aa0c283af83feedd"
+  integrity sha512-tNUerSstwNC1KuHgX4CASGO0Md3CB26IJzSXmVlSuFvhsBP4ZaEPpY4jxWOn9tfdDscuVT4Kqb8cZ2o9nLCgRQ==
 
 "@swc/helpers@0.5.15":
   version "0.5.15"
@@ -2243,10 +2243,10 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^25.8.0:
-  version "25.8.0"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.8.0.tgz#8b4ac516db016ebba70d2b68f5ba17e6ffcd4935"
-  integrity sha512-urrg4HMFFMQZ2bbKRK7IZ8/CTE7D8H4JRlAwqA2ZwDRFfdd0K/4cdbNNLgfn9mo+I/h9wJu61qJzH7jCFAhUZQ==
+i18next@^25.8.4:
+  version "25.8.4"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.8.4.tgz#1b7ad19515d5b8b18cdc66a26386363dac6ba94f"
+  integrity sha512-a9A0MnUjKvzjEN/26ZY1okpra9kA8MEwzYEz1BNm+IyxUKPRH6ihf0p7vj8YvULwZHKHl3zkJ6KOt4hewxBecQ==
   dependencies:
     "@babel/runtime" "^7.28.4"
 
@@ -3540,10 +3540,10 @@ styled-components@^6.1.19:
     stylis "4.3.2"
     tslib "2.6.2"
 
-styled-components@^6.3.8:
-  version "6.3.8"
-  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-6.3.8.tgz#232baa32f080c66c564ca22f37c5fdcef8f9a951"
-  integrity sha512-Kq/W41AKQloOqKM39zfaMdJ4BcYDw/N5CIq4/GTI0YjU6pKcZ1KKhk6b4du0a+6RA9pIfOP/eu94Ge7cu+PDCA==
+styled-components@^6.3.9:
+  version "6.3.9"
+  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-6.3.9.tgz#b03c36606e7fa449028af1433d86a849ab289931"
+  integrity sha512-J72R4ltw0UBVUlEjTzI0gg2STOqlI9JBhQOL4Dxt7aJOnnSesy0qJDn4PYfMCafk9cWOaVg129Pesl5o+DIh0Q==
   dependencies:
     "@emotion/is-prop-valid" "1.4.0"
     "@emotion/unitless" "0.10.0"
