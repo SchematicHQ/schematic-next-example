@@ -443,18 +443,18 @@
   resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.10.5.tgz"
   integrity sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==
 
-"@schematichq/schematic-components@2.6.1":
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.6.1.tgz#9eedbcd6af559d24714de3ab375aad259c391205"
-  integrity sha512-ZlBOWINXoGrFmvs4BMF9kIh+U2jVoe3GJaZIlRhyWWAv4Hfqp+BQNcaFHoz73LPE6fwVSQCfz/IoWaadZx2OOA==
+"@schematichq/schematic-components@2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.6.2.tgz#40623c3b745b858f232b6f62b46750676fdaa9c5"
+  integrity sha512-zPKWuE1qiTUU/XgCqnFJK6Ap12asiIV6xDdFDoMkryWyeEyji07HoshFGXaweQIXV8QN+Cid0Dj6dNBhIgyNhA==
   dependencies:
     "@schematichq/schematic-icons" "^0.5.2"
     "@stripe/stripe-js" "^8.7.0"
-    i18next "^25.8.10"
+    i18next "^25.8.11"
     lodash "^4.17.23"
     pako "^2.1.0"
     react-i18next "16.1.6"
-    styled-components "^6.3.9"
+    styled-components "^6.3.11"
     uuid "^13.0.0"
 
 "@schematichq/schematic-icons@^0.5.2":
@@ -2243,10 +2243,10 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^25.8.10:
-  version "25.8.10"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.8.10.tgz#5bfe20c167761a7c4e33427aae54e33615ce944a"
-  integrity sha512-CtPJLMAz1G8sxo+mIzfBjGgLxWs7d6WqIjlmmv9BTsOat4pJIfwZ8cm07n3kFS6bP9c6YwsYutYrwsEeJVBo2g==
+i18next@^25.8.11:
+  version "25.8.13"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.8.13.tgz#1f9df59329f1706f02b2b58b5d1f75196ddb6e4a"
+  integrity sha512-E0vzjBY1yM+nsFrtgkjLhST2NBkirkvOVoQa0MSldhsuZ3jUge7ZNpuwG0Cfc74zwo5ZwRzg3uOgT+McBn32iA==
   dependencies:
     "@babel/runtime" "^7.28.4"
 
@@ -3540,10 +3540,10 @@ styled-components@^6.1.19:
     stylis "4.3.2"
     tslib "2.6.2"
 
-styled-components@^6.3.9:
-  version "6.3.9"
-  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-6.3.9.tgz#b03c36606e7fa449028af1433d86a849ab289931"
-  integrity sha512-J72R4ltw0UBVUlEjTzI0gg2STOqlI9JBhQOL4Dxt7aJOnnSesy0qJDn4PYfMCafk9cWOaVg129Pesl5o+DIh0Q==
+styled-components@^6.3.11:
+  version "6.3.11"
+  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-6.3.11.tgz#6babdb151a3419b0a79a368353d1dfbe8c5dddbc"
+  integrity sha512-opzgceGlQ5rdZdGwf9ddLW7EM2F4L7tgsgLn6fFzQ2JgE5EVQ4HZwNkcgB1p8WfOBx1GEZP3fa66ajJmtXhSrA==
   dependencies:
     "@emotion/is-prop-valid" "1.4.0"
     "@emotion/unitless" "0.10.0"
