@@ -1,4 +1,5 @@
 import { type EmbedSettings } from "@schematichq/schematic-components";
+
 import { type DeepPartial } from "@/types";
 
 export const embedSettings: DeepPartial<EmbedSettings> = {

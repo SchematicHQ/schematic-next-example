@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useCallback, useState, useMemo, useRef } from "react";
+import axios from "axios";
+import debounce from "lodash/debounce";
 import { useOrganization } from "@clerk/nextjs";
 import {
   useSchematicEvents,
@@ -8,15 +11,6 @@ import {
   useSchematicIsPending,
   UsagePeriod,
 } from "@schematichq/schematic-react";
-import axios from "axios";
-import debounce from "lodash/debounce";
-import React, {
-  useEffect,
-  useCallback,
-  useState,
-  useMemo,
-  useRef,
-} from "react";
 
 import Loader from "./Loader";
 

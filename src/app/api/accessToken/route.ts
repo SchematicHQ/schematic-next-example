@@ -1,9 +1,8 @@
-import { SchematicClient } from "@schematichq/schematic-typescript-node";
 import { NextRequest, NextResponse } from "next/server";
+import { SchematicClient } from "@schematichq/schematic-typescript-node";
 
 import { getAuthOrgId, AuthError } from "../../../utils/auth";
 
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 export async function GET(_request: NextRequest) {
   const apiKey = process.env.SCHEMATIC_SECRET_KEY;
   if (!apiKey) {
@@ -16,13 +15,12 @@ export async function GET(_request: NextRequest) {
     const schematicClient = new SchematicClient({ apiKey, basePath });
 
     const resp = await schematicClient.accesstokens.issueTemporaryAccessToken({
-      resource_type: "company",
       lookup: {
         clerkId: orgId,
       },
     });
 
-    const accessToken = resp.data?.token;
+    const accessToken = resp.data.token;
     return NextResponse.json({ accessToken });
   } catch (error) {
     if (error instanceof AuthError) {
