@@ -1,6 +1,7 @@
 "use client";
 
 import { EmbedProvider, PricingTable } from "@schematichq/schematic-components";
+
 import { embedSettings } from "../embedSettings";
 
 export default function Pricing() {

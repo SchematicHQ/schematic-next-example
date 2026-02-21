@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { getAuthOrgId, AuthError } from "../../../utils/auth";
 
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 export async function POST(request: NextRequest) {
   const apiKey = process.env.SCHEMATIC_SECRET_KEY;
   if (!apiKey) {

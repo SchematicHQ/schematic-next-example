@@ -1,12 +1,13 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   CheckoutDialog,
   EmbedProvider,
   useEmbed,
 } from "@schematichq/schematic-components";
-import { useCallback, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+
 import { embedSettings } from "../embedSettings";
 
 function CheckoutButton({
