@@ -443,14 +443,14 @@
   resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.10.5.tgz"
   integrity sha512-kkKUDVlII2DQiKy7UstOR1ErJP8kUKAQ4oa+SQtM0K+lPdmmjj0YnnxBgtTVYH7mUKtbsxeFC9y0AmK7Yb78/A==
 
-"@schematichq/schematic-components@2.6.2":
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.6.2.tgz#40623c3b745b858f232b6f62b46750676fdaa9c5"
-  integrity sha512-zPKWuE1qiTUU/XgCqnFJK6Ap12asiIV6xDdFDoMkryWyeEyji07HoshFGXaweQIXV8QN+Cid0Dj6dNBhIgyNhA==
+"@schematichq/schematic-components@2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.7.0.tgz#5b029181d0553fb693749b21f2257d00cc30b23a"
+  integrity sha512-GxMYJ+WM1FXytKtn7lJiSw278gza7CbCLdVlgSHYF5r+roEO1VEJVkSXD7gMaK71mfsaPg2Cu+7kR0eJdotWTg==
   dependencies:
     "@schematichq/schematic-icons" "^0.5.2"
-    "@stripe/stripe-js" "^8.7.0"
-    i18next "^25.8.11"
+    "@stripe/stripe-js" "^8.8.0"
+    i18next "^25.8.13"
     lodash "^4.17.23"
     pako "^2.1.0"
     react-i18next "16.1.6"
@@ -503,10 +503,10 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^8.7.0":
-  version "8.7.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-8.7.0.tgz#5e875a25768de2be1f69e9b4aa0c283af83feedd"
-  integrity sha512-tNUerSstwNC1KuHgX4CASGO0Md3CB26IJzSXmVlSuFvhsBP4ZaEPpY4jxWOn9tfdDscuVT4Kqb8cZ2o9nLCgRQ==
+"@stripe/stripe-js@^8.8.0":
+  version "8.8.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-8.8.0.tgz#6c691c78fc127ee06d5b5fff36e96fee90fecdd6"
+  integrity sha512-NNYuyW8qmLjyHnpyFgs/23wUrjB8k0xN9YIZFOMLewCa/pIkIji9e9aY/EgdNryEDDRptc6TcPIHRvG1R0ClFw==
 
 "@swc/helpers@0.5.15":
   version "0.5.15"
@@ -2243,7 +2243,7 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^25.8.11:
+i18next@^25.8.13:
   version "25.8.13"
   resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.8.13.tgz#1f9df59329f1706f02b2b58b5d1f75196ddb6e4a"
   integrity sha512-E0vzjBY1yM+nsFrtgkjLhST2NBkirkvOVoQa0MSldhsuZ3jUge7ZNpuwG0Cfc74zwo5ZwRzg3uOgT+McBn32iA==
