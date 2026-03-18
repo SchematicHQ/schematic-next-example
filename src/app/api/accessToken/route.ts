@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { SchematicClient } from "@schematichq/schematic-typescript-node";
 
 import { getAuthOrgId, AuthError } from "../../../utils/auth";
 
-export async function GET(_request: NextRequest) {
+export async function GET() {
   const apiKey = process.env.SCHEMATIC_SECRET_KEY;
   if (!apiKey) {
     return NextResponse.json({ message: "No Schematic key" }, { status: 400 });

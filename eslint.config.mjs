@@ -15,23 +15,6 @@ export default defineConfig([
         "error",
         { ignoreRestSiblings: true },
       ],
-      /* "import/order": [
-        1,
-        {
-          groups: [
-            "external",
-            "builtin",
-            "internal",
-            "sibling",
-            "parent",
-            "index",
-          ],
-          alphabetize: {
-            order: "asc",
-            caseInsensitive: true,
-          },
-        },
-      ], */
     },
   },
   globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
@@ -44,43 +27,3 @@ export default defineConfig([
     },
   },
 ]);
-
-// TODO: remove below reference once config conversion is complete
-/* {
-  "extends": [
-    "next/core-web-vitals",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
-  "plugins": ["import"],
-  "rules": {
-    "@typescript-eslint/no-explicit-any": "warn",
-    "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      { "ignoreRestSiblings": true }
-    ],
-    "import/order": [
-      1,
-      {
-        "groups": [
-          "external",
-          "builtin",
-          "internal",
-          "sibling",
-          "parent",
-          "index"
-        ],
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
-      }
-    ]
-  }
-} */

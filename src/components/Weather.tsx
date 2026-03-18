@@ -57,7 +57,7 @@ const Weather: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [pinnedLocations, _setPinnedLocations] = useState<string[]>([]);
+  const [pinnedLocations, setPinnedLocations] = useState<string[]>([]);
   const { track } = useSchematicEvents();
   const schematicIsPending = useSchematicIsPending();
   const humidityFlag = useSchematicFlag("humidity");
@@ -73,9 +73,9 @@ const Weather: React.FC = () => {
   const addPinnedLocationFlag = useSchematicFlag("pinned-locations");
   const { organization } = useOrganization();
 
-  const setPinnedLocations = useCallback(
+  const updatePinnedLocations = useCallback(
     (locations: string[]) => {
-      _setPinnedLocations(locations);
+      setPinnedLocations(locations);
 
       try {
         fetch("/api/pins", {
@@ -89,16 +89,16 @@ const Weather: React.FC = () => {
         console.error(error);
       }
     },
-    [_setPinnedLocations],
+    [setPinnedLocations],
   );
 
   useEffect(() => {
     if (organization) {
       const savedLocations = (organization.publicMetadata.locations ??
         []) as string[];
-      _setPinnedLocations(savedLocations);
+      updatePinnedLocations(savedLocations);
     }
-  }, [organization, _setPinnedLocations]);
+  }, [organization, updatePinnedLocations]);
 
   const fetchWeather = useCallback(
     async (location: string) => {
