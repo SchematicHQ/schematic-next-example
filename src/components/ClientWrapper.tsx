@@ -1,14 +1,14 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { ClerkProvider } from "@clerk/nextjs";
 import {
   SchematicProvider,
   useSchematicEvents,
 } from "@schematichq/schematic-react";
-import React, { useEffect, useState } from "react";
 
-import Loader from "./Loader";
 import useAuthContext from "../hooks/useAuthContext";
+import Loader from "./Loader";
 
 const SchematicWrapped: React.FC<{ children: React.ReactNode }> = ({
   children,

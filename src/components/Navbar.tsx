@@ -1,7 +1,7 @@
 "use client";
 
-import { SignedIn, UserButton } from "@clerk/clerk-react";
 import Link from "next/link";
+import { Show, UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
   return (
@@ -33,9 +33,9 @@ const Navbar = () => {
           <Link href="/usage" className="text-white hover:text-gray-300">
             Usage
           </Link>
-          <SignedIn>
-            <UserButton afterSignOutUrl="/" />
-          </SignedIn>
+          <Show when="signed-in">
+            <UserButton />
+          </Show>
         </div>
       </div>
     </nav>
