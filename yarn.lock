@@ -639,14 +639,14 @@
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@schematichq/schematic-components@2.8.2":
-  version "2.8.2"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.8.2.tgz#a2263059540bbf828a67ec7c77fe2c3ae57a9987"
-  integrity sha512-fqBIIgpShrzjzgfrD4BHOa9vBdDh9sdHLcttpImYh2wD220uLp5vgmrRs8UHcwTX86pTTLdoziDam/g6W1kSCw==
+"@schematichq/schematic-components@2.8.3":
+  version "2.8.3"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.8.3.tgz#8fc0920b29b8bd904bd6d518601ee0c69d661d9d"
+  integrity sha512-MoBKiJAcgHr2R22VQryxjcSDLo4Rwx7Wi2DOaMpjjWy0OOibynGHRYglnYbaktNlvL5qalc8dNdyLnZIe7xfRw==
   dependencies:
     "@schematichq/schematic-icons" "^0.5.2"
     "@stripe/stripe-js" "^8.11.0"
-    i18next "^25.10.9"
+    i18next "^25.10.10"
     lodash "^4.17.23"
     pako "^2.1.0"
     react-i18next "16.1.6"
@@ -2501,7 +2501,7 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^25.10.9:
+i18next@^25.10.10:
   version "25.10.10"
   resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.10.10.tgz#d610511c87150e7a98c58fa780e93f90603fe187"
   integrity sha512-cqUW2Z3EkRx7NqSyywjkgCLK7KLCL6IFVFcONG7nVYIJ3ekZ1/N5jUsihHV6Bq37NfhgtczxJcxduELtjTwkuQ==
