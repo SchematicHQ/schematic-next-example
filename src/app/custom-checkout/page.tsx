@@ -55,20 +55,20 @@ function Checkout() {
   const checkout = useCallback(async () => {
     setError(undefined);
     setIsLoading(true);
+    initializeWithPlan({
+      planId: "plan_LF8sduVDqib",
+      skipped: {
+        planStage: true,
+        addOnStage: true,
+      },
+      hideSkipped: true,
+    });
 
     try {
       const response = await fetch("/api/accessToken");
       const result = await response.json();
       if ("accessToken" in result) {
         setAccessToken(result.accessToken);
-        initializeWithPlan({
-          planId: "plan_LF8sduVDqib",
-          skipped: {
-            planStage: true,
-            addOnStage: true,
-          },
-          hideSkipped: true,
-        });
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -88,7 +88,9 @@ function Checkout() {
   return (
     <>
       <CheckoutButton error={error} isLoading={isLoading} onClick={checkout} />
-      {layout === "checkout" && createPortal(<CheckoutDialog />, document.body)}
+      {!stale &&
+        layout === "checkout" &&
+        createPortal(<CheckoutDialog />, document.body)}
     </>
   );
 }
