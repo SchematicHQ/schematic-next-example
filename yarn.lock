@@ -650,10 +650,10 @@
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@schematichq/schematic-components@2.8.4":
-  version "2.8.4"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.8.4.tgz#87d7183c1c09fc5a3b8248aae09d55a274b6f475"
-  integrity sha512-9cxT43Bb4xUpGpJMW6c2v7NHncjyOpIDV7Y7CH9JPydoy9LFLoQAcav4kFTXFSZSfG5LcFt3jFIpp/fK/gA78A==
+"@schematichq/schematic-components@2.9.0-rc.1":
+  version "2.9.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.9.0-rc.1.tgz#f0d3db297d00a076c03e5261ae3ea3a19a3dd054"
+  integrity sha512-4p/ujzvh+LJludk3X7fbOey7o0TDeKuM0Sgia+swV2M5R3UK4udqXKadFGfJikisZBDO/TAvXZ50ArCUfyucyQ==
   dependencies:
     "@schematichq/schematic-icons" "^0.5.2"
     "@stripe/stripe-js" "^8.11.0"
@@ -3021,10 +3021,10 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
-lodash@^4.17.23:
-  version "4.17.23"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.23.tgz#f113b0378386103be4f6893388c73d0bde7f2c5a"
-  integrity sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==
+lodash@^4.17.23, lodash@^4.18.1:
+  version "4.18.1"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.18.1.tgz#ff2b66c1f6326d59513de2407bf881439812771c"
+  integrity sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==
 
 loose-envify@^1.4.0:
   version "1.4.0"
