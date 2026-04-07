@@ -650,15 +650,15 @@
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@schematichq/schematic-components@2.8.4":
-  version "2.8.4"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.8.4.tgz#87d7183c1c09fc5a3b8248aae09d55a274b6f475"
-  integrity sha512-9cxT43Bb4xUpGpJMW6c2v7NHncjyOpIDV7Y7CH9JPydoy9LFLoQAcav4kFTXFSZSfG5LcFt3jFIpp/fK/gA78A==
+"@schematichq/schematic-components@2.9.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.9.0.tgz#58d0ee3d12ab2727183f2201412250ee99b0343e"
+  integrity sha512-yRljDWtYcIEKV0IRPFPC72xJSuTI3+d7pCGuD3KxYwLycYWny0QYpZMuxYfOz53/NJdaN7LeuQeN4H0yJFXJag==
   dependencies:
     "@schematichq/schematic-icons" "^0.5.2"
-    "@stripe/stripe-js" "^8.11.0"
-    i18next "^26.0.2"
-    lodash "^4.17.23"
+    "@stripe/stripe-js" "^9.0.1"
+    i18next "^26.0.3"
+    lodash "^4.18.1"
     pako "^2.1.0"
     react-i18next "16.1.6"
     styled-components "^6.3.12"
@@ -710,10 +710,10 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^8.11.0":
-  version "8.11.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-8.11.0.tgz#1f17759a4040e553746e76bd673ba27cb85e5a63"
-  integrity sha512-3fVF4z3efsgwgyj64nFK+6F4/vMw0mUXD2TBbOfftJtKVNx4JNv3CSfe1fY4DCtCk0JFp8/YPNcRkzgV0HJ8cg==
+"@stripe/stripe-js@^9.0.1":
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-9.1.0.tgz#58dcf5594c3ba87c55c1c59d67df500fa4ea928c"
+  integrity sha512-v51LoEfZNiNS/5DcarWPCYgn24w4dqwwALR4GTbMW/N0DDzzj4DgYNoixX6PYvpt6uIJMucGUabn/BHhylggIQ==
 
 "@swc/helpers@0.5.15":
   version "0.5.15"
@@ -2512,10 +2512,10 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^26.0.2:
-  version "26.0.2"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-26.0.2.tgz#fcc0a14de3105ae48e700769c20b5b5f53c7beb9"
-  integrity sha512-WsK0SdP+7tGzsxpT+Us1s2nvOyx657DatBodaNZe4KcPTPYzkVfRKUygN69mB+sCbbnifRuKz+Ya5JRzd8DNHw==
+i18next@^26.0.3:
+  version "26.0.3"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-26.0.3.tgz#f0d9d754896a3a752a7d42faadc3c5ae3dae24e4"
+  integrity sha512-1571kXINxHKY7LksWp8wP+zP0YqHSSpl/OW0Y0owFEf2H3s8gCAffWaZivcz14rMkOvn3R/psiQxVsR9t2Nafg==
   dependencies:
     "@babel/runtime" "^7.29.2"
 
@@ -3025,6 +3025,11 @@ lodash@^4.17.23:
   version "4.17.23"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.23.tgz#f113b0378386103be4f6893388c73d0bde7f2c5a"
   integrity sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==
+
+lodash@^4.18.1:
+  version "4.18.1"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.18.1.tgz#ff2b66c1f6326d59513de2407bf881439812771c"
+  integrity sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==
 
 loose-envify@^1.4.0:
   version "1.4.0"
