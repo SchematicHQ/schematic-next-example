@@ -650,14 +650,14 @@
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@schematichq/schematic-components@2.9.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.9.0.tgz#58d0ee3d12ab2727183f2201412250ee99b0343e"
-  integrity sha512-yRljDWtYcIEKV0IRPFPC72xJSuTI3+d7pCGuD3KxYwLycYWny0QYpZMuxYfOz53/NJdaN7LeuQeN4H0yJFXJag==
+"@schematichq/schematic-components@2.9.1":
+  version "2.9.1"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.9.1.tgz#bce5a558efdcacc30564b6a430afb125b12f411b"
+  integrity sha512-3o6VODPfSfOFXxuvQJQCnsXoavoUR+aMXGfCqG9gOORTGDV35kiNF871qGIyX+zsTco/OoTrG5WjnLhElSXTXg==
   dependencies:
     "@schematichq/schematic-icons" "^0.5.2"
-    "@stripe/stripe-js" "^9.0.1"
-    i18next "^26.0.3"
+    "@stripe/stripe-js" "^9.1.0"
+    i18next "^26.0.4"
     lodash "^4.18.1"
     pako "^2.1.0"
     react-i18next "16.1.6"
@@ -710,7 +710,7 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^9.0.1":
+"@stripe/stripe-js@^9.1.0":
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-9.1.0.tgz#58dcf5594c3ba87c55c1c59d67df500fa4ea928c"
   integrity sha512-v51LoEfZNiNS/5DcarWPCYgn24w4dqwwALR4GTbMW/N0DDzzj4DgYNoixX6PYvpt6uIJMucGUabn/BHhylggIQ==
@@ -2512,10 +2512,10 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^26.0.3:
-  version "26.0.3"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-26.0.3.tgz#f0d9d754896a3a752a7d42faadc3c5ae3dae24e4"
-  integrity sha512-1571kXINxHKY7LksWp8wP+zP0YqHSSpl/OW0Y0owFEf2H3s8gCAffWaZivcz14rMkOvn3R/psiQxVsR9t2Nafg==
+i18next@^26.0.4:
+  version "26.0.4"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-26.0.4.tgz#fb1511e53dc617037522bbf7e983cb7384d24f0f"
+  integrity sha512-gXF7U9bfioXPLv7mw8Qt2nfO7vij5MyINvPgVv99pX3fL1Y01pw2mKBFrlYpRxRCl2wz3ISenj6VsMJT2isfuA==
   dependencies:
     "@babel/runtime" "^7.29.2"
 
