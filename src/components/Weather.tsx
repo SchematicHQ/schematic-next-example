@@ -157,12 +157,12 @@ const Weather: React.FC = () => {
 
   const handlePinLocation = () => {
     if (!pinnedLocations.includes(fetchedLocation)) {
-      setPinnedLocations([...pinnedLocations, fetchedLocation]);
+      updatePinnedLocations([...pinnedLocations, fetchedLocation]);
     }
   };
 
   const handleUnpinLocation = (locationToRemove: string) => {
-    setPinnedLocations(
+    updatePinnedLocations(
       pinnedLocations.filter((loc) => loc !== locationToRemove),
     );
   };
