@@ -172,11 +172,11 @@
     tslib "2.8.1"
 
 "@clerk/react@^6.4.1":
-  version "6.4.2"
-  resolved "https://registry.yarnpkg.com/@clerk/react/-/react-6.4.2.tgz#a95f1a99ba69417991ad7277a30d679d7faafa89"
-  integrity sha512-l43pon5wcM0n4e3gnRP7MWdvAXAa3M7BOF6aeNwEuITxgy6MU6ypej9tPeGmXxPicL/Hd6E/VRgiEipEKDqyCQ==
+  version "6.4.6"
+  resolved "https://registry.yarnpkg.com/@clerk/react/-/react-6.4.6.tgz#42df157c31c081630370f902e17e82bb4df18a32"
+  integrity sha512-7I8ZnuNWnaxBfiyQw0hj9ju9Lxw56RAWyxPQQnnXxIJvZa/aWAmiEEpvCUJTz1nwC2ONrpHsxdct6Iu+z3INlA==
   dependencies:
-    "@clerk/shared" "^4.8.2"
+    "@clerk/shared" "^4.8.6"
     tslib "2.8.1"
 
 "@clerk/shared@^4.8.1", "@clerk/shared@^4.8.2":
@@ -185,6 +185,17 @@
   integrity sha512-kBFDNeLdiNZkOHavTkOB00NMuqsmOGgVtDlzCS0/yivxsCUZXk3AT6+UsTfeSBGV7QD80YxjeFMNSrpqnSv4Gg==
   dependencies:
     "@tanstack/query-core" "5.90.16"
+    dequal "2.0.3"
+    glob-to-regexp "0.4.1"
+    js-cookie "3.0.5"
+    std-env "^3.9.0"
+
+"@clerk/shared@^4.8.6":
+  version "4.8.6"
+  resolved "https://registry.yarnpkg.com/@clerk/shared/-/shared-4.8.6.tgz#de0a7cce44a62b69896474d552fce3411124209d"
+  integrity sha512-IItiQftnKaY928Q/DNOWA+32WCoKk/YwpFPOrU46P7gz+FU6O3KR8YGyTO6K+/YLG8LNB7zqBJY7t24GSwoNHA==
+  dependencies:
+    "@tanstack/query-core" "^5.90.16"
     dequal "2.0.3"
     glob-to-regexp "0.4.1"
     js-cookie "3.0.5"
@@ -802,6 +813,11 @@
   version "5.90.16"
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.90.16.tgz#19a972c2ffbc47727ab6649028af1bee70e28cdf"
   integrity sha512-MvtWckSVufs/ja463/K4PyJeqT+HMlJWtw6PrCpywznd2NSgO3m4KwO9RqbFqGg6iDE8vVMFWMeQI4Io3eEYww==
+
+"@tanstack/query-core@^5.90.16":
+  version "5.100.6"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.100.6.tgz#2f6dc032aaae1f327d85d3b977e6d530c948a91f"
+  integrity sha512-Os2CPUr98to98RYm+D4qGqGkiffn7MGSyl2547a4MljVkHE30AMJRqTiyCqBfMwzAx/I91vCkAxp5tHSla6Twg==
 
 "@tybys/wasm-util@^0.10.1":
   version "0.10.1"
