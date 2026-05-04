@@ -239,11 +239,6 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.9.0.tgz#745969d649977776b43fc7648c556aaa462b4102"
   integrity sha512-30FAj7/EoJ5mwVPOWhAyCX+FPfMDrVecJAM+Iw9NRoSl4BBAQeqj4cApHHUXOVvIPgLVDsCFoz/hGD+5QQD1GQ==
 
-"@emotion/unitless@0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.10.0.tgz#2af2f7c7e5150f497bdabd848ce7b218a27cf745"
-  integrity sha512-dFoMUuQA20zvtVTuxZww6OHoJYgrzfKM1t52mVySDJnMSEa08ruEvdYQbhvyu6soU+NeLVd3yKfTfT0NeV6qGg==
-
 "@eslint-community/eslint-utils@^4.8.0", "@eslint-community/eslint-utils@^4.9.1":
   version "4.9.1"
   resolved "https://registry.yarnpkg.com/@eslint-community/eslint-utils/-/eslint-utils-4.9.1.tgz#4e90af67bc51ddee6cdef5284edf572ec376b595"
@@ -617,18 +612,18 @@
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@schematichq/schematic-components@2.10.1":
-  version "2.10.1"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.10.1.tgz#d82d1c4d9a0ecb6d58a1da75b7b7d1a8e97795eb"
-  integrity sha512-wVo+YxMbVqk2XEozTs8NZWguCgiUepQ7AHnrb82DimEAci9wPUjIZZFn8efAXrVxO/7zCL8m0hbXZ+KYq9/AKw==
+"@schematichq/schematic-components@2.10.2":
+  version "2.10.2"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.10.2.tgz#0d44cc1526679b70e2e4c5d270f33dc72e910e1f"
+  integrity sha512-nUfdI2thenqwv0b5LvdPW2IboAkI0wwRAOSedhAQYwt4Pyad5eaUbPZRyT5ZOY9OMxLeAvbycL1+o1uSTUG7Pw==
   dependencies:
     "@schematichq/schematic-icons" "^0.5.4"
-    "@stripe/stripe-js" "^9.2.0"
-    i18next "^26.0.6"
+    "@stripe/stripe-js" "^9.3.1"
+    i18next "^26.0.8"
     lodash "^4.18.1"
     pako "^2.1.0"
     react-i18next "16.1.6"
-    styled-components "6.3.12"
+    styled-components "6.4.1"
     uuid "^14.0.0"
 
 "@schematichq/schematic-icons@^0.5.4":
@@ -677,10 +672,10 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^9.2.0":
-  version "9.3.1"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-9.3.1.tgz#2c71b9d62f2a74cd661f46e691a55a13340d5136"
-  integrity sha512-oWpAEENuVg8aw4W2OUAM9WxRDtIV2YTLr2nr6qHT+D8tHPW7bya61ufinPpUespyRNUVXqesnHo+jQdUNsGywA==
+"@stripe/stripe-js@^9.3.1":
+  version "9.4.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-9.4.0.tgz#9b05146680baea498a84d1076fcc607269f00095"
+  integrity sha512-zXG86DnoLU5nH2U18tX5ApTE3IAm+txoiPm4YFyEtRS0K5y7ZDH9M8e1Le/cZyI6wvW3BkJn2daZe2FqZOrSSg==
 
 "@swc/helpers@0.5.15":
   version "0.5.15"
@@ -860,11 +855,6 @@
   integrity sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==
   dependencies:
     csstype "^3.2.2"
-
-"@types/stylis@4.2.7":
-  version "4.2.7"
-  resolved "https://registry.yarnpkg.com/@types/stylis/-/stylis-4.2.7.tgz#1813190525da9d2a2b6976583bdd4af5301d9fd4"
-  integrity sha512-VgDNokpBoKF+wrdvhAAfS55OMQpL6QRglwTwNC3kIgBrzZxA4WsFj+2eLfEA/uMUDzBcEhYmjSbwQakn/i3ajA==
 
 "@types/ws@^8.18.1":
   version "8.18.1"
@@ -2459,7 +2449,7 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^26.0.6:
+i18next@^26.0.8:
   version "26.0.8"
   resolved "https://registry.yarnpkg.com/i18next/-/i18next-26.0.8.tgz#be27c02733962574cb47156d190ac8d0ff5365c4"
   integrity sha512-BRzLom0mhDhV9v0QhgUUHWQJuwFmnr1194xEcNLYD6ym8y8s542n4jXUvRLnhNTbh9PmpU6kGZamyuGHQMsGjw==
@@ -3063,7 +3053,7 @@ ms@^2.1.1, ms@^2.1.3:
   resolved "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
-nanoid@^3.3.11, nanoid@^3.3.6, nanoid@^3.3.7:
+nanoid@^3.3.11, nanoid@^3.3.6:
   version "3.3.11"
   resolved "https://registry.npmjs.org/nanoid/-/nanoid-3.3.11.tgz"
   integrity sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==
@@ -3385,15 +3375,6 @@ postcss@8.4.31:
     nanoid "^3.3.6"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
-
-postcss@8.4.49:
-  version "8.4.49"
-  resolved "https://registry.npmjs.org/postcss/-/postcss-8.4.49.tgz"
-  integrity sha512-OCVPnIObs4N29kxTjzLfUryOkvZEq+pf8jTF0lg8E7uETuWHA+v7j3c/xJmiqpX450191LlmZfUKkXxkTry7nA==
-  dependencies:
-    nanoid "^3.3.7"
-    picocolors "^1.1.1"
-    source-map-js "^1.2.1"
 
 postcss@^8.5.10, postcss@^8.5.6:
   version "8.5.10"
@@ -3724,11 +3705,6 @@ set-proto@^1.0.0:
     es-errors "^1.3.0"
     es-object-atoms "^1.0.0"
 
-shallowequal@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/shallowequal/-/shallowequal-1.1.0.tgz"
-  integrity sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==
-
 sharp@^0.34.5:
   version "0.34.5"
   resolved "https://registry.yarnpkg.com/sharp/-/sharp-0.34.5.tgz#b6f148e4b8c61f1797bde11a9d1cfebbae2c57b0"
@@ -3964,22 +3940,7 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha512-4gB8na07fecVVkOI6Rs4e7T6NOTki5EmL7TUduTs6bu3EdnSycntVJ4re8kgZA+wx9IueI2Y11bfbgwtzuE0KQ==
 
-styled-components@6.3.12:
-  version "6.3.12"
-  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-6.3.12.tgz#263a1c52bd1c5d1cdd2667e9605e5ffa8df592d0"
-  integrity sha512-hFR6xsVkVYbsdcUlzPYFvFfoc6o2KlV0VvgRIQwSYMtdThM7SCxnjX9efh/cWce2kTq16I/Kl3xM98xiLptsXA==
-  dependencies:
-    "@emotion/is-prop-valid" "1.4.0"
-    "@emotion/unitless" "0.10.0"
-    "@types/stylis" "4.2.7"
-    css-to-react-native "3.2.0"
-    csstype "3.2.3"
-    postcss "8.4.49"
-    shallowequal "1.1.0"
-    stylis "4.3.6"
-    tslib "2.8.1"
-
-styled-components@^6.3.11:
+styled-components@6.4.1, styled-components@^6.3.11:
   version "6.4.1"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-6.4.1.tgz#5b44c0d9140a28458eba931f53253613a99ebe30"
   integrity sha512-ADu2dF53esUzzM4I0ewxhxFtsDd6v4V6dNkg3vG0iFKhnt06sJneTZnRvujAosZwW0XD58IKgGMQoqri4wHRqg==
