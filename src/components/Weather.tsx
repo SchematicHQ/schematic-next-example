@@ -96,6 +96,7 @@ const Weather: React.FC = () => {
     if (organization) {
       const savedLocations = (organization.publicMetadata.locations ??
         []) as string[];
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       updatePinnedLocations(savedLocations);
     }
   }, [organization, updatePinnedLocations]);
@@ -144,6 +145,7 @@ const Weather: React.FC = () => {
   const initialLoadRef = useRef(true);
   useEffect(() => {
     if (initialLoadRef.current) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       fetchWeather(location);
       initialLoadRef.current = false;
     }
