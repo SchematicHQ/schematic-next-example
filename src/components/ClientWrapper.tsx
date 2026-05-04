@@ -48,6 +48,7 @@ export default function ClientWrapper({
 
   const [isClientSide, setIsClientSide] = useState(false);
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsClientSide(true);
   }, []);
 
