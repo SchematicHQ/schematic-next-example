@@ -605,13 +605,13 @@
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@schematichq/schematic-components@2.10.2":
-  version "2.10.2"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.10.2.tgz#0d44cc1526679b70e2e4c5d270f33dc72e910e1f"
-  integrity sha512-nUfdI2thenqwv0b5LvdPW2IboAkI0wwRAOSedhAQYwt4Pyad5eaUbPZRyT5ZOY9OMxLeAvbycL1+o1uSTUG7Pw==
+"@schematichq/schematic-components@2.10.3":
+  version "2.10.3"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.10.3.tgz#41fc8f25845d27d2591ba07c9f4347ad4ba00787"
+  integrity sha512-y0YWEhaoU9yHVn37MaaXS3R6YVVvwxpf9XnEOhgJq2OuxzVQ0+ubzlIyN8fAgKKKp6nCEP9guyq8EF/4+5aXPA==
   dependencies:
     "@schematichq/schematic-icons" "^0.5.4"
-    "@stripe/stripe-js" "^9.3.1"
+    "@stripe/stripe-js" "^9.4.0"
     i18next "^26.0.8"
     lodash "^4.18.1"
     pako "^2.1.0"
@@ -665,7 +665,7 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^9.3.1":
+"@stripe/stripe-js@^9.4.0":
   version "9.4.0"
   resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-9.4.0.tgz#9b05146680baea498a84d1076fcc607269f00095"
   integrity sha512-zXG86DnoLU5nH2U18tX5ApTE3IAm+txoiPm4YFyEtRS0K5y7ZDH9M8e1Le/cZyI6wvW3BkJn2daZe2FqZOrSSg==
