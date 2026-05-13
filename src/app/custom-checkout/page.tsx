@@ -4,11 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import {
   CheckoutDialog,
-  EmbedProvider,
   useEmbed,
-} from "@schematichq/schematic-components";
-
-import { embedSettings } from "../embedSettings";
+} from "@schematichq/schematic-react/components";
 
 function CheckoutButton({
   error,
@@ -97,7 +94,7 @@ function Checkout() {
 
 export default function CustomCheckout() {
   return (
-    <EmbedProvider settings={{ ...embedSettings }}>
+    <>
       <div className="flex flex-col justify-center items-center">
         <h1 className="text-2xl mb-4 text-center max-w-160">
           This button will launch a checkout with the <b>Pro Plan</b>{" "}
@@ -105,6 +102,6 @@ export default function CustomCheckout() {
         </h1>
         <Checkout />
       </div>
-    </EmbedProvider>
+    </>
   );
 }
