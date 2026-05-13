@@ -6,6 +6,7 @@ import {
   SchematicProvider,
   useSchematicEvents,
 } from "@schematichq/schematic-react";
+import { EmbedAdapter } from "@schematichq/schematic-react/components";
 
 import useAuthContext from "../hooks/useAuthContext";
 import Loader from "./Loader";
@@ -52,12 +53,17 @@ export default function ClientWrapper({
     setIsClientSide(true);
   }, []);
 
+  const apiUrl = process.env.NEXT_PUBLIC_SCHEMATIC_API_URL;
+  const apiConfig = apiUrl ? { basePath: apiUrl } : undefined;
+
   return (
     <ClerkProvider>
       {isClientSide ? (
         <SchematicProvider
+          embed={EmbedAdapter}
           publishableKey={schematicPubKey}
-          apiUrl={process.env.NEXT_PUBLIC_SCHEMATIC_API_URL}
+          apiConfig={apiConfig}
+          apiUrl={apiUrl}
           eventUrl={process.env.NEXT_PUBLIC_SCHEMATIC_EVENT_URL}
           webSocketUrl={process.env.NEXT_PUBLIC_SCHEMATIC_WEBSOCKET_URL}
         >

@@ -1,4 +1,4 @@
-import { type EmbedSettings } from "@schematichq/schematic-components";
+import { type EmbedSettings } from "@schematichq/schematic-react/components";
 
 import { type DeepPartial } from "@/types";
 
