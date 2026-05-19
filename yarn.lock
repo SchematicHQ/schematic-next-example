@@ -610,14 +610,14 @@
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@schematichq/schematic-components@2.11.0":
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.11.0.tgz#8c387e0844c08d7c2729869441aec71a049cef12"
-  integrity sha512-CJ3XSyQWuE+nHuSwElq0F8mqcEyZ6at04ieZC1tvZZFsi9/yzzMTYkrf8JOFP4vI0W8Pv2nk51D8mZGmo32S+g==
+"@schematichq/schematic-components@2.12.0":
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.12.0.tgz#748108c4eab47a32ca9d1f8cde7adcf1352ee86e"
+  integrity sha512-EwVFe04c9kvmvSiC4QfrKH3TQ2rAI9FUoM3dFwHOPLObq1X/+Kuj3tgyJF9zHqXcmL7k2Cj/rWysJkzU0nqCtg==
   dependencies:
     "@schematichq/schematic-icons" "^0.6.0"
-    "@stripe/stripe-js" "^9.4.0"
-    i18next "^26.1.0"
+    "@stripe/stripe-js" "^9.6.0"
+    i18next "^26.2.0"
     lodash "^4.18.1"
     pako "^2.1.0"
     react-i18next "16.1.6"
@@ -670,10 +670,10 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^9.4.0":
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-9.4.0.tgz#9b05146680baea498a84d1076fcc607269f00095"
-  integrity sha512-zXG86DnoLU5nH2U18tX5ApTE3IAm+txoiPm4YFyEtRS0K5y7ZDH9M8e1Le/cZyI6wvW3BkJn2daZe2FqZOrSSg==
+"@stripe/stripe-js@^9.6.0":
+  version "9.6.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-9.6.0.tgz#ff6dc826d38e682625a58a50f6bc913d8a8070e8"
+  integrity sha512-v5MebYvJbddSRn15fknxTVwypJPzjeIXI1Q2HBxCBrQieWna8PC+RXEVUZ3F4ANAeILEj97HzFlr0r7CXvG7ZA==
 
 "@swc/helpers@0.5.15":
   version "0.5.15"
@@ -2307,10 +2307,10 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^26.1.0:
-  version "26.1.0"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-26.1.0.tgz#b0e7e2a3a87554781038899299658b1b5d678cb6"
-  integrity sha512-dIU6td04DvQuIqVst5S9g0GviTmhZ0DYD4b9ociVGJmuCa5vZ2de/t+Enf4olvj87mF8Y2lwjNQBwC9QZsvzKQ==
+i18next@^26.2.0:
+  version "26.2.0"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-26.2.0.tgz#4dc31d5ada1495f6884851f7c7a3fb6a36f23794"
+  integrity sha512-zwBHldHdTmwN7r6UNc7lC6GWNN+YYg3DrRSeHR5PRRBf5QnJZcYHrQc0uaU26qZeYxR7iFZD+Y315dPnKP47wA==
 
 ieee754@^1.2.1:
   version "1.2.1"
