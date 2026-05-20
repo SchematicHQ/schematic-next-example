@@ -9,6 +9,7 @@ import {
   useSchematicFlag,
   useSchematicEntitlement,
   useSchematicIsPending,
+  Meter,
   UsagePeriod,
 } from "@schematichq/schematic-react";
 
@@ -61,6 +62,7 @@ const Weather: React.FC = () => {
   const { track } = useSchematicEvents();
   const schematicIsPending = useSchematicIsPending();
   const humidityFlag = useSchematicFlag("humidity");
+  const weatherSearch = useSchematicEntitlement("weather-search");
   const {
     featureAllocation: weatherSearchAllocation,
     featureUsage: weatherSearchUsage,
@@ -68,7 +70,7 @@ const Weather: React.FC = () => {
     featureUsagePeriod: weatherSearchUsagePeriod,
     featureUsageResetAt: weatherSearchUsageResetAt,
     value: weatherSearchFlag,
-  } = useSchematicEntitlement("weather-search");
+  } = weatherSearch;
   const windSpeedFlag = useSchematicFlag("wind-speed");
   const addPinnedLocationFlag = useSchematicFlag("pinned-locations");
   const { organization } = useOrganization();
@@ -231,7 +233,8 @@ const Weather: React.FC = () => {
           typeof weatherSearchUsage !== "undefined" &&
           typeof weatherSearchAllocation !== "undefined" && (
             <div className="usage-pill">
-              {weatherSearchUsage} / {weatherSearchAllocation} used
+              <Meter id="weather-search" />
+              {weatherSearchUsage} / {weatherSearchAllocation} used yet
             </div>
           )}
         <div className="search-container">
@@ -340,6 +343,9 @@ const Weather: React.FC = () => {
           position: relative;
         }
         .usage-pill {
+          display: inline-flex;
+          flex-direction: column;
+          align-items: center;
           float: right;
           background-color: rgba(0, 0, 0, 0.4);
           color: rgba(255, 255, 255, 0.9);
