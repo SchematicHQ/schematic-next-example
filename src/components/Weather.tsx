@@ -9,7 +9,7 @@ import {
   useSchematicFlag,
   useSchematicEntitlement,
   useSchematicIsPending,
-  Meter,
+  UsageMeter,
   UsagePeriod,
 } from "@schematichq/schematic-react";
 
@@ -233,8 +233,8 @@ const Weather: React.FC = () => {
           typeof weatherSearchUsage !== "undefined" &&
           typeof weatherSearchAllocation !== "undefined" && (
             <div className="usage-pill">
-              <Meter id="weather-search" />
-              {weatherSearchUsage} / {weatherSearchAllocation} used yet
+              <UsageMeter flag="weather-search" />
+              {weatherSearchUsage} / {weatherSearchAllocation} used
             </div>
           )}
         <div className="search-container">
@@ -333,7 +333,6 @@ const Weather: React.FC = () => {
         }
         .weather-container {
           flex: 1;
-          text-align: center;
           padding: 30px;
           border: 1px solid #333;
           border-radius: 10px;
@@ -345,14 +344,15 @@ const Weather: React.FC = () => {
         .usage-pill {
           display: inline-flex;
           flex-direction: column;
-          align-items: center;
+          gap: 4px;
           float: right;
           background-color: rgba(0, 0, 0, 0.4);
           color: rgba(255, 255, 255, 0.9);
-          padding: 5px 10px;
+          padding: 12px 12px 8px;
           margin: -15px -15px 0 20px;
           border-radius: 15px;
           font-size: 12px;
+          line-height: 1;
           border: 1px solid rgba(255, 255, 255, 0.2);
         }
         .search-container {
@@ -384,6 +384,7 @@ const Weather: React.FC = () => {
         }
         .weather-info {
           font-family: Arial, sans-serif;
+          text-align: center;
           padding: 20px;
         }
         .description {
