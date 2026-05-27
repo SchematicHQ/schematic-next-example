@@ -610,10 +610,10 @@
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@schematichq/schematic-components@2.12.0":
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.12.0.tgz#748108c4eab47a32ca9d1f8cde7adcf1352ee86e"
-  integrity sha512-EwVFe04c9kvmvSiC4QfrKH3TQ2rAI9FUoM3dFwHOPLObq1X/+Kuj3tgyJF9zHqXcmL7k2Cj/rWysJkzU0nqCtg==
+"@schematichq/schematic-components@2.13.0":
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.13.0.tgz#0669bd198b441602f87f3ab2a887e33784ded741"
+  integrity sha512-8pUiixuvugW5LyD5smhPok+9t4OOS80WBJ89vRTKw7yrv7fK9Nl1PuBxla2aXRlfnVG2M6rks83JPlrdheObQg==
   dependencies:
     "@schematichq/schematic-icons" "^0.6.0"
     "@stripe/stripe-js" "^9.6.0"
@@ -621,7 +621,7 @@
     lodash "^4.18.1"
     pako "^2.1.0"
     react-i18next "16.1.6"
-    styled-components "^6.4.1"
+    styled-components "^6.4.2"
     uuid "^14.0.0"
 
 "@schematichq/schematic-icons@^0.6.0":
@@ -3529,10 +3529,10 @@ styled-components@6.3.12:
     stylis "4.3.6"
     tslib "2.8.1"
 
-styled-components@^6.4.1:
-  version "6.4.1"
-  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-6.4.1.tgz#5b44c0d9140a28458eba931f53253613a99ebe30"
-  integrity sha512-ADu2dF53esUzzM4I0ewxhxFtsDd6v4V6dNkg3vG0iFKhnt06sJneTZnRvujAosZwW0XD58IKgGMQoqri4wHRqg==
+styled-components@^6.4.2:
+  version "6.4.2"
+  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-6.4.2.tgz#2e92f7b8a1e49f5791c80c864eddf215dd1046c6"
+  integrity sha512-xZBhBJsMtGqb+aKcwKgaT+BtuFums9VynX2JRvXJGTx5UfZzN12rk5r4nVdhXYvRw+hE7yiYxVrOqJZaK2+Txg==
   dependencies:
     "@emotion/is-prop-valid" "1.4.0"
     css-to-react-native "3.2.0"
