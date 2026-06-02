@@ -610,24 +610,24 @@
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@schematichq/schematic-components@2.13.0":
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.13.0.tgz#0669bd198b441602f87f3ab2a887e33784ded741"
-  integrity sha512-8pUiixuvugW5LyD5smhPok+9t4OOS80WBJ89vRTKw7yrv7fK9Nl1PuBxla2aXRlfnVG2M6rks83JPlrdheObQg==
+"@schematichq/schematic-components@2.14.0":
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.14.0.tgz#68d1f867fe52e247e9aaf67449f51bc8d977d4f7"
+  integrity sha512-zep4krXBV6Xyds6N+eQJJsfhLedz1Zwwq8LiMsQqEHOgK59OMbY3QXcmloVk6V5k2xpNfp6uDdtwd2/BkSsSOQ==
   dependencies:
-    "@schematichq/schematic-icons" "^0.6.0"
+    "@schematichq/schematic-icons" "^0.7.0"
     "@stripe/stripe-js" "^9.6.0"
-    i18next "^26.2.0"
+    i18next "^26.3.0"
     lodash "^4.18.1"
     pako "^2.1.0"
     react-i18next "16.1.6"
     styled-components "^6.4.2"
     uuid "^14.0.0"
 
-"@schematichq/schematic-icons@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-icons/-/schematic-icons-0.6.0.tgz#a1c540aadaf7770e60fb4a4ae0e5bbab1ddc910d"
-  integrity sha512-TX6iIXIV3ehuuJ0KD5D2TCQ1r/MCDnlQH+wMnJS/E2yrkqy4Y17jylOOKWqXxypGdMjc+Ezh/ob01hCrVGk0Cg==
+"@schematichq/schematic-icons@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-icons/-/schematic-icons-0.7.0.tgz#19f356d26104483f2e8b523fe3392e4f504ad02c"
+  integrity sha512-CAK/Bc6vt+WWDZj8DzH2zuSBBqJKHVHkE7HWjYVWagWbtT1t7yscAb/Lv/YaE7eiLRixG+vD6mP373DFtb98sA==
   dependencies:
     styled-components "6.3.12"
 
@@ -2307,10 +2307,10 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^26.2.0:
-  version "26.2.0"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-26.2.0.tgz#4dc31d5ada1495f6884851f7c7a3fb6a36f23794"
-  integrity sha512-zwBHldHdTmwN7r6UNc7lC6GWNN+YYg3DrRSeHR5PRRBf5QnJZcYHrQc0uaU26qZeYxR7iFZD+Y315dPnKP47wA==
+i18next@^26.3.0:
+  version "26.3.0"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-26.3.0.tgz#057c1165589b3f312714ea2a0c3f368c2c7cd84f"
+  integrity sha512-gHSgGpUXVmuqE2El1W61DmxeyeTlFfZgdJRWMo9jScAn5pu7TuTuiccb1zh3E2J9hEBVGJ23+96x0ieBhfuIHA==
 
 ieee754@^1.2.1:
   version "1.2.1"
