@@ -52,12 +52,16 @@ export default function ClientWrapper({
     setIsClientSide(true);
   }, []);
 
+  const apiUrl = process.env.NEXT_PUBLIC_SCHEMATIC_API_URL;
+  const apiConfig = apiUrl ? { basePath: apiUrl } : undefined;
+
   return (
     <ClerkProvider>
       {isClientSide ? (
         <SchematicProvider
           publishableKey={schematicPubKey}
-          apiUrl={process.env.NEXT_PUBLIC_SCHEMATIC_API_URL}
+          apiConfig={apiConfig}
+          apiUrl={apiUrl}
           eventUrl={process.env.NEXT_PUBLIC_SCHEMATIC_EVENT_URL}
           webSocketUrl={process.env.NEXT_PUBLIC_SCHEMATIC_WEBSOCKET_URL}
         >
