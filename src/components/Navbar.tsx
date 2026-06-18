@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { Show, UserButton } from "@clerk/nextjs";
 
+import { isDemoMode } from "../utils/demoContext";
+
 const Navbar = () => {
   return (
     <nav className="w-full bg-gray-800 p-4">
@@ -33,9 +35,15 @@ const Navbar = () => {
           <Link href="/usage" className="text-white hover:text-gray-300">
             Usage
           </Link>
-          <Show when="signed-in">
-            <UserButton />
-          </Show>
+          {/* Clerk's UserButton requires ClerkProvider, which is absent in
+              demo mode. Render a static label instead. */}
+          {isDemoMode() ? (
+            <span className="text-white text-sm">Demo</span>
+          ) : (
+            <Show when="signed-in">
+              <UserButton />
+            </Show>
+          )}
         </div>
       </div>
     </nav>

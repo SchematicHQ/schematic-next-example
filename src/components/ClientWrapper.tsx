@@ -8,8 +8,10 @@ import {
 } from "@schematichq/schematic-react";
 
 import useAuthContext from "../hooks/useAuthContext";
+import { demoIdentity, isDemoMode } from "../utils/demoContext";
 import Loader from "./Loader";
 
+// Clerk-derived identify (default, non-demo behavior).
 const SchematicWrapped: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
@@ -34,6 +36,28 @@ const SchematicWrapped: React.FC<{ children: React.ReactNode }> = ({
   return children;
 };
 
+// Demo-mode identify — hardcoded company/user, no Clerk.
+const SchematicWrappedDemo: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const { identify } = useSchematicEvents();
+
+  useEffect(() => {
+    void identify({
+      company: {
+        keys: demoIdentity.company.keys,
+        name: demoIdentity.company.name,
+        traits: { ...demoIdentity.company.traits },
+      },
+      keys: demoIdentity.user.keys,
+      name: demoIdentity.user.name,
+      traits: { ...demoIdentity.user.traits },
+    });
+  }, [identify]);
+
+  return children;
+};
+
 export default function ClientWrapper({
   children,
 }: {
@@ -52,20 +76,27 @@ export default function ClientWrapper({
     setIsClientSide(true);
   }, []);
 
-  return (
-    <ClerkProvider>
-      {isClientSide ? (
-        <SchematicProvider
-          publishableKey={schematicPubKey}
-          apiUrl={process.env.NEXT_PUBLIC_SCHEMATIC_API_URL}
-          eventUrl={process.env.NEXT_PUBLIC_SCHEMATIC_EVENT_URL}
-          webSocketUrl={process.env.NEXT_PUBLIC_SCHEMATIC_WEBSOCKET_URL}
-        >
-          <SchematicWrapped>{children}</SchematicWrapped>
-        </SchematicProvider>
+  const provider = (
+    <SchematicProvider
+      publishableKey={schematicPubKey}
+      apiUrl={process.env.NEXT_PUBLIC_SCHEMATIC_API_URL}
+      eventUrl={process.env.NEXT_PUBLIC_SCHEMATIC_EVENT_URL}
+      webSocketUrl={process.env.NEXT_PUBLIC_SCHEMATIC_WEBSOCKET_URL}
+    >
+      {isDemoMode() ? (
+        <SchematicWrappedDemo>{children}</SchematicWrappedDemo>
       ) : (
-        <Loader />
+        <SchematicWrapped>{children}</SchematicWrapped>
       )}
-    </ClerkProvider>
+    </SchematicProvider>
+  );
+
+  // Demo mode: skip ClerkProvider entirely so the app boots with no Clerk keys.
+  if (isDemoMode()) {
+    return isClientSide ? provider : <Loader />;
+  }
+
+  return (
+    <ClerkProvider>{isClientSide ? provider : <Loader />}</ClerkProvider>
   );
 }
