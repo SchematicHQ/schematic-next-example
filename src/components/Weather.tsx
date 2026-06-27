@@ -3,7 +3,6 @@
 import { useEffect, useCallback, useState, useMemo, useRef } from "react";
 import axios from "axios";
 import debounce from "lodash/debounce";
-import { useOrganization } from "@clerk/nextjs";
 import {
   useSchematicEvents,
   useSchematicFlag,
@@ -12,6 +11,7 @@ import {
   UsagePeriod,
 } from "@schematichq/schematic-react";
 
+import useSavedLocations from "../hooks/useSavedLocations";
 import Loader from "./Loader";
 
 interface WeatherData {
@@ -71,7 +71,7 @@ const Weather: React.FC = () => {
   } = useSchematicEntitlement("weather-search");
   const windSpeedFlag = useSchematicFlag("wind-speed");
   const addPinnedLocationFlag = useSchematicFlag("pinned-locations");
-  const { organization } = useOrganization();
+  const savedLocations = useSavedLocations();
 
   const updatePinnedLocations = useCallback(
     (locations: string[]) => {
@@ -93,13 +93,11 @@ const Weather: React.FC = () => {
   );
 
   useEffect(() => {
-    if (organization) {
-      const savedLocations = (organization.publicMetadata.locations ??
-        []) as string[];
+    if (savedLocations.length > 0) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       updatePinnedLocations(savedLocations);
     }
-  }, [organization, updatePinnedLocations]);
+  }, [savedLocations, updatePinnedLocations]);
 
   const fetchWeather = useCallback(
     async (location: string) => {

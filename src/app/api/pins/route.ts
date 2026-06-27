@@ -3,6 +3,7 @@ import { SchematicClient } from "@schematichq/schematic-typescript-node";
 import { NextRequest, NextResponse } from "next/server";
 
 import { getAuthOrgId, AuthError } from "../../../utils/auth";
+import { demoCompanyKeys, isDemoMode } from "../../../utils/demoContext";
 
 export async function POST(request: NextRequest) {
   const apiKey = process.env.SCHEMATIC_SECRET_KEY;
@@ -14,9 +15,21 @@ export async function POST(request: NextRequest) {
   const numLocations = locations?.length ?? 0;
 
   try {
-    const { orgId } = await getAuthOrgId();
     const basePath = process.env.NEXT_PUBLIC_SCHEMATIC_API_URL;
     const schematicClient = new SchematicClient({ apiKey, basePath });
+
+    if (isDemoMode()) {
+      // No Clerk org to persist metadata to; just update the Schematic
+      // company trait so entitlement gating reflects pin count.
+      await schematicClient.companies.upsertCompany({
+        keys: demoCompanyKeys,
+        traits: { numLocations },
+      });
+
+      return NextResponse.json({ numLocations });
+    }
+
+    const { orgId } = await getAuthOrgId();
 
     await schematicClient.companies.upsertCompany({
       keys: { clerkId: orgId },
