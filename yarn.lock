@@ -630,10 +630,10 @@
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@schematichq/schematic-components@2.16.3":
-  version "2.16.3"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.16.3.tgz#41ebc1c3f5bfc5ad29a11580db789aeb5ab5cb6d"
-  integrity sha512-p/eZHiAEyt0HwdhiALajy75DtCOm9wXvE/I04Gsoumvzf61If6jyE+fCLZlJuxiz0Qmf0Oy9ffC93cfHdo0k1w==
+"@schematichq/schematic-components@2.17.1":
+  version "2.17.1"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.17.1.tgz#b0ecbb66847029a4b4d2038339493baaf3a699aa"
+  integrity sha512-w/IaxEW15Mpcq3VHlkx4ba4PRRZFU7JJ7ARHPdI5LTneqNIBVHQYeZrABG7Wy45Fr2wSinqKuYOawtpzS+ur2A==
   dependencies:
     "@schematichq/schematic-icons" "^0.8.0"
     "@stripe/stripe-js" "^9.8.0"
@@ -642,7 +642,7 @@
     pako "^2.1.0"
     react-i18next "16.1.6"
     styled-components "^6.4.2"
-    uuid "^14.0.0"
+    uuid "^14.0.1"
 
 "@schematichq/schematic-icons@^0.8.0":
   version "0.8.0"
@@ -3684,10 +3684,10 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-uuid@^14.0.0:
-  version "14.0.0"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-14.0.0.tgz#0af883220163d264ffe0c084f6b8a89b9666966d"
-  integrity sha512-Qo+uWgilfSmAhXCMav1uYFynlQO7fMFiMVZsQqZRMIXp0O7rR7qjkj+cPvBHLgBqi960QCoo/PH2/6ZtVqKvrg==
+uuid@^14.0.1:
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-14.0.1.tgz#8a5975b3e038902bfd169a10b5202f5ec0cf3faf"
+  integrity sha512-6ZxzVpzDXDa3bJWaHilVayA+BH/1zmxCJoVgvmqJnid/gPoKHxUrS/aC/T6LGQtNHT+XHG9fXPJB4d+IrU30Ew==
 
 void-elements@3.1.0:
   version "3.1.0"
