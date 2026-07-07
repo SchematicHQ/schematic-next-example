@@ -13,6 +13,7 @@ import {
 
 import useSavedLocations from "../hooks/useSavedLocations";
 import Loader from "./Loader";
+import { UsageDetails } from "./UsageDetails";
 
 interface WeatherData {
   description: string;
@@ -61,6 +62,7 @@ const Weather: React.FC = () => {
   const { track } = useSchematicEvents();
   const schematicIsPending = useSchematicIsPending();
   const humidityFlag = useSchematicFlag("humidity");
+  const weatherSearch = useSchematicEntitlement("weather-search");
   const {
     featureAllocation: weatherSearchAllocation,
     featureUsage: weatherSearchUsage,
@@ -68,7 +70,7 @@ const Weather: React.FC = () => {
     featureUsagePeriod: weatherSearchUsagePeriod,
     featureUsageResetAt: weatherSearchUsageResetAt,
     value: weatherSearchFlag,
-  } = useSchematicEntitlement("weather-search");
+  } = weatherSearch;
   const windSpeedFlag = useSchematicFlag("wind-speed");
   const addPinnedLocationFlag = useSchematicFlag("pinned-locations");
   const savedLocations = useSavedLocations();
@@ -225,13 +227,11 @@ const Weather: React.FC = () => {
         </div>
       )}
       <div className="weather-container">
-        {!schematicIsPending &&
-          typeof weatherSearchUsage !== "undefined" &&
-          typeof weatherSearchAllocation !== "undefined" && (
-            <div className="usage-pill">
-              {weatherSearchUsage} / {weatherSearchAllocation} used
-            </div>
-          )}
+        {!schematicIsPending && (
+          <div className="usage-pill">
+            <UsageDetails {...weatherSearch} />
+          </div>
+        )}
         <div className="search-container">
           <input
             type="text"
