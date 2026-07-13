@@ -228,8 +228,11 @@ const Weather: React.FC = () => {
       )}
       <div className="weather-container">
         {!schematicIsPending && (
-          <div className="usage-pill">
-            <UsageDetails {...weatherSearch} />
+          <div className="usage-floater">
+            <UsageDetails
+              value={weatherSearchUsage}
+              max={weatherSearchAllocation}
+            />
           </div>
         )}
         <div className="search-container">
@@ -337,7 +340,7 @@ const Weather: React.FC = () => {
           font-family: "Helvetica Neue", Arial, sans-serif;
           position: relative;
         }
-        .usage-pill {
+        .usage-floater {
           float: right;
           background-color: rgba(0, 0, 0, 0.4);
           color: rgba(255, 255, 255, 0.9);
