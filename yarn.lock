@@ -630,16 +630,16 @@
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@schematichq/schematic-components@2.18.0":
-  version "2.18.0"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.18.0.tgz#d7f9a77d8ac403d7290c0e513b46f761f686d265"
-  integrity sha512-5LRy/scwWOrM+NCpgWMxLYujK0+EmaGlH1WkuJg6u+2KC0oaeOTO5uBNS6TON5MdHYPv7vSyhL2Ldk76y9fJSQ==
+"@schematichq/schematic-components@2.20.0":
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.20.0.tgz#555afd2d87f9a32db4297f768a84d1be050af247"
+  integrity sha512-PDQY5IkWJDsHMEd25Yeoup0x+mKd7KCLExKsqH3cStPhpncqiG6kh+YoyPBMNBKxdhVNJVyJWG2diOeOQtyX6w==
   dependencies:
     "@schematichq/schematic-icons" "^0.8.0"
     "@stripe/stripe-js" "^9.9.0"
-    i18next "^26.3.4"
+    i18next "^26.3.6"
     lodash "^4.18.1"
-    pako "^3.0.0"
+    pako "^3.0.1"
     react-i18next "16.1.6"
     styled-components "^6.4.3"
     uuid "^14.0.1"
@@ -2312,10 +2312,10 @@ html-parse-stringify@^3.0.1:
   dependencies:
     void-elements "3.1.0"
 
-i18next@^26.3.4:
-  version "26.3.4"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-26.3.4.tgz#a2e8540b0a1a6004eba525c05faa89c256fb57c8"
-  integrity sha512-pa7m0d7pBDqGHZxljT+WPFeyFgQ7P7SciPPo1tTqYuO0z4sqADYhwnBESmmGp/wEof1inwdls/k8ZgTg8rxFHA==
+i18next@^26.3.6:
+  version "26.3.6"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-26.3.6.tgz#599db275c50b66d28a69d8f6c5162c245ce9296b"
+  integrity sha512-Bu5Z2nAXgfVyM8xvW3jk9EKRIuX37PudsrBViThNFx7CR7aaYTpP01cxNB/E4c4UUzTDiAZRstEhsRfPOL/8xA==
 
 ieee754@^1.2.1:
   version "1.2.1"
@@ -3025,10 +3025,10 @@ p-locate@^5.0.0:
   dependencies:
     p-limit "^3.0.2"
 
-pako@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/pako/-/pako-3.0.0.tgz#53aafbe4bc0882eb302e080a3804a70c1ec02e52"
-  integrity sha512-TGPtlCI1pSUSbkOIxOUUHNrBa0muz4mAp32cYUF3RoSa5c73jiQTKOKo22gaa4DxLggQrda/DAdax5QkcHPvYA==
+pako@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/pako/-/pako-3.0.1.tgz#3156f8fa86e3cc2ae5a36369475b14d4f05696ce"
+  integrity sha512-GupotUUI0mlhugKjUs4bjOwLt3nrehy9Ys2dxC0GtgVef5cnKggkDMmf2bq2poCCuVXopWPmqsc9VDT2iJUy+w==
 
 path-exists@^4.0.0:
   version "4.0.0"
