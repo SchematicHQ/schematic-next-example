@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Show, UserButton } from "@clerk/nextjs";
 
 import { isDemoMode } from "../utils/demoContext";
+import { TrialDetails } from "./TrialDetails";
 
 const Navbar = () => {
   return (
@@ -42,6 +43,7 @@ const Navbar = () => {
           ) : (
             <Show when="signed-in">
               <UserButton />
+              <TrialDetails />
             </Show>
           )}
         </div>

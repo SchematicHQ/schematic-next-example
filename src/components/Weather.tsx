@@ -13,6 +13,7 @@ import {
 
 import useSavedLocations from "../hooks/useSavedLocations";
 import Loader from "./Loader";
+import { UsageDetails } from "./UsageDetails";
 
 interface WeatherData {
   description: string;
@@ -61,6 +62,7 @@ const Weather: React.FC = () => {
   const { track } = useSchematicEvents();
   const schematicIsPending = useSchematicIsPending();
   const humidityFlag = useSchematicFlag("humidity");
+  const weatherSearch = useSchematicEntitlement("weather-search");
   const {
     featureAllocation: weatherSearchAllocation,
     featureUsage: weatherSearchUsage,
@@ -68,7 +70,7 @@ const Weather: React.FC = () => {
     featureUsagePeriod: weatherSearchUsagePeriod,
     featureUsageResetAt: weatherSearchUsageResetAt,
     value: weatherSearchFlag,
-  } = useSchematicEntitlement("weather-search");
+  } = weatherSearch;
   const windSpeedFlag = useSchematicFlag("wind-speed");
   const addPinnedLocationFlag = useSchematicFlag("pinned-locations");
   const savedLocations = useSavedLocations();
@@ -225,13 +227,14 @@ const Weather: React.FC = () => {
         </div>
       )}
       <div className="weather-container">
-        {!schematicIsPending &&
-          typeof weatherSearchUsage !== "undefined" &&
-          typeof weatherSearchAllocation !== "undefined" && (
-            <div className="usage-pill">
-              {weatherSearchUsage} / {weatherSearchAllocation} used
-            </div>
-          )}
+        {!schematicIsPending && (
+          <div className="usage-floater">
+            <UsageDetails
+              value={weatherSearchUsage}
+              max={weatherSearchAllocation}
+            />
+          </div>
+        )}
         <div className="search-container">
           <input
             type="text"
@@ -337,7 +340,7 @@ const Weather: React.FC = () => {
           font-family: "Helvetica Neue", Arial, sans-serif;
           position: relative;
         }
-        .usage-pill {
+        .usage-floater {
           float: right;
           background-color: rgba(0, 0, 0, 0.4);
           color: rgba(255, 255, 255, 0.9);
