@@ -3,6 +3,10 @@ frontend:
   phases:
     preBuild:
       commands:
+        # Amplify takes node from the build image, not package.json. Without this
+        # the image's node loses to the engines.node pin and yarn refuses to install.
+        - nvm install 24
+        - nvm use 24
         - yarn install
     build:
       commands:
