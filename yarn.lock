@@ -630,10 +630,10 @@
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@schematichq/schematic-components@2.22.2":
-  version "2.22.2"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.22.2.tgz#555cb5587f38ea77c729f81cc55fdb1de5a27939"
-  integrity sha512-4EQvoWY4ABvUFBmjg3Thkwi7XMAg2iyatti/nNjdQSixmBAVDoeJC+KwQVSFhfl5LvbphtPlU2Zw4bIsYtISLg==
+"@schematichq/schematic-components@2.23.0":
+  version "2.23.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.23.0.tgz#1033aa2ae331c77ad3f084abbcde652b85230f5e"
+  integrity sha512-tdfWVrBvyOUEzQZRNkBT1kCKnky8NjjyDzTd7FozHeviVTBRF9LmSAT/42SalhzQw7n55DZuddsu7f7mT89WcQ==
   dependencies:
     "@schematichq/schematic-icons" "^0.8.0"
     "@stripe/stripe-js" "^9.12.1"
