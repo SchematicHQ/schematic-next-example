@@ -651,18 +651,18 @@
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@schematichq/schematic-components@2.23.0":
-  version "2.23.0"
-  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.23.0.tgz#1033aa2ae331c77ad3f084abbcde652b85230f5e"
-  integrity sha512-tdfWVrBvyOUEzQZRNkBT1kCKnky8NjjyDzTd7FozHeviVTBRF9LmSAT/42SalhzQw7n55DZuddsu7f7mT89WcQ==
+"@schematichq/schematic-components@2.24.0":
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/@schematichq/schematic-components/-/schematic-components-2.24.0.tgz#c5facf8595090c2397ccf14702c3ae9f0139d761"
+  integrity sha512-OZ/i2VsYveh/k2cMDKrfPEiB8mym0p6PTIUUoDe0HYLnz23qEPe+zxg79rJum5sWpqJsttPb1j2mIhHQNpNlvA==
   dependencies:
     "@schematichq/schematic-icons" "^0.8.0"
-    "@stripe/stripe-js" "^9.12.1"
+    "@stripe/stripe-js" "^9.13.0"
     i18next "^26.3.6"
     lodash "^4.18.1"
     pako "^3.0.1"
     react-i18next "16.1.6"
-    styled-components "^6.5.0"
+    styled-components "^6.5.3"
     uuid "^14.0.1"
 
 "@schematichq/schematic-icons@^0.8.0":
@@ -701,7 +701,7 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^9.12.1":
+"@stripe/stripe-js@^9.13.0":
   version "9.13.0"
   resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-9.13.0.tgz#2d499bf023f7da107762d826440ea2471f1c1425"
   integrity sha512-/0c72BUgzzVkVTlsw5uBn8x3waTdVJ/PZGfQ6jY1eu6K7olUPf4d9lgDPA9/0sIdsR8j7o3QIG8fOCO6ItcL7A==
@@ -3544,10 +3544,10 @@ styled-components@^6.3.12:
     csstype "3.2.3"
     stylis "4.3.6"
 
-styled-components@^6.5.0:
-  version "6.5.2"
-  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-6.5.2.tgz#c6c6dc0935b0554bf3b4716235fc8671a00927fb"
-  integrity sha512-49qBCjwsBmt08/UXIr3KYa1wdntVkhU5cxvQ4uqytl/fITQC85B0PI5EN1GWetRYOzyzcgxqukiitqFRemZ7pg==
+styled-components@^6.5.3:
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-6.5.3.tgz#3f9bf71579cba7e075b7217b8a1ec6f38e75cc0e"
+  integrity sha512-vAX79sfpmUerP9fsTTxoTrBDE0RuO4ahjInyWYoohNgqrdg63Ms4q6FJ/o2Fyity82NU3cujOT8Ewl9TThBdwg==
   dependencies:
     "@emotion/is-prop-valid" "1.4.0"
     css-to-react-native "3.2.0"
