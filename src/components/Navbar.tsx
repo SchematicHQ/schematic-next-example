@@ -35,6 +35,9 @@ const Navbar = () => {
           <Link href="/usage" className="text-white hover:text-gray-300">
             Usage
           </Link>
+          <Link href="/billing" className="text-white hover:text-gray-300">
+            Billing
+          </Link>
           {/* Clerk's UserButton requires ClerkProvider, which is absent in
               demo mode. Render a static label instead. */}
           {isDemoMode() ? (

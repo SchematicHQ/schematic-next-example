@@ -6,6 +6,7 @@ import {
   SchematicProvider,
   useSchematicEvents,
 } from "@schematichq/schematic-react";
+import { SchematicStyles } from "@schematichq/schematic-components/v3";
 
 import useAuthContext from "../hooks/useAuthContext";
 import { demoIdentity, isDemoMode } from "../utils/demoContext";
@@ -79,10 +80,16 @@ export default function ClientWrapper({
   const provider = (
     <SchematicProvider
       publishableKey={schematicPubKey}
+      accessToken={async () => {
+        const response = await fetch("/api/accessToken");
+        const result = await response.json();
+        return result.accessToken;
+      }}
       apiUrl={process.env.NEXT_PUBLIC_SCHEMATIC_API_URL}
       eventUrl={process.env.NEXT_PUBLIC_SCHEMATIC_EVENT_URL}
       webSocketUrl={process.env.NEXT_PUBLIC_SCHEMATIC_WEBSOCKET_URL}
     >
+      <SchematicStyles />
       {isDemoMode() ? (
         <SchematicWrappedDemo>{children}</SchematicWrappedDemo>
       ) : (
@@ -96,7 +103,5 @@ export default function ClientWrapper({
     return isClientSide ? provider : <Loader />;
   }
 
-  return (
-    <ClerkProvider>{isClientSide ? provider : <Loader />}</ClerkProvider>
-  );
+  return <ClerkProvider>{isClientSide ? provider : <Loader />}</ClerkProvider>;
 }
