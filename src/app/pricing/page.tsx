@@ -13,6 +13,7 @@ export default function Pricing() {
     <EmbedProvider
       apiKey={apiKey}
       apiConfig={apiConfig}
+      warningThresholdConfig={{ showAsLimit: true }}
       settings={{
         ...embedSettings,
         badge: { alignment: "start", visibility: "visible" },
