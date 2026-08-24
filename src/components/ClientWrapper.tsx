@@ -11,6 +11,17 @@ import useAuthContext from "../hooks/useAuthContext";
 import { demoIdentity, isDemoMode } from "../utils/demoContext";
 import Loader from "./Loader";
 
+// Company access token for the v3 customer-tier elements (Invoices, …); the
+// provider calls this lazily and re-calls it after a 401.
+const fetchAccessToken = async (): Promise<string> => {
+  const response = await fetch("/api/accessToken");
+  const result = (await response.json()) as { accessToken?: string };
+  if (result.accessToken === undefined) {
+    throw new Error("Failed to issue a Schematic access token");
+  }
+  return result.accessToken;
+};
+
 // Clerk-derived identify (default, non-demo behavior).
 const SchematicWrapped: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -79,6 +90,7 @@ export default function ClientWrapper({
   const provider = (
     <SchematicProvider
       publishableKey={schematicPubKey}
+      accessToken={fetchAccessToken}
       apiUrl={process.env.NEXT_PUBLIC_SCHEMATIC_API_URL}
       eventUrl={process.env.NEXT_PUBLIC_SCHEMATIC_EVENT_URL}
       webSocketUrl={process.env.NEXT_PUBLIC_SCHEMATIC_WEBSOCKET_URL}
