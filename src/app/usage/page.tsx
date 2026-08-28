@@ -11,10 +11,9 @@ import Loader from "../../components/Loader";
 export default function UsageAndPlan() {
   const [error, setError] = useState<string | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchAccessToken = async () => {
-    setIsLoading(true);
     try {
       const response = await fetch("/api/accessToken");
       const result = await response.json();
@@ -32,6 +31,10 @@ export default function UsageAndPlan() {
   };
 
   useEffect(() => {
+    // Every setState in fetchAccessToken runs after an await, so none of them
+    // is synchronous with the effect body -- the rule can't see through the
+    // async boundary.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchAccessToken();
   }, []);
 
