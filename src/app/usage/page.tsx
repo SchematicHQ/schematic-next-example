@@ -31,9 +31,9 @@ export default function UsageAndPlan() {
   };
 
   useEffect(() => {
-    // Every setState in fetchAccessToken runs after an await, so none of them
-    // is synchronous with the effect body -- the rule can't see through the
-    // async boundary.
+    // The rule traces into fetchAccessToken and flags the setState calls it
+    // finds there. Every one of them runs after an await, so none is a
+    // render-phase update -- which is what the rule exists to catch.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchAccessToken();
   }, []);
