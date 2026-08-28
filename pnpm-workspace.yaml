@@ -2,6 +2,12 @@
 # hijacked-maintainer release usually gets yanked. Frozen installs unaffected.
 minimumReleaseAge: 1440
 
+# schematic-js's deploy jobs bump these seconds after publishing them, so
+# the delay would reject the very version the PR is meant to pin. It is
+# there for third-party supply chains; ours are not one.
+minimumReleaseAgeExclude:
+  - "@schematichq/*"
+
 # Auto-install when node_modules has drifted from the lockfile, so a script
 # never silently runs against a stale tree.
 verifyDepsBeforeRun: install
