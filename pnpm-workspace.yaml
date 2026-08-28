@@ -1,0 +1,17 @@
+# Refuse to resolve a version published in the last 24h — the window in which a
+# hijacked-maintainer release usually gets yanked. Frozen installs unaffected.
+minimumReleaseAge: 1440
+
+# Auto-install when node_modules has drifted from the lockfile, so a script
+# never silently runs against a stale tree.
+verifyDepsBeforeRun: install
+
+overrides:
+  "@types/react": 19.2.14
+  "@types/react-dom": 19.2.3
+
+allowBuilds:
+  # Native bindings that ship prebuilt per-platform packages as optional
+  # dependencies. Their install scripts only compile or fetch a binding when
+  # the matching optional package is missing, which it never is here.
+  unrs-resolver: false
