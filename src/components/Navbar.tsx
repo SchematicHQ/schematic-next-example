@@ -29,6 +29,10 @@ const Navbar = () => {
           >
             Custom Checkout
           </Link>
+
+          <Link href="/invoices" className="text-white hover:text-gray-300">
+            Invoices
+          </Link>
         </div>
 
         <div className="flex items-center space-x-4">
