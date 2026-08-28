@@ -11,10 +11,9 @@ import Loader from "../../components/Loader";
 export default function UsageAndPlan() {
   const [error, setError] = useState<string | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchAccessToken = async () => {
-    setIsLoading(true);
     try {
       const response = await fetch("/api/accessToken");
       const result = await response.json();
@@ -32,6 +31,10 @@ export default function UsageAndPlan() {
   };
 
   useEffect(() => {
+    // The rule traces into fetchAccessToken and flags the setState calls it
+    // finds there. Every one of them runs after an await, so none is a
+    // render-phase update -- which is what the rule exists to catch.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchAccessToken();
   }, []);
 

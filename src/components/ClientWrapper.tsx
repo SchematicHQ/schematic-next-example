@@ -96,7 +96,5 @@ export default function ClientWrapper({
     return isClientSide ? provider : <Loader />;
   }
 
-  return (
-    <ClerkProvider>{isClientSide ? provider : <Loader />}</ClerkProvider>
-  );
+  return <ClerkProvider>{isClientSide ? provider : <Loader />}</ClerkProvider>;
 }

@@ -143,7 +143,6 @@ const Weather: React.FC = () => {
   const initialLoadRef = useRef(true);
   useEffect(() => {
     if (initialLoadRef.current) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       fetchWeather(location);
       initialLoadRef.current = false;
     }
