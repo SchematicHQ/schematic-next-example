@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+
 import {
   deriveInvoiceList,
   resolveLocale,
@@ -8,46 +9,37 @@ import {
   useSchematicLocale,
 } from "@schematichq/schematic-components/v3";
 
-// The page owns its markup rather than rendering <Invoices />, so it styles
-// itself with the app's Tailwind instead of the library's injected CSS. Only
-// the data seam below comes from the v3 package.
-const CARD = "rounded-lg border border-gray-200 bg-white p-6";
-const BUTTON =
-  "rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50";
+import { Badge, type BadgeTone, Button, Card } from "@/components/ui";
 
-const STATUS_STYLE: Record<string, string> = {
-  paid: "border-green-200 bg-green-50 text-green-700",
-  open: "border-amber-200 bg-amber-50 text-amber-700",
-  draft: "border-gray-200 bg-gray-50 text-gray-600",
-  uncollectible: "border-red-200 bg-red-50 text-red-700",
-  void: "border-gray-200 bg-gray-50 text-gray-600",
+const STATUS_TONE: Record<string, BadgeTone> = {
+  paid: "success",
+  open: "warning",
+  draft: "neutral",
+  uncollectible: "danger",
+  void: "neutral",
 };
 
 const StatusPill = ({ status }: { status: string }) => (
-  <span
-    className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-sm font-medium capitalize ${
-      STATUS_STYLE[status] ?? STATUS_STYLE.draft
-    }`}
-  >
+  <Badge className="capitalize" tone={STATUS_TONE[status] ?? "neutral"}>
     {status}
-  </span>
+  </Badge>
 );
 
 const InvoicesSkeleton = () => (
-  <div aria-busy="true" aria-label="Loading invoices" className={CARD}>
+  <Card aria-busy="true" aria-label="Loading invoices">
     <div className="animate-pulse space-y-4">
-      <div className="h-5 w-32 rounded-md bg-gray-100" />
+      <div className="h-5 w-32 rounded-md bg-muted" />
       <div className="space-y-3 pt-2">
         {[0, 1, 2, 3].map((row) => (
           <div className="flex items-center justify-between gap-4" key={row}>
-            <div className="h-4 w-28 rounded bg-gray-100" />
-            <div className="h-4 w-16 rounded bg-gray-100" />
-            <div className="h-5 w-16 rounded-full bg-gray-100" />
+            <div className="h-4 w-28 rounded bg-muted" />
+            <div className="h-4 w-16 rounded bg-muted" />
+            <div className="h-5 w-16 rounded-full bg-muted" />
           </div>
         ))}
       </div>
     </div>
-  </div>
+  </Card>
 );
 
 const InvoicesError = ({
@@ -57,14 +49,12 @@ const InvoicesError = ({
   message: string;
   onRetry: () => void;
 }) => (
-  <div className={CARD} role="alert">
+  <Card role="alert">
     <div className="flex flex-wrap items-center justify-between gap-4">
-      <p className="text-sm text-red-600">{message}</p>
-      <button className={BUTTON} type="button" onClick={onRetry}>
-        Retry
-      </button>
+      <p className="text-sm text-danger">{message}</p>
+      <Button onClick={onRetry}>Retry</Button>
     </div>
-  </div>
+  </Card>
 );
 
 interface InvoiceHistoryProps {
@@ -112,38 +102,38 @@ function InvoiceHistory({
   const hasActions = canCollapse || (showingAll && list?.hasMore === true);
 
   return (
-    <div className={CARD}>
+    <Card>
       <div className="flex items-baseline justify-between gap-4">
-        <h2 className="text-xl font-semibold">Billing history</h2>
+        <h2 className="text-xl">Billing history</h2>
         {rows.length > 0 && (
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-muted-fg">
             {rows.length} {rows.length === 1 ? "invoice" : "invoices"}
           </span>
         )}
       </div>
 
       {rows.length === 0 ? (
-        <p className="py-9 text-center text-sm text-gray-500">
+        <p className="py-9 text-center text-sm text-muted-fg">
           No invoices yet
         </p>
       ) : (
         <table className="mt-5 w-full border-collapse">
           <thead>
-            <tr className="border-b border-gray-200 text-left">
+            <tr className="border-b border-border text-left">
               <th
-                className="pb-2.5 text-sm font-medium text-gray-500"
+                className="pb-2.5 text-sm font-medium text-muted-fg"
                 scope="col"
               >
                 Date
               </th>
               <th
-                className="pb-2.5 text-right text-sm font-medium text-gray-500"
+                className="pb-2.5 text-right text-sm font-medium text-muted-fg"
                 scope="col"
               >
                 Amount
               </th>
               <th
-                className="pb-2.5 text-right text-sm font-medium text-gray-500"
+                className="pb-2.5 text-right text-sm font-medium text-muted-fg"
                 scope="col"
               >
                 Status
@@ -153,7 +143,7 @@ function InvoiceHistory({
           <tbody>
             {visible.map((row) => (
               <tr
-                className="border-b border-gray-200 last:border-0"
+                className="border-b border-border last:border-0"
                 data-testid="sch-invoice"
                 key={row.id}
               >
@@ -162,7 +152,7 @@ function InvoiceHistory({
                     <span>{row.dateText}</span>
                   ) : (
                     <a
-                      className="transition-colors hover:text-blue-600"
+                      className="text-fg transition-colors duration-150 hover:text-accent"
                       href={row.url}
                       rel="noreferrer"
                       target="_blank"
@@ -174,7 +164,7 @@ function InvoiceHistory({
                 <td className="py-3 pr-4 text-right font-medium tabular-nums">
                   {row.isCredit ? (
                     <span
-                      className="text-gray-500"
+                      className="text-muted-fg"
                       title="Credit applied to your account"
                     >
                       ({row.amountText})
@@ -195,40 +185,34 @@ function InvoiceHistory({
       {hasActions && (
         <div className="mt-5 flex items-center gap-3">
           {canCollapse && (
-            <button
-              className={BUTTON}
-              type="button"
-              onClick={() => setExpanded((value) => !value)}
-            >
+            <Button onClick={() => setExpanded((value) => !value)}>
               {expanded ? "Show less" : `Show all ${rows.length}`}
-            </button>
+            </Button>
           )}
           {showingAll && list?.hasMore === true && (
-            <button
-              className={BUTTON}
-              disabled={isPending}
-              type="button"
-              onClick={loadMore}
-            >
+            <Button disabled={isPending} onClick={loadMore}>
               {isPending ? "Loading…" : "Load more"}
-            </button>
+            </Button>
           )}
         </div>
       )}
 
       {error !== undefined && (
-        <p className="mt-5 text-sm text-red-600" role="alert">
+        <p className="mt-5 text-sm text-danger" role="alert">
           {error.message}
         </p>
       )}
-    </div>
+    </Card>
   );
 }
 
 export default function InvoicesPage() {
   return (
     <div className="mx-auto w-full max-w-2xl">
-      <h1 className="text-2xl font-bold mb-4">Invoices</h1>
+      <header className="mb-6">
+        <h1>Invoices</h1>
+        <p className="mt-1 text-muted-fg">Billing history for your account.</p>
+      </header>
       <InvoiceHistory />
     </div>
   );

@@ -1,57 +1,183 @@
 @import "tailwindcss";
 
-@theme {
-  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
-  --background-image-gradient-conic: conic-gradient(
-    from 180deg at 50% 50%,
-    var(--tw-gradient-stops)
-  );
+/*
+  Dark mode is driven by a `dark` class on <html>, not by the media query:
+  ThemeProvider resolves the system preference to that class so an explicit
+  toggle can override it. See src/components/ThemeProvider.tsx.
+*/
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-fg: var(--muted-fg);
+  --color-border: var(--border);
+  --color-border-2: var(--border-2);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+  --color-danger: var(--danger);
+  --color-danger-deep: var(--danger-deep);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-line: var(--danger-line);
+  --color-blue: var(--blue);
+  --color-green: var(--green);
+  --color-amber: var(--amber);
+  --color-amber-ink: var(--amber-ink);
+  --color-amber-soft: var(--amber-soft);
+  --radius-card: var(--r);
+  --font-display: var(--display);
+  --font-heading: var(--heading);
+  --font-body: var(--body);
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --fg: #141414;
+  --card: #ffffff;
+  --muted: #f5f5f5;
+  --muted-fg: #5c5c5c;
+  --border: #e6e6e6;
+  --border-2: #d4d4d4;
+  /*
+    Dark mode uses the embed theme's cyan (#2bbde1) as-is. On white that only
+    reaches 2.2:1, so light mode darkens it to #0d7e9c for 4.7:1 as link text
+    and 4.7:1 for white on a filled button. Same hue, readable in both.
+  */
+  --accent: #0d7e9c;
+  --accent-deep: #0a6580;
+  --accent-fg: #ffffff;
+  --accent-soft: rgba(43, 189, 225, 0.12);
+  --accent-line: rgba(43, 189, 225, 0.34);
+  /*
+    Errors keep their own family rather than borrowing --accent. Recolouring
+    the brand from red to the embed theme's cyan left every error state
+    untouched, which is exactly why they were split.
+  */
+  --danger: #e5484d;
+  --danger-deep: #c4242b;
+  --danger-soft: rgba(229, 72, 77, 0.1);
+  --danger-line: rgba(229, 72, 77, 0.28);
+  --blue: #3b62d6;
+  --green: #0f7a38;
+  --amber: #c98a1e;
+  --amber-ink: #b45309;
+  --amber-soft: rgba(201, 138, 30, 0.14);
+  --r: 10px;
+  --shadow:
+    0 24px 60px -28px rgba(0, 0, 0, 0.28), 0 4px 14px -8px rgba(0, 0, 0, 0.14);
+  --display: var(--font-inter), "Inter", system-ui, sans-serif;
+  --heading: var(--font-manrope), "Manrope", system-ui, sans-serif;
+  --body: var(--font-publicsans), "Public Sans", system-ui, sans-serif;
+}
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
+:root:where(.dark) {
+  color-scheme: dark;
+  /* The original embed theme: cyan on near-black, neutral greys, white text. */
+  --bg: #000000;
+  --fg: #ffffff;
+  --card: #0e0e0e;
+  --muted: #1a1a1a;
+  --muted-fg: #d1d1d1;
+  --border: #262626;
+  --border-2: #383838;
+  --accent: #2bbde1;
+  --accent-deep: #4fcdec;
+  --accent-fg: #0a0a0a;
+  --accent-soft: rgba(43, 189, 225, 0.18);
+  --accent-line: rgba(43, 189, 225, 0.42);
+  --danger: #ff6b6e;
+  --danger-soft: rgba(229, 72, 77, 0.16);
+  --danger-line: rgba(229, 72, 77, 0.4);
+  --green: #3dd68c;
+  --amber-ink: #e3a63a;
+  --shadow:
+    0 30px 70px -30px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
 @layer base {
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
-}
-
-@utility text-balance {
-  text-wrap: balance;
-}
-
-@layer utilities {
-  :root {
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --foreground-rgb: 255, 255, 255;
-      --background-start-rgb: 0, 0, 0;
-      --background-end-rgb: 0, 0, 0;
-    }
+    border-color: var(--border);
   }
 
   body {
-    color: rgb(var(--foreground-rgb));
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgb(var(--background-end-rgb))
-      )
-      rgb(var(--background-start-rgb));
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--body);
+    font-size: 1rem;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /*
+    The original embed theme's type scale, applied to the app's own headings
+    so a page and an embedded component agree. Tailwind's preflight resets
+    headings to inherit, so the scale lives here rather than being re-applied
+    as a utility on every page.
+
+    Families follow the theme too: Inter for h1/h2, Manrope for h3/h4, and
+    Public Sans (the body family) for h5/h6.
+  */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.2;
+  }
+
+  h1,
+  h2 {
+    font-family: var(--display);
+  }
+
+  h3,
+  h4 {
+    font-family: var(--heading);
+  }
+
+  h1 {
+    font-size: 2.3125rem; /* 37px */
+    font-weight: 400;
+  }
+
+  h2 {
+    font-size: 1.8125rem; /* 29px */
+    font-weight: 200;
+  }
+
+  h3 {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 600;
+  }
+
+  h4 {
+    font-size: 1.125rem; /* 18px */
+    font-weight: 800;
+  }
+
+  h5 {
+    font-size: 1.0625rem; /* 17px */
+    font-weight: 500;
+  }
+
+  h6 {
+    font-size: 0.875rem; /* 14px */
+    font-weight: 400;
+    color: var(--muted-fg);
+  }
+
+  ::selection {
+    background: var(--accent-soft);
   }
 }

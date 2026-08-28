@@ -1,5 +1,6 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 const isUnprotectedRoute = createRouteMatcher(["/sign-in", "/sign-up"]);
 

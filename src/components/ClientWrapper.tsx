@@ -1,18 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import { ClerkProvider } from "@clerk/nextjs";
 import {
   SchematicProvider,
   useSchematicEvents,
 } from "@schematichq/schematic-react";
 
-import useAuthContext from "../hooks/useAuthContext";
-import { demoIdentity, isDemoMode } from "../utils/demoContext";
-import Loader from "./Loader";
+import Loader from "@/components/Loader";
+import useAuthContext from "@/hooks/useAuthContext";
+import { demoIdentity, isDemoMode } from "@/utils/demoContext";
 
-// Company access token for the v3 customer-tier elements (Invoices, …); the
-// provider calls this lazily and re-calls it after a 401.
 const fetchAccessToken = async (): Promise<string> => {
   const response = await fetch("/api/accessToken");
   const result = (await response.json()) as { accessToken?: string };
