@@ -48,7 +48,7 @@ const StatusPill = ({ status, t }: { status: string; t: Translator }) => {
 };
 
 const InvoicesSkeleton = ({ label }: { label: string }) => (
-  <Card aria-busy="true" aria-label={label}>
+  <Card aria-busy="true" aria-label={label} role="status">
     <div className="animate-pulse space-y-4">
       <div className="h-5 w-32 rounded-md bg-muted" />
       <div className="space-y-3 pt-2">
@@ -185,7 +185,7 @@ function InvoiceHistory({
                 data-testid="schematic-invoice"
                 key={row.id}
               >
-                <td className="py-3 pr-4">
+                <td className="py-3">
                   {row.url === null ? (
                     <span>{row.dateText}</span>
                   ) : (
@@ -199,9 +199,12 @@ function InvoiceHistory({
                     </a>
                   )}
                 </td>
-                <td className="py-3 pr-4 text-right font-medium tabular-nums">
+                <td className="py-3 text-right font-medium tabular-nums">
                   {row.isCredit ? (
-                    <span className="text-muted-fg" title={t("invoicesCredit")}>
+                    <span
+                      className="cursor-help text-muted-fg"
+                      title={t("invoicesCredit")}
+                    >
                       ({row.amountText})
                     </span>
                   ) : (

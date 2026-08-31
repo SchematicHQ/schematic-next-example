@@ -7,16 +7,25 @@
   display: flex;
   flex-direction: column;
   font-family: var(--body);
+  line-height: var(--text-base--line-height, 1.5);
   padding: 45px;
 }
 
 .schematic-invoices .schematic-header {
-  margin-bottom: 1.25rem;
+  align-items: baseline;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
 }
 
 .schematic-invoices .schematic-header h2 {
-  font-size: 1.25rem;
+  font-size: var(--text-xl, 1.25rem);
+  line-height: var(--text-xl--line-height, calc(1.75 / 1.25));
   margin: 0;
+}
+
+.schematic-invoices .schematic-small {
+  font-size: 0.875rem;
 }
 
 .schematic-invoices__table {
@@ -25,16 +34,12 @@
   width: 100%;
 }
 
-/*
-  The same header row /invoices renders in Tailwind: muted, small, with one
-  rule under it. Alignment comes from the column classes, which the element
-  puts on the headers as well as the cells.
-*/
 .schematic-invoices__table th {
   border-bottom: 1px solid var(--border);
   color: var(--muted-fg);
-  font-size: 0.875rem;
+  font-size: var(--text-sm, 0.875rem);
   font-weight: 500;
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
   padding-bottom: 0.625rem;
 }
 
@@ -49,14 +54,13 @@
 }
 
 .schematic-invoices__date {
-  padding-inline-end: 1rem;
   text-align: start;
 }
 
 .schematic-invoices__date a {
   color: var(--fg);
   text-decoration: none;
-  transition: color 150ms;
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .schematic-invoices__date a:hover {
@@ -75,20 +79,23 @@
 }
 
 .schematic-invoices__status {
-  padding-inline-start: 1rem;
   text-align: end;
   white-space: nowrap;
 }
 
 .schematic-invoices .schematic-chip {
+  align-items: center;
   background: var(--muted);
   border: 1px solid var(--border-2);
   border-radius: 9999px;
   color: var(--muted-fg);
   display: inline-flex;
-  font-size: 0.875rem;
+  font-size: var(--text-sm, 0.875rem);
   font-weight: 500;
+  gap: 0.375rem;
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
   padding: 0.125rem 0.625rem;
+  text-transform: capitalize;
 }
 
 .schematic-invoices .schematic-chip[data-status="paid"] {
@@ -109,14 +116,19 @@
   color: var(--danger-deep);
 }
 
-.schematic-invoices__empty {
+.schematic-invoices .schematic-muted {
   color: var(--muted-fg);
-  font-size: 0.875rem;
+}
+
+.schematic-invoices__empty {
+  font-size: var(--text-sm, 0.875rem);
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
   padding: 2.25rem 0;
   text-align: center;
 }
 
 .schematic-invoices__actions {
+  align-items: center;
   display: flex;
   gap: 0.75rem;
   margin-top: 1.25rem;
@@ -131,15 +143,21 @@
   cursor: pointer;
   display: inline-flex;
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: var(--text-sm, 0.875rem);
   font-weight: 600;
   gap: 0.5rem;
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
   padding: 0.375rem 0.875rem;
-  transition: background-color 150ms;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .schematic-invoices .schematic-link-button:hover {
   background: var(--muted);
+}
+
+.schematic-invoices .schematic-link-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .schematic-invoices .schematic-link-button:focus-visible {
@@ -157,20 +175,60 @@
 
 .schematic-invoices .schematic-error {
   color: var(--danger);
-  font-size: 0.875rem;
+  font-size: var(--text-sm, 0.875rem);
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
 }
 
 .schematic-invoices .schematic-status-note {
-  border-top: 1px solid var(--border);
   margin-top: 1.25rem;
-  padding-top: 1rem;
 }
 
 .schematic-invoices .schematic-skeleton {
-  animation: schematic-invoices-pulse 1.2s ease-in-out infinite;
+  animation: schematic-invoices-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.schematic-invoices .schematic-skeleton:empty {
   background: var(--muted);
   border-radius: var(--r);
-  min-height: 12rem;
+  min-height: 6rem;
+}
+
+.schematic-invoices .schematic-skeleton__heading {
+  background: var(--muted);
+  border-radius: 0.375rem;
+  height: 1.25rem;
+  margin-bottom: 0.75rem;
+  width: 8rem;
+}
+
+.schematic-invoices .schematic-skeleton__row {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.schematic-invoices .schematic-skeleton__cell {
+  background: var(--muted);
+  border-radius: 0.25rem;
+  height: 1rem;
+}
+
+.schematic-invoices .schematic-skeleton__cell[data-column="date"] {
+  width: 7rem;
+}
+
+.schematic-invoices .schematic-skeleton__cell[data-column="amount"] {
+  width: 4rem;
+}
+
+.schematic-invoices .schematic-skeleton__cell[data-column="status"] {
+  border-radius: 9999px;
+  height: 1.25rem;
+  width: 4rem;
 }
 
 @keyframes schematic-invoices-pulse {
