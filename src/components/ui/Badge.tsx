@@ -9,7 +9,7 @@ const TONE = {
   neutral: "border-border-2 bg-muted text-muted-fg",
   success: "border-green/30 bg-green/10 text-green",
   warning: "border-amber/30 bg-amber-soft text-amber-ink",
-  danger: "border-danger-line bg-danger-soft text-danger-deep dark:text-danger",
+  danger: "border-danger-line bg-danger-soft text-danger-deep",
 } as const;
 
 export type BadgeTone = keyof typeof TONE;

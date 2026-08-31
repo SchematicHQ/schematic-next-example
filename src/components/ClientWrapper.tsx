@@ -10,8 +10,11 @@ import {
 
 import Loader from "@/components/Loader";
 import useAuthContext from "@/hooks/useAuthContext";
-import { demoIdentity, isDemoMode } from "@/utils/demoContext";
+import { demoCompanyKeys, demoIdentity, isDemoMode } from "@/utils/demoContext";
 
+// `accessToken` takes a provider the client calls, and re-calls after a 401.
+// Its identity is never read as a session, so this could equally be written
+// inline on the provider without dropping a loaded resource per render.
 const fetchAccessToken = async (): Promise<string> => {
   const response = await fetch("/api/accessToken");
   const result = (await response.json()) as { accessToken?: string };
@@ -68,6 +71,49 @@ const SchematicWrappedDemo: React.FC<{ children: React.ReactNode }> = ({
   return children;
 };
 
+const SchematicSession: React.FC<{
+  children: React.ReactNode;
+  publishableKey: string;
+  /**
+   * Names the company the access token belongs to. `/api/accessToken` reads
+   * the Clerk session server-side, so switching orgs changes the company
+   * behind the same provider function with nothing in the function — or in
+   * the token it returns — to say so. A change here drops every loaded
+   * company resource, which is what keeps the previous org's invoices from
+   * staying on screen.
+   */
+  sessionKey: string | undefined;
+}> = ({ children, publishableKey, sessionKey }) => (
+  <SchematicProvider
+    publishableKey={publishableKey}
+    accessToken={fetchAccessToken}
+    sessionKey={sessionKey}
+    apiUrl={process.env.NEXT_PUBLIC_SCHEMATIC_API_URL}
+    eventUrl={process.env.NEXT_PUBLIC_SCHEMATIC_EVENT_URL}
+    webSocketUrl={process.env.NEXT_PUBLIC_SCHEMATIC_WEBSOCKET_URL}
+  >
+    {children}
+  </SchematicProvider>
+);
+
+// Clerk's org id is only readable inside ClerkProvider, so the session key is
+// resolved here rather than in ClientWrapper.
+const SchematicClerkSession: React.FC<{
+  children: React.ReactNode;
+  publishableKey: string;
+}> = ({ children, publishableKey }) => {
+  const authContext = useAuthContext();
+
+  return (
+    <SchematicSession
+      publishableKey={publishableKey}
+      sessionKey={authContext?.company.keys.clerkId}
+    >
+      <SchematicWrapped>{children}</SchematicWrapped>
+    </SchematicSession>
+  );
+};
+
 export default function ClientWrapper({
   children,
 }: {
@@ -86,26 +132,29 @@ export default function ClientWrapper({
     setIsClientSide(true);
   }, []);
 
-  const provider = (
-    <SchematicProvider
-      publishableKey={schematicPubKey}
-      accessToken={fetchAccessToken}
-      apiUrl={process.env.NEXT_PUBLIC_SCHEMATIC_API_URL}
-      eventUrl={process.env.NEXT_PUBLIC_SCHEMATIC_EVENT_URL}
-      webSocketUrl={process.env.NEXT_PUBLIC_SCHEMATIC_WEBSOCKET_URL}
-    >
-      {isDemoMode() ? (
-        <SchematicWrappedDemo>{children}</SchematicWrappedDemo>
-      ) : (
-        <SchematicWrapped>{children}</SchematicWrapped>
-      )}
-    </SchematicProvider>
-  );
-
   // Demo mode: skip ClerkProvider entirely so the app boots with no Clerk keys.
   if (isDemoMode()) {
-    return isClientSide ? provider : <Loader />;
+    return isClientSide ? (
+      <SchematicSession
+        publishableKey={schematicPubKey}
+        sessionKey={demoCompanyKeys.id}
+      >
+        <SchematicWrappedDemo>{children}</SchematicWrappedDemo>
+      </SchematicSession>
+    ) : (
+      <Loader />
+    );
   }
 
-  return <ClerkProvider>{isClientSide ? provider : <Loader />}</ClerkProvider>;
+  return (
+    <ClerkProvider>
+      {isClientSide ? (
+        <SchematicClerkSession publishableKey={schematicPubKey}>
+          {children}
+        </SchematicClerkSession>
+      ) : (
+        <Loader />
+      )}
+    </ClerkProvider>
+  );
 }

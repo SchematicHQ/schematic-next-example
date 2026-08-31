@@ -12,13 +12,14 @@ for the embedded portal, pricing table, and checkout. Auth is
 
 ## What's in here
 
-| Route              | Shows                                                           |
-| ------------------ | --------------------------------------------------------------- |
-| `/`                | Feature flags and usage tracking gating a weather search        |
-| `/pricing`         | `<PricingTable>` — plans and upgrade CTA                        |
-| `/usage`           | `<SchematicEmbed>` — the full customer portal                   |
-| `/custom-checkout` | Driving `<CheckoutDialog>` yourself from your own button        |
-| `/invoices`        | Building your own UI on the v3 data hooks, no Schematic styling |
+| Route               | Shows                                                            |
+| ------------------- | ---------------------------------------------------------------- |
+| `/`                 | Feature flags and usage tracking gating a weather search         |
+| `/pricing`          | `<PricingTable>` — plans and upgrade CTA                         |
+| `/usage`            | `<SchematicEmbed>` — the full customer portal                    |
+| `/custom-checkout`  | Driving `<CheckoutDialog>` yourself from your own button         |
+| `/invoices`         | Building your own UI on the v3 data hooks, no Schematic styling  |
+| `/invoices-element` | The same data through `<Invoices>`, styled by its own class names |
 
 ## Prerequisites
 
@@ -48,7 +49,7 @@ Schematic, with Stripe customer IDs in private metadata on your Clerk orgs.
 4. Install and run:
 
    ```bash
-   yarn && yarn dev
+   pnpm install && pnpm dev
    ```
 
 5. Open [http://localhost:3000](http://localhost:3000).
@@ -68,10 +69,17 @@ every feature will read as unentitled. See `src/utils/demoContext.ts`.
 <SchematicProvider
   publishableKey={schematicPubKey}
   accessToken={fetchAccessToken}
+  sessionKey={authContext?.company.keys.clerkId}
 >
   {children}
 </SchematicProvider>
 ```
+
+`accessToken` takes the fetcher itself, and the client re-calls it after a 401.
+`sessionKey` names the company that token belongs to — needed only with a
+provider function, where nothing in the function or in the token it returns can
+say the company changed. A change to it drops every loaded company resource, so
+switching Clerk orgs can't leave the previous org's invoices on screen.
 
 **2. Identify the user and company.** Also in `ClientWrapper`, via the `identify`
 function from `useSchematicEvents`:
@@ -141,9 +149,9 @@ shape. It uses the v3 data hooks and renders entirely your own markup:
 ```tsx
 import {
   deriveInvoiceList,
-  resolveLocale,
   useInvoices,
-  useSchematicLocale,
+  useResolvedLocale,
+  useTranslator,
 } from "@schematichq/schematic-components/v3";
 
 const {
@@ -155,14 +163,25 @@ const {
 } = useInvoices({
   includePending: true,
 });
-const locale = resolveLocale(useSchematicLocale());
+const locale = useResolvedLocale();
+const t = useTranslator({ invoicesHeader: "Billing history" });
 const list = page && deriveInvoiceList(page, { locale });
 ```
 
 `useInvoices` handles fetching and pagination; `deriveInvoiceList` turns a raw
 page into display-ready rows (formatted dates, localised amounts, credit
-flags). See `src/app/invoices/page.tsx` for the loading, error, and empty
-states, plus show-more and load-more handling.
+flags), each carrying the raw `amountMinor`, `currency`, and `date` beside the
+formatted text. `useResolvedLocale` and `useTranslator` resolve the same locale
+and copy the element would, so your own markup and a `<Invoices>` elsewhere on
+the page never disagree. See `src/app/invoices/page.tsx` for the loading,
+error, and empty states, plus show-more and load-more handling.
+
+`/invoices-element` renders the same data through the packaged `<Invoices>`
+element instead, with `src/app/invoices-element/invoices.css` styling it
+through the documented class names rather than `<SchematicStyles />`. Copy is
+renamed by key — `strings={{ invoicesHeader: "Billing history" }}` — which is
+the whole integration for a host that wants different words in one language;
+`translate` on the provider routes every string through an i18n stack instead.
 
 ## Styling
 
@@ -200,9 +219,9 @@ src/
 ## Scripts
 
 ```bash
-yarn dev      # dev server on :3000
-yarn build    # production build
-yarn start    # serve the build on :3001
-yarn lint     # eslint
-yarn format   # prettier
+pnpm dev      # dev server on :3000
+pnpm build    # production build
+pnpm start    # serve the build on :3001
+pnpm lint     # eslint
+pnpm format   # prettier
 ```

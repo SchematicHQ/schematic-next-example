@@ -32,6 +32,9 @@ const Navbar = () => {
             <Link href="/invoices" className={NAV_LINK}>
               Invoices
             </Link>
+            <Link href="/invoices-element" className={NAV_LINK}>
+              Invoices (element)
+            </Link>
           </div>
         </div>
 

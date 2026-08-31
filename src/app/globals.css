@@ -92,6 +92,13 @@
   --accent-soft: rgba(43, 189, 225, 0.18);
   --accent-line: rgba(43, 189, 225, 0.42);
   --danger: #ff6b6e;
+  /*
+    "Deep" is the text sitting on a soft tint, so it flips with the mode the
+    way --accent-deep does: darker than --danger on white, lighter on black.
+    Left at the light value it read 2.9:1 on --danger-soft over --card; this
+    is 7.4:1, against 5.1:1 for the light pair.
+  */
+  --danger-deep: #ff8a8d;
   --danger-soft: rgba(229, 72, 77, 0.16);
   --danger-line: rgba(229, 72, 77, 0.4);
   --green: #3dd68c;

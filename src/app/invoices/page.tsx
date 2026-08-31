@@ -4,12 +4,21 @@ import { useMemo, useState } from "react";
 
 import {
   deriveInvoiceList,
-  resolveLocale,
+  plural,
+  type StringKey,
+  type Translator,
   useInvoices,
-  useSchematicLocale,
+  useResolvedLocale,
+  useTranslator,
 } from "@schematichq/schematic-components/v3";
 
 import { Badge, type BadgeTone, Button, Card } from "@/components/ui";
+
+// This page renders its own markup, but resolves its copy through the same
+// translator the element uses — so `strings` or `translate` on the provider
+// reaches it too, and the two pages never disagree. Only the heading differs
+// from the element's English.
+const STRINGS = { invoicesHeader: "Billing history" };
 
 const STATUS_TONE: Record<string, BadgeTone> = {
   paid: "success",
@@ -19,14 +28,27 @@ const STATUS_TONE: Record<string, BadgeTone> = {
   void: "neutral",
 };
 
-const StatusPill = ({ status }: { status: string }) => (
-  <Badge className="capitalize" tone={STATUS_TONE[status] ?? "neutral"}>
-    {status}
-  </Badge>
-);
+// The copy key per status. The wire type is a bare string, so a status the
+// API adds arrives here with no entry and renders its raw value.
+const STATUS_KEY: Record<string, StringKey> = {
+  draft: "invoiceStatusDraft",
+  open: "invoiceStatusOpen",
+  paid: "invoiceStatusPaid",
+  uncollectible: "invoiceStatusUncollectible",
+  void: "invoiceStatusVoid",
+};
 
-const InvoicesSkeleton = () => (
-  <Card aria-busy="true" aria-label="Loading invoices">
+const StatusPill = ({ status, t }: { status: string; t: Translator }) => {
+  const key = STATUS_KEY[status] as StringKey | undefined;
+  return (
+    <Badge className="capitalize" tone={STATUS_TONE[status] ?? "neutral"}>
+      {key === undefined ? status : t(key)}
+    </Badge>
+  );
+};
+
+const InvoicesSkeleton = ({ label }: { label: string }) => (
+  <Card aria-busy="true" aria-label={label}>
     <div className="animate-pulse space-y-4">
       <div className="h-5 w-32 rounded-md bg-muted" />
       <div className="space-y-3 pt-2">
@@ -45,14 +67,16 @@ const InvoicesSkeleton = () => (
 const InvoicesError = ({
   message,
   onRetry,
+  retryText,
 }: {
   message: string;
   onRetry: () => void;
+  retryText: string;
 }) => (
   <Card role="alert">
     <div className="flex flex-wrap items-center justify-between gap-4">
       <p className="text-sm text-danger">{message}</p>
-      <Button onClick={onRetry}>Retry</Button>
+      <Button onClick={onRetry}>{retryText}</Button>
     </div>
   </Card>
 );
@@ -74,7 +98,11 @@ function InvoiceHistory({
     refetch,
   } = useInvoices({ includePending });
 
-  const locale = resolveLocale(useSchematicLocale());
+  // The same locale and copy an element would resolve: the provider's
+  // `locale`, else the viewer's, read after mount so a server render and its
+  // hydration format identically.
+  const locale = useResolvedLocale();
+  const t = useTranslator(STRINGS);
 
   const [expanded, setExpanded] = useState(false);
 
@@ -88,10 +116,16 @@ function InvoiceHistory({
   // nothing to show replaces the card.
   if (list === undefined) {
     if (error !== undefined) {
-      return <InvoicesError message={error.message} onRetry={refetch} />;
+      return (
+        <InvoicesError
+          message={error.message}
+          onRetry={refetch}
+          retryText={t("retry")}
+        />
+      );
     }
     if (isPending) {
-      return <InvoicesSkeleton />;
+      return <InvoicesSkeleton label={t("invoicesLoading")} />;
     }
   }
 
@@ -104,17 +138,21 @@ function InvoiceHistory({
   return (
     <Card>
       <div className="flex items-baseline justify-between gap-4">
-        <h2 className="text-xl">Billing history</h2>
+        <h2 className="text-xl">{t("invoicesHeader")}</h2>
         {rows.length > 0 && (
           <span className="text-sm text-muted-fg">
-            {rows.length} {rows.length === 1 ? "invoice" : "invoices"}
+            {rows.length}{" "}
+            {plural(locale, rows.length, {
+              one: "invoice",
+              other: "invoices",
+            })}
           </span>
         )}
       </div>
 
       {rows.length === 0 ? (
         <p className="py-9 text-center text-sm text-muted-fg">
-          No invoices yet
+          {t("invoicesEmpty")}
         </p>
       ) : (
         <table className="mt-5 w-full border-collapse">
@@ -124,19 +162,19 @@ function InvoiceHistory({
                 className="pb-2.5 text-sm font-medium text-muted-fg"
                 scope="col"
               >
-                Date
+                {t("invoicesDateColumn")}
               </th>
               <th
                 className="pb-2.5 text-right text-sm font-medium text-muted-fg"
                 scope="col"
               >
-                Amount
+                {t("invoicesAmountColumn")}
               </th>
               <th
                 className="pb-2.5 text-right text-sm font-medium text-muted-fg"
                 scope="col"
               >
-                Status
+                {t("invoicesStatusColumn")}
               </th>
             </tr>
           </thead>
@@ -144,7 +182,7 @@ function InvoiceHistory({
             {visible.map((row) => (
               <tr
                 className="border-b border-border last:border-0"
-                data-testid="sch-invoice"
+                data-testid="schematic-invoice"
                 key={row.id}
               >
                 <td className="py-3 pr-4">
@@ -163,10 +201,7 @@ function InvoiceHistory({
                 </td>
                 <td className="py-3 pr-4 text-right font-medium tabular-nums">
                   {row.isCredit ? (
-                    <span
-                      className="text-muted-fg"
-                      title="Credit applied to your account"
-                    >
+                    <span className="text-muted-fg" title={t("invoicesCredit")}>
                       ({row.amountText})
                     </span>
                   ) : (
@@ -174,7 +209,9 @@ function InvoiceHistory({
                   )}
                 </td>
                 <td className="py-3 text-right whitespace-nowrap">
-                  {row.status !== null && <StatusPill status={row.status} />}
+                  {row.status !== null && (
+                    <StatusPill status={row.status} t={t} />
+                  )}
                 </td>
               </tr>
             ))}
@@ -186,12 +223,21 @@ function InvoiceHistory({
         <div className="mt-5 flex items-center gap-3">
           {canCollapse && (
             <Button onClick={() => setExpanded((value) => !value)}>
-              {expanded ? "Show less" : `Show all ${rows.length}`}
+              {expanded ? t("invoicesSeeLess") : t("invoicesSeeMore")}
             </Button>
           )}
           {showingAll && list?.hasMore === true && (
-            <Button disabled={isPending} onClick={loadMore}>
-              {isPending ? "Loading…" : "Load more"}
+            <Button
+              disabled={isPending}
+              // Expanding with it: the next page can take the list past
+              // `limit`, and a list that collapsed on its own would take away
+              // the rows the click just fetched.
+              onClick={() => {
+                setExpanded(true);
+                void loadMore();
+              }}
+            >
+              {t("invoicesLoadMore")}
             </Button>
           )}
         </div>
