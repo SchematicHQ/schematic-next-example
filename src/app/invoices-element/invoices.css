@@ -8,7 +8,7 @@
   flex-direction: column;
   font-family: var(--body);
   line-height: var(--text-base--line-height, 1.5);
-  padding: 45px;
+  padding: 2.8125rem;
 }
 
 .schematic-invoices .schematic-header {
@@ -18,14 +18,15 @@
   justify-content: space-between;
 }
 
-.schematic-invoices .schematic-header h2 {
+.schematic-invoices .schematic-header :is(h2, h3, h4, h5, h6) {
   font-size: var(--text-xl, 1.25rem);
   line-height: var(--text-xl--line-height, calc(1.75 / 1.25));
   margin: 0;
 }
 
 .schematic-invoices .schematic-small {
-  font-size: 0.875rem;
+  font-size: var(--text-sm, 0.875rem);
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
 }
 
 .schematic-invoices__table {
