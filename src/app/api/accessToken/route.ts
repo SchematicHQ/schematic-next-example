@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
 import { SchematicClient } from "@schematichq/schematic-typescript-node";
+import { NextResponse } from "next/server";
 
-import { getAuthOrgId, AuthError } from "../../../utils/auth";
-import { demoCompanyKeys, isDemoMode } from "../../../utils/demoContext";
+import { AuthError, getAuthOrgId } from "@/utils/auth";
+import { demoCompanyKeys, isDemoMode } from "@/utils/demoContext";
 
 export async function GET() {
   const apiKey = process.env.SCHEMATIC_SECRET_KEY;

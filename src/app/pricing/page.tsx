@@ -2,12 +2,13 @@
 
 import { EmbedProvider, PricingTable } from "@schematichq/schematic-components";
 
-import { embedSettings } from "../embedSettings";
+import useEmbedSettings from "@/hooks/useEmbedSettings";
 
 export default function Pricing() {
   const apiKey = process.env.NEXT_PUBLIC_SCHEMATIC_PUBLISHABLE_KEY;
   const apiUrl = process.env.NEXT_PUBLIC_SCHEMATIC_API_URL;
   const apiConfig = apiUrl ? { basePath: apiUrl } : undefined;
+  const embedSettings = useEmbedSettings();
 
   return (
     <EmbedProvider

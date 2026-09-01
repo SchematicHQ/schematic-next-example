@@ -15,6 +15,9 @@ verifyDepsBeforeRun: install
 overrides:
   "@types/react": 19.2.14
   "@types/react-dom": 19.2.3
+  "@schematichq/schematic-components": link:../schematic-js/components
+  "@schematichq/schematic-react": link:../schematic-js/react
+  '@schematichq/schematic-js': link:../schematic-js/js
 
 allowBuilds:
   # Native bindings that ship prebuilt per-platform packages as optional
