@@ -1,6 +1,7 @@
 "use client";
 
 import { ClerkProvider } from "@clerk/nextjs";
+import { SchematicStyles } from "@schematichq/schematic-components/v3";
 import {
   SchematicProvider,
   useSchematicEvents,
@@ -80,6 +81,7 @@ const SchematicSession: React.FC<{
     eventUrl={process.env.NEXT_PUBLIC_SCHEMATIC_EVENT_URL}
     webSocketUrl={process.env.NEXT_PUBLIC_SCHEMATIC_WEBSOCKET_URL}
   >
+    <SchematicStyles />
     {children}
   </SchematicProvider>
 );

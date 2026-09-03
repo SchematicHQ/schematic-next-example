@@ -18,13 +18,13 @@
   justify-content: space-between;
 }
 
-.schematic-invoices .schematic-header :is(h2, h3, h4, h5, h6) {
+.schematic-invoices .schematic-header__title {
   font-size: var(--text-xl, 1.25rem);
   line-height: var(--text-xl--line-height, calc(1.75 / 1.25));
   margin: 0;
 }
 
-.schematic-invoices .schematic-small {
+.schematic-invoices__count {
   font-size: var(--text-sm, 0.875rem);
   line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
 }
@@ -35,7 +35,7 @@
   width: 100%;
 }
 
-.schematic-invoices__table th {
+.schematic-invoices__column {
   border-bottom: 1px solid var(--border);
   color: var(--muted-fg);
   font-size: var(--text-sm, 0.875rem);
@@ -44,13 +44,13 @@
   padding-bottom: 0.625rem;
 }
 
-.schematic-invoices__table td {
+.schematic-invoices__cell {
   border-top: 1px solid var(--border);
   padding: 0.75rem 0;
   vertical-align: middle;
 }
 
-.schematic-invoices__table tbody tr:first-child td {
+.schematic-invoices__row:first-child .schematic-invoices__cell {
   border-top: none;
 }
 
@@ -58,13 +58,13 @@
   text-align: start;
 }
 
-.schematic-invoices__date a {
+.schematic-invoices__link {
   color: var(--fg);
   text-decoration: none;
   transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.schematic-invoices__date a:hover {
+.schematic-invoices__link:hover {
   color: var(--accent);
 }
 
@@ -84,7 +84,7 @@
   white-space: nowrap;
 }
 
-.schematic-invoices .schematic-chip {
+.schematic-invoices__chip {
   align-items: center;
   background: var(--muted);
   border: 1px solid var(--border-2);
@@ -99,25 +99,26 @@
   text-transform: capitalize;
 }
 
-.schematic-invoices .schematic-chip[data-status="paid"] {
+.schematic-invoices__chip[data-status="paid"] {
   background: color-mix(in srgb, var(--green) 10%, transparent);
   border-color: color-mix(in srgb, var(--green) 30%, transparent);
   color: var(--green);
 }
 
-.schematic-invoices .schematic-chip[data-status="open"] {
+.schematic-invoices__chip[data-status="open"] {
   background: var(--amber-soft);
   border-color: color-mix(in srgb, var(--amber) 30%, transparent);
   color: var(--amber-ink);
 }
 
-.schematic-invoices .schematic-chip[data-status="uncollectible"] {
+.schematic-invoices__chip[data-status="uncollectible"] {
   background: var(--danger-soft);
   border-color: var(--danger-line);
   color: var(--danger-deep);
 }
 
-.schematic-invoices .schematic-muted {
+.schematic-invoices__count,
+.schematic-invoices__empty {
   color: var(--muted-fg);
 }
 
@@ -135,7 +136,9 @@
   margin-top: 1.25rem;
 }
 
-.schematic-invoices .schematic-link-button {
+.schematic-invoices__see-more,
+.schematic-invoices__load-more,
+.schematic-invoices .schematic-status__retry {
   align-items: center;
   background: none;
   border: 1px solid var(--border-2);
@@ -152,16 +155,20 @@
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.schematic-invoices .schematic-link-button:hover {
+.schematic-invoices__see-more:hover,
+.schematic-invoices__load-more:hover,
+.schematic-invoices .schematic-status__retry:hover {
   background: var(--muted);
 }
 
-.schematic-invoices .schematic-link-button:disabled {
+.schematic-invoices__load-more:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.schematic-invoices .schematic-link-button:focus-visible {
+.schematic-invoices__see-more:focus-visible,
+.schematic-invoices__load-more:focus-visible,
+.schematic-invoices .schematic-status__retry:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -174,7 +181,8 @@
   justify-content: space-between;
 }
 
-.schematic-invoices .schematic-error {
+.schematic-invoices .schematic-status__message,
+.schematic-invoices .schematic-status-note {
   color: var(--danger);
   font-size: var(--text-sm, 0.875rem);
   line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
@@ -189,12 +197,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-}
-
-.schematic-invoices .schematic-skeleton:empty {
-  background: var(--muted);
-  border-radius: var(--r);
-  min-height: 6rem;
 }
 
 .schematic-invoices .schematic-skeleton__heading {

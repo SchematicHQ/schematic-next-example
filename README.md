@@ -177,9 +177,13 @@ the page never disagree. See `src/components/billing/InvoiceHistory.tsx` for
 the loading, error, and empty states, plus show-more and load-more handling.
 
 `/account/billing` renders the same data through the packaged `<Invoices>`
-element instead, with `src/app/account/billing/invoices.css` styling it
-through the documented class names rather than `<SchematicStyles />`. Copy is
-renamed by key — `strings={{ invoicesHeader: "Billing history" }}` — which is
+element instead, styled by `<SchematicStyles />` — mounted once on the
+provider in `src/components/ClientWrapper.tsx`. That is the packaged element
+as a host gets it out of the box, and the sheet follows the app's
+`color-scheme`, so it tracks the theme toggle with nothing to wire up.
+`src/app/account/billing/invoices.css` is the other way to do it: a complete
+restyle through the documented class names, kept on disk and left unimported
+so you can swap it in. Copy is renamed by key — `strings={{ invoicesHeader: "Billing history" }}` — which is
 the whole integration for a host that wants different words in one language;
 `translate` on the provider routes every string through an i18n stack instead.
 Both pages take their query, row limit, and copy from `src/utils/billing.ts`,
