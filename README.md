@@ -12,14 +12,14 @@ for the embedded portal, pricing table, and checkout. Auth is
 
 ## What's in here
 
-| Route               | Shows                                                            |
-| ------------------- | ---------------------------------------------------------------- |
-| `/`                 | Feature flags and usage tracking gating a weather search         |
-| `/pricing`          | `<PricingTable>` — plans and upgrade CTA                         |
-| `/usage`            | `<SchematicEmbed>` — the full customer portal                    |
-| `/custom-checkout`  | Driving `<CheckoutDialog>` yourself from your own button         |
-| `/invoices`         | Building your own UI on the v3 data hooks, no Schematic styling  |
-| `/invoices-element` | The same data through `<Invoices>`, styled by its own class names |
+| Route              | Shows                                                    |
+| ------------------ | -------------------------------------------------------- |
+| `/`                | Feature flags and usage tracking gating a weather search |
+| `/pricing`         | `<PricingTable>` — plans and upgrade CTA                 |
+| `/usage`           | `<SchematicEmbed>` — the full customer portal            |
+| `/custom-checkout` | Driving `<CheckoutDialog>` yourself from your own button |
+| `/billing`         | Billing history, built on the v3 data hooks              |
+| `/account/billing` | The same card from `<Invoices>`                          |
 
 ## Prerequisites
 
@@ -143,7 +143,7 @@ On the client, `src/hooks/useAccessToken.ts` wraps that call.
 
 ### Building your own UI on Schematic data
 
-`/invoices` is the example to copy when the prebuilt components aren't the right
+`/billing` is the example to copy when the prebuilt components aren't the right
 shape. It uses the v3 data hooks and renders entirely your own markup:
 
 ```tsx
@@ -173,15 +173,17 @@ page into display-ready rows (formatted dates, localised amounts, credit
 flags), each carrying the raw `amountMinor`, `currency`, and `date` beside the
 formatted text. `useResolvedLocale` and `useTranslator` resolve the same locale
 and copy the element would, so your own markup and a `<Invoices>` elsewhere on
-the page never disagree. See `src/app/invoices/page.tsx` for the loading,
-error, and empty states, plus show-more and load-more handling.
+the page never disagree. See `src/components/billing/InvoiceHistory.tsx` for
+the loading, error, and empty states, plus show-more and load-more handling.
 
-`/invoices-element` renders the same data through the packaged `<Invoices>`
-element instead, with `src/app/invoices-element/invoices.css` styling it
+`/account/billing` renders the same data through the packaged `<Invoices>`
+element instead, with `src/app/account/billing/invoices.css` styling it
 through the documented class names rather than `<SchematicStyles />`. Copy is
 renamed by key — `strings={{ invoicesHeader: "Billing history" }}` — which is
 the whole integration for a host that wants different words in one language;
 `translate` on the provider routes every string through an i18n stack instead.
+Both pages take their query, row limit, and copy from `src/utils/billing.ts`,
+so the two showing the same figures is a fact rather than a coincidence.
 
 ## Styling
 

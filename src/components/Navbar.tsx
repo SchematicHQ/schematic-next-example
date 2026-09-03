@@ -28,11 +28,11 @@ const Navbar = () => {
             <Link href="/custom-checkout" className={NAV_LINK}>
               Checkout
             </Link>
-            <Link href="/invoices" className={NAV_LINK}>
-              Invoices
+            <Link href="/billing" className={NAV_LINK}>
+              Billing
             </Link>
-            <Link href="/invoices-element" className={NAV_LINK}>
-              Invoices (element)
+            <Link href="/account/billing" className={NAV_LINK}>
+              Account
             </Link>
           </div>
         </div>

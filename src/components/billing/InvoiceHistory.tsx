@@ -12,8 +12,7 @@ import {
 import { useMemo, useState } from "react";
 
 import { Badge, type BadgeTone, Button, Card } from "@/components/ui";
-
-const STRINGS = { invoicesHeader: "Billing history" };
+import { INVOICE_LIMIT, INVOICE_QUERY, INVOICE_STRINGS } from "@/utils/billing";
 
 const STATUS_TONE: Record<string, BadgeTone> = {
   paid: "success",
@@ -74,25 +73,18 @@ const InvoicesError = ({
   </Card>
 );
 
-interface InvoiceHistoryProps {
-  includePending?: boolean;
-  limit?: number;
-}
-
-function InvoiceHistory({
-  includePending = true,
-  limit = 10,
-}: InvoiceHistoryProps) {
+/** Billing history, hand-built on `useInvoices`. */
+export function InvoiceHistory() {
   const {
     data: page,
     error,
     isPending,
     loadMore,
     refetch,
-  } = useInvoices({ includePending });
+  } = useInvoices(INVOICE_QUERY);
 
   const locale = useResolvedLocale();
-  const t = useTranslator(STRINGS);
+  const t = useTranslator(INVOICE_STRINGS);
 
   const [expanded, setExpanded] = useState(false);
 
@@ -118,9 +110,9 @@ function InvoiceHistory({
   }
 
   const rows = list?.rows ?? [];
-  const canCollapse = rows.length > limit;
+  const canCollapse = rows.length > INVOICE_LIMIT;
   const showingAll = !canCollapse || expanded;
-  const visible = showingAll ? rows : rows.slice(0, limit);
+  const visible = showingAll ? rows : rows.slice(0, INVOICE_LIMIT);
   const hasActions = canCollapse || (showingAll && list?.hasMore === true);
 
   return (
@@ -237,17 +229,5 @@ function InvoiceHistory({
         </p>
       )}
     </Card>
-  );
-}
-
-export default function InvoicesPage() {
-  return (
-    <div className="mx-auto w-full max-w-2xl">
-      <header className="mb-6">
-        <h1>Invoices</h1>
-        <p className="mt-1 text-muted-fg">Billing history for your account.</p>
-      </header>
-      <InvoiceHistory />
-    </div>
   );
 }
