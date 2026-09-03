@@ -2,7 +2,7 @@
 
 A working example of [Schematic](https://schematichq.com) in a Next.js App Router
 app: feature flags, usage tracking, entitlement enforcement, an embedded customer
-portal, a custom checkout flow, and a hand-built invoice table.
+portal, a custom checkout flow, and hand-built billing pages.
 
 It uses [`schematic-react`](https://github.com/schematichq/schematic-js/tree/main/react)
 for flags and usage tracking, and
@@ -12,14 +12,14 @@ for the embedded portal, pricing table, and checkout. Auth is
 
 ## What's in here
 
-| Route              | Shows                                                    |
-| ------------------ | -------------------------------------------------------- |
-| `/`                | Feature flags and usage tracking gating a weather search |
-| `/pricing`         | `<PricingTable>` — plans and upgrade CTA                 |
-| `/usage`           | `<SchematicEmbed>` — the full customer portal            |
-| `/custom-checkout` | Driving `<CheckoutDialog>` yourself from your own button |
-| `/billing`         | Billing history, built on the v3 data hooks              |
-| `/account/billing` | The same card from `<Invoices>`                          |
+| Route              | Shows                                                     |
+| ------------------ | --------------------------------------------------------- |
+| `/`                | Feature flags and usage tracking gating a weather search  |
+| `/pricing`         | `<PricingTable>` — plans and upgrade CTA                  |
+| `/usage`           | `<SchematicEmbed>` — the full customer portal             |
+| `/custom-checkout` | Driving `<CheckoutDialog>` yourself from your own button  |
+| `/billing`         | Next bill and billing history, built on the v3 data hooks |
+| `/account/billing` | The same two cards from `<UpcomingBill>` and `<Invoices>` |
 
 ## Prerequisites
 
@@ -176,14 +176,20 @@ and copy the element would, so your own markup and a `<Invoices>` elsewhere on
 the page never disagree. See `src/components/billing/InvoiceHistory.tsx` for
 the loading, error, and empty states, plus show-more and load-more handling.
 
-`/account/billing` renders the same data through the packaged `<Invoices>`
-element instead, styled by `<SchematicStyles />` — mounted once on the
-provider in `src/components/ClientWrapper.tsx`. That is the packaged element
-as a host gets it out of the box, and the sheet follows the app's
-`color-scheme`, so it tracks the theme toggle with nothing to wire up.
-`src/app/account/billing/invoices.css` is the other way to do it: a complete
-restyle through the documented class names, kept on disk and left unimported
-so you can swap it in. Copy is renamed by key — `strings={{ invoicesHeader: "Billing history" }}` — which is
+The card above it is `useUpcomingInvoice` and `deriveUpcomingInvoice` — the
+next bill, with the account balance and discounts that shaped it. Its `data`
+is `UpcomingInvoice | null`, where `null` is a loaded answer meaning there is
+nothing to bill (no subscription, or one that is ending), so only `undefined`
+is still loading.
+
+`/account/billing` renders those two cards from the packaged `<UpcomingBill>`
+and `<Invoices>` instead, styled by `<SchematicStyles />` — mounted once on
+the provider in `src/components/ClientWrapper.tsx`. That is the packaged
+elements as a host gets them out of the box, and the sheet follows the app's
+`color-scheme`, so they track the theme toggle with nothing to wire up.
+`src/app/account/billing/*.css` is the other way to do it: a complete restyle
+through the documented class names, kept on disk and left unimported so you
+can swap them in. Copy is renamed by key — `strings={{ invoicesHeader: "Billing history" }}` — which is
 the whole integration for a host that wants different words in one language;
 `translate` on the provider routes every string through an i18n stack instead.
 Both pages take their query, row limit, and copy from `src/utils/billing.ts`,
@@ -216,6 +222,7 @@ Schematic's components sit inside a real one.
 src/
   app/              routes; api/ holds the token + pins endpoints
   components/
+    billing/        the next-bill and invoice-history cards
     ui/             design-system primitives
   hooks/            useAccessToken, useEmbedSettings, useClerkAppearance, …
   styles/           palette shared with third-party widgets

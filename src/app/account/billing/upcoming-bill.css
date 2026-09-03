@@ -1,0 +1,209 @@
+/*
+ * The UpcomingBill element, styled entirely from the class names it emits —
+ * no <SchematicStyles />, no theme variables of the element's own. Every
+ * value here is one of the app's own tokens, so the card follows the site's
+ * light/dark theme like anything else on the page.
+ */
+
+.schematic-upcoming-bill {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  color: var(--fg);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--body);
+  line-height: var(--text-base--line-height, 1.5);
+  padding: 2.8125rem;
+}
+
+.schematic-upcoming-bill .schematic-header {
+  align-items: baseline;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.schematic-upcoming-bill .schematic-header__title {
+  font-size: var(--text-xl, 1.25rem);
+  line-height: var(--text-xl--line-height, calc(1.75 / 1.25));
+  margin: 0;
+}
+
+.schematic-upcoming-bill__amount {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.schematic-upcoming-bill__total {
+  font-family: var(--display, var(--body));
+  font-size: var(--text-4xl, 2.25rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  line-height: var(--text-4xl--line-height, calc(2.5 / 2.25));
+}
+
+.schematic-upcoming-bill__estimate {
+  background: var(--amber-soft);
+  border: 1px solid color-mix(in srgb, var(--amber) 30%, transparent);
+  border-radius: 9999px;
+  color: var(--amber-ink);
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 500;
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
+  padding: 0.125rem 0.625rem;
+}
+
+.schematic-upcoming-bill__rows {
+  border-top: 1px solid var(--border);
+  font-size: var(--text-sm, 0.875rem);
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
+  margin-top: 1.25rem;
+  padding-top: 0.75rem;
+}
+
+.schematic-upcoming-bill .schematic-row {
+  align-items: baseline;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 0.375rem 0;
+}
+
+.schematic-upcoming-bill .schematic-row__label {
+  font-weight: 500;
+}
+
+.schematic-upcoming-bill .schematic-row__value {
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+  white-space: nowrap;
+}
+
+.schematic-upcoming-bill__discount {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.schematic-upcoming-bill__code {
+  align-items: center;
+  background: var(--muted);
+  border: 1px solid var(--border-2);
+  border-radius: 9999px;
+  color: var(--muted-fg);
+  display: inline-flex;
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 500;
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
+  padding: 0.125rem 0.625rem;
+  text-transform: uppercase;
+}
+
+.schematic-upcoming-bill__coupon,
+.schematic-upcoming-bill__empty {
+  color: var(--muted-fg);
+}
+
+.schematic-upcoming-bill__empty {
+  font-size: var(--text-sm, 0.875rem);
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
+  padding: 2.25rem 0;
+  text-align: center;
+}
+
+.schematic-upcoming-bill .schematic-status__retry {
+  align-items: center;
+  background: none;
+  border: 1px solid var(--border-2);
+  border-radius: 0.75rem;
+  color: var(--fg);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 600;
+  gap: 0.5rem;
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
+  padding: 0.375rem 0.875rem;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.schematic-upcoming-bill .schematic-status__retry:hover {
+  background: var(--muted);
+}
+
+.schematic-upcoming-bill .schematic-status__retry:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.schematic-upcoming-bill .schematic-status {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.schematic-upcoming-bill .schematic-status__message,
+.schematic-upcoming-bill .schematic-status-note {
+  color: var(--danger);
+  font-size: var(--text-sm, 0.875rem);
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
+}
+
+.schematic-upcoming-bill .schematic-status-note {
+  margin-top: 1.25rem;
+}
+
+.schematic-upcoming-bill .schematic-skeleton {
+  animation: schematic-upcoming-bill-pulse 2s cubic-bezier(0.4, 0, 0.6, 1)
+    infinite;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.schematic-upcoming-bill .schematic-skeleton__heading {
+  background: var(--muted);
+  border-radius: 0.375rem;
+  height: 1.25rem;
+  width: 14rem;
+}
+
+.schematic-upcoming-bill .schematic-skeleton__cell {
+  background: var(--muted);
+  border-radius: 0.25rem;
+  height: 1rem;
+}
+
+.schematic-upcoming-bill .schematic-skeleton__cell[data-column="amount"] {
+  border-radius: 0.375rem;
+  height: 2.25rem;
+  width: 8rem;
+}
+
+.schematic-upcoming-bill .schematic-skeleton__cell[data-column="row"] {
+  width: 16rem;
+}
+
+@keyframes schematic-upcoming-bill-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .schematic-upcoming-bill .schematic-skeleton {
+    animation: none;
+  }
+}
