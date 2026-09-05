@@ -16,11 +16,11 @@ importers:
         specifier: ^7.2.1
         version: 7.8.2(next@16.3.3(@babel/core@7.29.7)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@schematichq/schematic-components':
-        specifier: 2.26.0
-        version: 2.26.0(@schematichq/schematic-react@1.8.0(react@19.2.8))(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
+        specifier: ^3.0.0
+        version: 3.0.0(@schematichq/schematic-react@1.6.0(react@19.2.8))(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
       '@schematichq/schematic-react':
-        specifier: 1.8.0
-        version: 1.8.0(react@19.2.8)
+        specifier: ^1.6.0
+        version: 1.6.0(react@19.2.8)
       '@schematichq/schematic-typescript-node':
         specifier: ^1.4.4
         version: 1.5.10
@@ -73,6 +73,9 @@ importers:
       eslint-plugin-import:
         specifier: ^2.32.0
         version: 2.32.0(@typescript-eslint/parser@8.68.0(eslint@10.9.1(jiti@2.7.0))(typescript@6.0.3))(eslint-import-resolver-typescript@3.10.1)(eslint@10.9.1(jiti@2.7.0))
+      eslint-plugin-simple-import-sort:
+        specifier: ^14.0.0
+        version: 14.0.0(eslint@10.9.1(jiti@2.7.0))
       postcss:
         specifier: ^8.5.23
         version: 8.5.26
@@ -146,6 +149,10 @@ packages:
     resolution: {integrity: sha512-E8lTAYNB1KW+FH+VGJuZM1ioAx2E6oVlvQFRrf5P8ZZmsiJXYAD9vTFV7yyEURNzgh1dFqMZuO6tUwcARbqFCA==}
     engines: {node: '>=6.0.0'}
     hasBin: true
+
+  '@babel/runtime@7.29.7':
+    resolution: {integrity: sha512-Nq8OhGWiZIZGV6hLHoyAKLLcJihP/xFeBMGJoUrxTX2psI8dCifzLhZISFb+VWS3wFMRDmCGw5R+dOySCqPLhw==}
+    engines: {node: '>=6.9.0'}
 
   '@babel/template@7.29.7':
     resolution: {integrity: sha512-puq+Gf35oI24FeN11LkoUQFqv9uwNeWpxXZi/Ji3rRIoKAzKnxRaZ+Gkj0vKS9ZCiTESfng1N9LyOyXvo+m+Gg==}
@@ -526,8 +533,8 @@ packages:
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
-  '@schematichq/schematic-components@2.26.0':
-    resolution: {integrity: sha512-px/IP+4BEk0nrEXpYbTIxuY42kHBr/rYaUVj+zCddgXPSAzXad2ChCEGDSGIdrdE27/RrFQK9uM5iBlZdA583Q==}
+  '@schematichq/schematic-components@3.0.0':
+    resolution: {integrity: sha512-c5e9Je8BNK+pDEq3a5zSTbFA1ZGHclOm9E0SDnFo1M/4c5Wzmi2vE968No3DS3tDE0la/cqvylLp/T/0S3yE4Q==}
     peerDependencies:
       '@schematichq/schematic-react': ^1.6.0
       '@stripe/react-stripe-js': '>=3'
@@ -543,8 +550,8 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@schematichq/schematic-react@1.8.0':
-    resolution: {integrity: sha512-oiw3UbhjhnxJ2o/v2ihsBpUvGiWFpVmzxHTTqXmoMhbN9yYrlWZa2eqmPAY89WIAoN51KOzRILic9B7D9cSRGA==}
+  '@schematichq/schematic-react@1.6.0':
+    resolution: {integrity: sha512-AXiY4ghVxM0zV2azy5xw5O3eqSl5Yq75BIPvMkyOwfNlH+aneYu2a2zKlAAgvCXzmBRCw2MyOcfkMQfoy1ovkA==}
     peerDependencies:
       react: '>=18'
 
@@ -1224,6 +1231,11 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
 
+  eslint-plugin-simple-import-sort@14.0.0:
+    resolution: {integrity: sha512-NUJO0+XFCkk+o5EsAJruTgnfMEpeWrPWeJS15UVF60GgXmqz1BJ9/3hzlvG7lkL8Bubzos5cCLptThbFfPnSMQ==}
+    peerDependencies:
+      eslint: '>=5.0.0'
+
   eslint-scope@9.1.2:
     resolution: {integrity: sha512-xS90H51cKw0jltxmvmHy2Iai1LIqrfbw57b79w/J7MfvDfkIkFZ+kj6zC3BjtUwh150HsSSdxXZcsuv72miDFQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
@@ -1429,6 +1441,9 @@ packages:
 
   hermes-parser@0.25.1:
     resolution: {integrity: sha512-6pEjquH3rqaI6cYAXYPcz9MS4rY6R4ngRgrgfDshRptUZIc3lw0MCIJIGDj9++mfySOuPTHB4nrSW99BCvOPIA==}
+
+  html-parse-stringify@3.1.0:
+    resolution: {integrity: sha512-E0oAXcELOtsXe+BmpJ2EZyedbldPpriV5vICzEuo6xjC/D1lDukOI7KrpfQGF2Qc4wWEy0nk3bFORS2K5ZAhFQ==}
 
   https-proxy-agent@5.0.1:
     resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}
@@ -1922,6 +1937,22 @@ packages:
     peerDependencies:
       react: ^19.2.8
 
+  react-i18next@16.1.6:
+    resolution: {integrity: sha512-62Iy0TO/2hJpTa80XaTIbHM4yjpile1YNieeg70vmdi91N2L3Q3MuxXBT0n6JpsryT88utpkqv0QbnIrDSxbAQ==}
+    peerDependencies:
+      i18next: '>= 25.5.2'
+      react: '>= 16.8.0'
+      react-dom: '*'
+      react-native: '*'
+      typescript: ^5
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+      typescript:
+        optional: true
+
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -2196,6 +2227,10 @@ packages:
     resolution: {integrity: sha512-xZe/16rV4aa+HGSOCiY2YeLT1OybRLrrkL/Rqaq7p7GMVXjFh+6wN4oMYgjFmnSnhY8t6Xpdl2l9qmnHYuMHwQ==}
     hasBin: true
 
+  void-elements@3.1.0:
+    resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
+    engines: {node: '>=0.10.0'}
+
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
 
@@ -2335,6 +2370,8 @@ snapshots:
   '@babel/parser@7.29.8':
     dependencies:
       '@babel/types': 7.29.8
+
+  '@babel/runtime@7.29.7': {}
 
   '@babel/template@7.29.7':
     dependencies:
@@ -2656,7 +2693,7 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@schematichq/schematic-components@2.26.0(@schematichq/schematic-react@1.8.0(react@19.2.8))(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)':
+  '@schematichq/schematic-components@3.0.0(@schematichq/schematic-react@1.6.0(react@19.2.8))(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)':
     dependencies:
       '@schematichq/schematic-icons': 0.8.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@stripe/react-stripe-js': 5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -2666,10 +2703,11 @@ snapshots:
       pako: 3.0.2
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
+      react-i18next: 16.1.6(i18next@26.4.2(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
       styled-components: 6.5.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       uuid: 14.0.2
     optionalDependencies:
-      '@schematichq/schematic-react': 1.8.0(react@19.2.8)
+      '@schematichq/schematic-react': 1.6.0(react@19.2.8)
     transitivePeerDependencies:
       - css-to-react-native
       - react-native
@@ -2684,7 +2722,7 @@ snapshots:
       - css-to-react-native
       - react-native
 
-  '@schematichq/schematic-react@1.8.0(react@19.2.8)':
+  '@schematichq/schematic-react@1.6.0(react@19.2.8)':
     dependencies:
       react: 19.2.8
 
@@ -3484,6 +3522,10 @@ snapshots:
       string.prototype.matchall: 4.0.12
       string.prototype.repeat: 1.0.0
 
+  eslint-plugin-simple-import-sort@14.0.0(eslint@10.9.1(jiti@2.7.0)):
+    dependencies:
+      eslint: 10.9.1(jiti@2.7.0)
+
   eslint-scope@9.1.2:
     dependencies:
       '@types/esrecurse': 4.3.1
@@ -3708,6 +3750,10 @@ snapshots:
   hermes-parser@0.25.1:
     dependencies:
       hermes-estree: 0.25.1
+
+  html-parse-stringify@3.1.0:
+    dependencies:
+      void-elements: 3.1.0
 
   https-proxy-agent@5.0.1:
     dependencies:
@@ -4160,6 +4206,16 @@ snapshots:
       react: 19.2.8
       scheduler: 0.27.0
 
+  react-i18next@16.1.6(i18next@26.4.2(typescript@6.0.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3):
+    dependencies:
+      '@babel/runtime': 7.29.7
+      html-parse-stringify: 3.1.0
+      i18next: 26.4.2(typescript@6.0.3)
+      react: 19.2.8
+    optionalDependencies:
+      react-dom: 19.2.8(react@19.2.8)
+      typescript: 6.0.3
+
   react-is@16.13.1: {}
 
   react@19.2.8: {}
@@ -4544,6 +4600,8 @@ snapshots:
       punycode: 2.3.1
 
   uuid@14.0.2: {}
+
+  void-elements@3.1.0: {}
 
   webidl-conversions@3.0.1: {}
 

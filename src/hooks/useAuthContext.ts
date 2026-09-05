@@ -1,5 +1,5 @@
-import { useMemo } from "react";
 import { useUser } from "@clerk/nextjs";
+import { useMemo } from "react";
 
 const useAuthContext = () => {
   const { isLoaded, user } = useUser();
