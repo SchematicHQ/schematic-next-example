@@ -1,6 +1,6 @@
 import { SignUp } from "@clerk/nextjs";
 
-import { isDemoMode } from "../../utils/demoContext";
+import { isDemoMode } from "@/utils/demoContext";
 
 const SignUpPage = () =>
   isDemoMode() ? (

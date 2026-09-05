@@ -1,6 +1,6 @@
 import { SignIn } from "@clerk/nextjs";
 
-import { isDemoMode } from "../../utils/demoContext";
+import { isDemoMode } from "@/utils/demoContext";
 
 const SignInPage = () =>
   isDemoMode() ? (
