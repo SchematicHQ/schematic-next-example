@@ -10,12 +10,14 @@
     "build": "next build --webpack",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "start": "next start -p 3001",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "link:local": "node scripts/local-packages.mjs on",
+    "unlink:local": "node scripts/local-packages.mjs off"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.2.1",
-    "@schematichq/schematic-components": "2.24.0",
-    "@schematichq/schematic-react": "1.5.0",
+    "@schematichq/schematic-components": "^3.0.0",
+    "@schematichq/schematic-react": "^1.6.0",
     "@schematichq/schematic-typescript-node": "^1.4.4",
     "@stripe/react-stripe-js": "^5.6.1",
     "axios": "^1.18.0",
@@ -35,6 +37,7 @@
     "eslint-config-next": "^16.2.4",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-simple-import-sort": "^14.0.0",
     "postcss": "^8.5.23",
     "prettier": "^3.8.3",
     "tailwindcss": "^4.2.4",

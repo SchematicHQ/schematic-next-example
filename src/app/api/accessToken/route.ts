@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
 import { SchematicClient } from "@schematichq/schematic-typescript-node";
+import { NextResponse } from "next/server";
 
-import { getAuthOrgId, AuthError } from "../../../utils/auth";
-import { demoCompanyKeys, isDemoMode } from "../../../utils/demoContext";
+import { AuthError, getAuthOrgId } from "@/utils/auth";
+import { demoCompanyKeys, isDemoMode } from "@/utils/demoContext";
 
 export async function GET() {
   const apiKey = process.env.SCHEMATIC_SECRET_KEY;
@@ -23,8 +23,13 @@ export async function GET() {
       lookup,
     });
 
-    const accessToken = resp.data.token;
-    return NextResponse.json({ accessToken });
+    // The expiry with it: SchematicProvider's token provider holds the token
+    // until this moment and mints a new one then, rather than waiting for a
+    // request to come back 401.
+    return NextResponse.json({
+      accessToken: resp.data.token,
+      expiresAt: resp.data.expiredAt,
+    });
   } catch (error) {
     if (error instanceof AuthError) {
       return NextResponse.json(
