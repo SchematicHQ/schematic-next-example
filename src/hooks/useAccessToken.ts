@@ -8,6 +8,28 @@ interface AccessTokenState {
   isLoading: boolean;
 }
 
+/** What /api/accessToken answers with. */
+export interface IssuedAccessToken {
+  accessToken: string;
+  /** When the token stops being usable, as the API reported it. */
+  expiresAt?: string | null;
+}
+
+/**
+ * The one call to /api/accessToken. The hook below wraps it for components
+ * that hold a token themselves; `SchematicProvider` is handed a provider
+ * built on it in ClientWrapper, so both paths mint the same way and there is
+ * one place to change when the route changes.
+ */
+export const requestAccessToken = async (): Promise<IssuedAccessToken> => {
+  const response = await fetch("/api/accessToken");
+  const result = (await response.json()) as Partial<IssuedAccessToken>;
+  if (result.accessToken === undefined) {
+    throw new Error("Failed to issue a Schematic access token");
+  }
+  return { accessToken: result.accessToken, expiresAt: result.expiresAt };
+};
+
 /**
  * Exchanges the app's session for a short-lived, company-scoped Schematic
  * access token via /api/accessToken.
@@ -38,14 +60,10 @@ export const useAccessToken = (): AccessTokenState & {
 
     const run = async () => {
       try {
-        const response = await fetch("/api/accessToken");
-        const result = (await response.json()) as { accessToken?: string };
-        if (result.accessToken === undefined) {
-          throw new Error("Response did not include an access token");
-        }
+        const { accessToken } = await requestAccessToken();
         if (!cancelled) {
           setState({
-            accessToken: result.accessToken,
+            accessToken,
             error: null,
             isLoading: false,
           });

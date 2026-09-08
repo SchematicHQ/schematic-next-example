@@ -11,6 +11,11 @@
  * pnpm reads overrides only from pnpm-workspace.yaml — so this writes them
  * between the markers there rather than asking anyone to hand-edit a file
  * they then have to remember not to commit.
+ *
+ * The overrides are normally not committed. The exception is a branch whose
+ * `@schematichq/*` versions have not published yet: there the linked mode is
+ * the only one that installs at all, so it is committed until the release
+ * lands and `off` runs. See the README.
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -55,6 +60,6 @@ writeFileSync(
 
 console.log(
   mode === "on"
-    ? `Linked @schematichq/* to ${SOURCE}. Run \`pnpm install\`, and \`pnpm run unlink:local\` before committing.`
+    ? `Linked @schematichq/* to ${SOURCE}. Run \`pnpm install\`. Run \`pnpm run unlink:local\` before committing, unless this branch depends on an unpublished version — see the README.`
     : "Unlinked @schematichq/*; the published versions apply. Run `pnpm install`.",
 );

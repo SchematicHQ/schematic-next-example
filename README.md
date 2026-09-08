@@ -75,9 +75,17 @@ That writes `link:` overrides into `pnpm-workspace.yaml` between its
 `git status` rather than living in a file you have to remember not to commit.
 
 While these packages are unreleased, the linked mode is the only one that
-installs, and the committed lockfile is the one it produces; the published
-versions in `package.json` are what the example ships with once they are on
-npm.
+installs — `@schematichq/schematic-components@3.0.0` and
+`@schematichq/schematic-react@1.6.0` are not on npm yet — so it is the mode
+this branch commits: the overrides are in `pnpm-workspace.yaml` and the
+lockfile is the one they produce. The versions in `package.json` are what the
+example ships with once they publish, and the last commit before this branch
+merges is `pnpm run unlink:local && pnpm install`. Until then a clone needs a
+sibling `schematic-js` checkout, and the Vercel preview cannot build.
+
+Note that `verifyDepsBeforeRun` makes `pnpm run link:local` try to install
+first, which fails while the published versions are missing. Run
+`node scripts/local-packages.mjs on` directly to get out of that.
 
 ### Demo mode
 
