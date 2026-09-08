@@ -10,16 +10,20 @@ import {
 import { useEffect, useState } from "react";
 
 import Loader from "@/components/Loader";
+import { requestAccessToken } from "@/hooks/useAccessToken";
 import useAuthContext from "@/hooks/useAuthContext";
 import { demoCompanyKeys, demoIdentity, isDemoMode } from "@/utils/demoContext";
 
-const fetchAccessToken = async (): Promise<string> => {
-  const response = await fetch("/api/accessToken");
-  const result = (await response.json()) as { accessToken?: string };
-  if (result.accessToken === undefined) {
-    throw new Error("Failed to issue a Schematic access token");
-  }
-  return result.accessToken;
+// Handed to SchematicProvider as the session's token: the client calls it
+// once, holds the answer until `expiresAt`, and calls it again on a 401.
+// Returning the expiry is what lets it refresh before a request fails rather
+// than after one already has.
+const fetchAccessToken = async (): Promise<{
+  token: string;
+  expiresAt?: string | null;
+}> => {
+  const { accessToken, expiresAt } = await requestAccessToken();
+  return { token: accessToken, expiresAt };
 };
 
 // Clerk-derived identify (default, non-demo behavior).
@@ -97,11 +101,17 @@ const SchematicClerkSession: React.FC<{
   // company's invoices — and `undefined` for anything this app cannot
   // answer yet, which says nothing and so changes nothing.
   //
-  // For a signed-in user the company is their first organization. The
+  // For a signed-in user the company is their one organization. The
   // membership list tells "none" from "not yet" by existing at all: absent
   // is unknown and says nothing, present and empty is a user with no
   // organization — no company to read, which ends the session rather than
   // leaving the last one's invoices on screen.
+  //
+  // More than one is also no company: /api/accessToken mints against the
+  // single membership and refuses anything else, so naming the first one
+  // here would state a session whose token endpoint answers every call with
+  // a 400 — an error card where the honest answer is an empty one. The rule
+  // lives in getAuthOrgId; this mirrors it rather than guessing past it.
   const memberships = user?.organizationMemberships;
   const companyKey = !isLoaded
     ? undefined
@@ -109,7 +119,9 @@ const SchematicClerkSession: React.FC<{
       ? null
       : memberships === undefined
         ? undefined
-        : (memberships[0]?.organization.id ?? null);
+        : memberships.length === 1
+          ? memberships[0].organization.id
+          : null;
   const session: SessionInput =
     companyKey === undefined || companyKey === null
       ? companyKey
