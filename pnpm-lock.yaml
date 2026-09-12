@@ -16,8 +16,8 @@ importers:
         specifier: ^7.2.1
         version: 7.8.2(next@16.3.3(@babel/core@7.29.7)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@schematichq/schematic-components':
-        specifier: 2.25.1
-        version: 2.25.1(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
+        specifier: 2.25.2
+        version: 2.25.2(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
       '@schematichq/schematic-react':
         specifier: 1.5.0
         version: 1.5.0(react@19.2.8)
@@ -530,8 +530,8 @@ packages:
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
-  '@schematichq/schematic-components@2.25.1':
-    resolution: {integrity: sha512-CTLCoTjc1n8v+Hr+pvzBTHDuIDmh5c5GEQSY9U2g8A5EaAwqGrciaT68MCPmeFQmyeXREzAo0CUeksuMDW2PFg==}
+  '@schematichq/schematic-components@2.25.2':
+    resolution: {integrity: sha512-N7C0IjcMv3M5mWCB51K2pUww1y1XX3mCva7+nbuxozBEUKws3k5gEgxwqdrI7DmCmzGImRFm1O+UbhQYzq3Xug==}
     peerDependencies:
       '@stripe/react-stripe-js': '>=3'
       react: '>=18'
@@ -2681,7 +2681,7 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@schematichq/schematic-components@2.25.1(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)':
+  '@schematichq/schematic-components@2.25.2(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)':
     dependencies:
       '@schematichq/schematic-icons': 0.8.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@stripe/react-stripe-js': 5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
