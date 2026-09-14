@@ -17,13 +17,17 @@ import { demoCompanyKeys, demoIdentity, isDemoMode } from "@/utils/demoContext";
 // Handed to SchematicProvider as the session's token: the client calls it
 // once, holds the answer until `expiresAt`, and calls it again on a 401.
 // Returning the expiry is what lets it refresh before a request fails rather
-// than after one already has.
+// than after one already has. Returning the company is what lets the client
+// check the token against the session it asked for: a token minted after the
+// user switched organizations names the new one, and is refused rather than
+// sent for the old.
 const fetchAccessToken = async (): Promise<{
   token: string;
+  company: string;
   expiresAt?: string | null;
 }> => {
-  const { accessToken, expiresAt } = await requestAccessToken();
-  return { token: accessToken, expiresAt };
+  const { accessToken, company, expiresAt } = await requestAccessToken();
+  return { token: accessToken, company, expiresAt };
 };
 
 // Clerk-derived identify (default, non-demo behavior).
@@ -122,10 +126,14 @@ const SchematicClerkSession: React.FC<{
         : memberships.length === 1
           ? memberships[0].organization.id
           : null;
+  // The session names the company alone: /api/accessToken mints a
+  // company-wide token, so every member of the organization shares one
+  // session, and naming the user here would only make each of them a
+  // separate one.
   const session: SessionInput =
     companyKey === undefined || companyKey === null
       ? companyKey
-      : { key: companyKey, token: fetchAccessToken };
+      : { company: companyKey, token: fetchAccessToken };
 
   return (
     <SchematicSession publishableKey={publishableKey} session={session}>
@@ -157,7 +165,7 @@ export default function ClientWrapper({
     return isClientSide ? (
       <SchematicSession
         publishableKey={schematicPubKey}
-        session={{ key: demoCompanyKeys.id, token: fetchAccessToken }}
+        session={{ company: demoCompanyKeys.id, token: fetchAccessToken }}
       >
         <SchematicWrappedDemo>{children}</SchematicWrappedDemo>
       </SchematicSession>

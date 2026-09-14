@@ -15,9 +15,18 @@ export async function GET() {
     const schematicClient = new SchematicClient({ apiKey, basePath });
 
     // In demo mode there's no Clerk session — look up the hardcoded company.
-    const lookup = isDemoMode()
-      ? demoCompanyKeys
-      : { clerkId: (await getAuthOrgId()).orgId };
+    // `company` is the id the client's session names for it, which is the
+    // Clerk org id here and the demo company's key in demo mode.
+    let company: string;
+    let lookup: Record<string, string>;
+    if (isDemoMode()) {
+      company = demoCompanyKeys.id;
+      lookup = demoCompanyKeys;
+    } else {
+      const { orgId } = await getAuthOrgId();
+      company = orgId;
+      lookup = { clerkId: orgId };
+    }
 
     const resp = await schematicClient.accesstokens.issueTemporaryAccessToken({
       lookup,
@@ -25,9 +34,13 @@ export async function GET() {
 
     // The expiry with it: SchematicProvider's token provider holds the token
     // until this moment and mints a new one then, rather than waiting for a
-    // request to come back 401.
+    // request to come back 401. And the company, so the client can tell a
+    // token minted for the organization the user just switched to from one
+    // for the session it asked about, and refuse to send it for the wrong
+    // one.
     return NextResponse.json({
       accessToken: resp.data.token,
+      company,
       expiresAt: resp.data.expiredAt,
     });
   } catch (error) {
