@@ -8,8 +8,8 @@ export default function BillingPage() {
       <header className="mb-6">
         <h1>Billing</h1>
         <p className="mt-1 text-muted-fg">
-          What your account has been charged, built on the elements hooks in this
-          app&apos;s own markup.
+          What your account has been charged, built on the elements hooks in
+          this app&apos;s own markup.
         </p>
       </header>
 

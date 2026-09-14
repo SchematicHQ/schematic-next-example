@@ -18,7 +18,7 @@ for the embedded portal, pricing table, and checkout. Auth is
 | `/pricing`         | `<PricingTable>` — plans and upgrade CTA                 |
 | `/usage`           | `<SchematicEmbed>` — the full customer portal            |
 | `/custom-checkout` | Driving `<CheckoutDialog>` yourself from your own button |
-| `/billing`         | Billing history, built on the elements data hooks              |
+| `/billing`         | Billing history, built on the elements data hooks        |
 | `/account/billing` | The same card from `<Invoices>`                          |
 
 ## Prerequisites
@@ -101,18 +101,22 @@ every feature will read as unentitled. See `src/utils/demoContext.ts`.
 ```tsx
 <SchematicProvider
   publishableKey={schematicPubKey}
-  accessToken={fetchAccessToken}
-  sessionKey={authContext?.company.keys.clerkId}
+  session={{ company: companyKey, token: fetchAccessToken }}
 >
   {children}
 </SchematicProvider>
 ```
 
-`accessToken` takes the fetcher itself, and the client re-calls it after a 401.
-`sessionKey` names the company that token belongs to — needed only with a
-provider function, where nothing in the function or in the token it returns can
-say the company changed. A change to it drops every loaded company resource, so
-switching Clerk orgs can't leave the previous org's invoices on screen.
+`session` names whose billing the elements read and how: `company` is the
+Clerk org id, and `token` is the fetcher itself, which the client calls once,
+holds until the expiry it returns, and calls again after a 401. A different
+`company` drops every loaded billing resource, so switching Clerk orgs can't
+leave the previous org's invoices on screen. `session={null}` is signing out,
+which drops them too, and `session={undefined}` is "not known yet", which
+changes nothing — `ClientWrapper` tells the three apart from Clerk's `isLoaded`
+and the user's organization memberships. The session names no `user` because
+`/api/accessToken` mints company-wide tokens, so every member of an
+organization shares one session.
 
 **2. Identify the user and company.** Also in `ClientWrapper`, via the `identify`
 function from `useSchematicEvents`:
@@ -158,13 +162,21 @@ key for one:
 ```ts
 const schematicClient = new SchematicClient({ apiKey });
 const resp = await schematicClient.accesstokens.issueTemporaryAccessToken({
-  resourceType: "company",
   lookup: { clerkId: orgId },
 });
-return NextResponse.json({ accessToken: resp.data?.token });
+return NextResponse.json({
+  accessToken: resp.data.token,
+  company: orgId,
+  expiresAt: resp.data.expiredAt,
+});
 ```
 
-On the client, `src/hooks/useAccessToken.ts` wraps that call.
+The expiry lets the session's token provider refresh before a request fails
+rather than after one has. The company stamps the token with the session it
+was minted for: a token that comes back after the user switched organizations
+names the new org, and the client refuses to send it for the old one rather
+than reading the wrong company's billing. On the client,
+`src/hooks/useAccessToken.ts` wraps that call.
 
 **6. Render the portal.** `src/app/usage/page.tsx`:
 

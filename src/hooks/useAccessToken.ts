@@ -11,6 +11,8 @@ interface AccessTokenState {
 /** What /api/accessToken answers with. */
 export interface IssuedAccessToken {
   accessToken: string;
+  /** The company the token was minted for, as the session names it. */
+  company: string;
   /** When the token stops being usable, as the API reported it. */
   expiresAt?: string | null;
 }
@@ -24,10 +26,14 @@ export interface IssuedAccessToken {
 export const requestAccessToken = async (): Promise<IssuedAccessToken> => {
   const response = await fetch("/api/accessToken");
   const result = (await response.json()) as Partial<IssuedAccessToken>;
-  if (result.accessToken === undefined) {
+  if (result.accessToken === undefined || result.company === undefined) {
     throw new Error("Failed to issue a Schematic access token");
   }
-  return { accessToken: result.accessToken, expiresAt: result.expiresAt };
+  return {
+    accessToken: result.accessToken,
+    company: result.company,
+    expiresAt: result.expiresAt,
+  };
 };
 
 /**
