@@ -105,27 +105,23 @@ const SchematicClerkSession: React.FC<{
   // company's invoices — and `undefined` for anything this app cannot
   // answer yet, which says nothing and so changes nothing.
   //
-  // For a signed-in user the company is their one organization. The
-  // membership list tells "none" from "not yet" by existing at all: absent
-  // is unknown and says nothing, present and empty is a user with no
-  // organization — no company to read, which ends the session rather than
-  // leaving the last one's invoices on screen.
+  // For a signed-in user the company is their one organization. Clerk
+  // populates the membership list with the user, so an empty one is a user
+  // with no organization — no company to read, which ends the session
+  // rather than leaving the last one's invoices on screen.
   //
   // More than one is also no company: /api/accessToken mints against the
   // single membership and refuses anything else, so naming the first one
   // here would state a session whose token endpoint answers every call with
   // a 400 — an error card where the honest answer is an empty one. The rule
   // lives in getAuthOrgId; this mirrors it rather than guessing past it.
-  const memberships = user?.organizationMemberships;
   const companyKey = !isLoaded
     ? undefined
     : !user
       ? null
-      : memberships === undefined
-        ? undefined
-        : memberships.length === 1
-          ? memberships[0].organization.id
-          : null;
+      : user.organizationMemberships.length === 1
+        ? user.organizationMemberships[0].organization.id
+        : null;
   // The session names the company alone: /api/accessToken mints a
   // company-wide token, so every member of the organization shares one
   // session, and naming the user here would only make each of them a
