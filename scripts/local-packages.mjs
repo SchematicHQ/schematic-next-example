@@ -27,10 +27,19 @@ const START = "  # schematic-local-start";
 const END = "  # schematic-local-end";
 const SOURCE = process.env.SCHEMATIC_JS_DIR ?? "../schematic-js";
 
+// Only the package under development is linked. `schematic-react` and
+// `schematic-js` install from npm at the versions `package.json` pins, which
+// is what the linked package's peers resolve to once `next.config.mjs`
+// aliases them — the same copies the app renders with. Set
+// SCHEMATIC_LINK_ALL=1 to link all three when developing the SDKs too.
 const LINKS = [
   ["@schematichq/schematic-components", `${SOURCE}/components`],
-  ["@schematichq/schematic-react", `${SOURCE}/react`],
-  ["@schematichq/schematic-js", `${SOURCE}/js`],
+  ...(process.env.SCHEMATIC_LINK_ALL
+    ? [
+        ["@schematichq/schematic-react", `${SOURCE}/react`],
+        ["@schematichq/schematic-js", `${SOURCE}/js`],
+      ]
+    : []),
 ];
 
 const mode = process.argv[2];

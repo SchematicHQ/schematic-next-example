@@ -70,22 +70,31 @@ pnpm run link:local && pnpm install   # SCHEMATIC_JS_DIR=… for another path
 pnpm run unlink:local && pnpm install # back to the published packages
 ```
 
-That writes `link:` overrides into `pnpm-workspace.yaml` between its
+That writes a `link:` override into `pnpm-workspace.yaml` between its
 `schematic-local` markers, so the switch is one command and shows up in
 `git status` rather than living in a file you have to remember not to commit.
+It links `schematic-components` only; `schematic-react` and `schematic-js`
+install from npm at the versions `package.json` pins, the way `yarn link`
+used to leave every other dependency alone. `SCHEMATIC_LINK_ALL=1` links all
+three when the SDKs are what you are changing.
 
-While these packages are unreleased, the linked mode is the only one that
-installs — `@schematichq/schematic-components@3.0.0` and
-`@schematichq/schematic-react@1.6.0` are not on npm yet — so it is the mode
-this branch commits: the overrides are in `pnpm-workspace.yaml` and the
-lockfile is the one they produce. The versions in `package.json` are what the
-example ships with once they publish, and the last commit before this branch
-merges is `pnpm run unlink:local && pnpm install`. Until then a clone needs a
-sibling `schematic-js` checkout, and the Vercel preview cannot build.
+A linked package resolves its own externals from the checkout's
+`node_modules`: a second copy of `schematic-react` and `schematic-js`, so
+`<Invoices>` would read a session the app's `SchematicProvider` never wrote.
+`next.config.mjs` detects the link and aliases both names to this app's
+copies for webpack and Turbopack; with the published package it does nothing,
+so it is safe to commit and needs no toggling.
 
-Note that `verifyDepsBeforeRun` makes `pnpm run link:local` try to install
-first, which fails while the published versions are missing. Run
-`node scripts/local-packages.mjs on` directly to get out of that.
+`@schematichq/schematic-components` 3.0.0 is not on npm yet, so this branch
+commits its override and the lockfile that produces. Until it publishes a
+clone needs `../schematic-js` beside it and the Vercel preview cannot build.
+Once a release candidate exists the last commit before this branch merges is
+`pnpm run unlink:local`, pin the exact version in `package.json`, and
+`pnpm install`; the alias in `next.config.mjs` stays.
+
+Note that `verifyDepsBeforeRun` makes `pnpm run unlink:local` install first,
+and the install after it fails on the missing 3.0.0 until it publishes. Run
+`node scripts/local-packages.mjs off` directly if the switch gets stuck.
 
 ### Demo mode
 
