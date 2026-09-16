@@ -85,14 +85,15 @@ A linked package resolves its own externals from the checkout's
 copies for webpack and Turbopack; with the published package it does nothing,
 so it is safe to commit and needs no toggling.
 
-`@schematichq/schematic-components` 3.0.0 is not on npm yet, so this branch
-commits its override and the lockfile that produces. Until it publishes a
-clone needs `../schematic-js` beside it and the Vercel preview cannot build.
-Once it publishes the last commit before this branch merges is
-`pnpm run unlink:local && pnpm install`; the alias in `next.config.mjs` stays.
+A branch that depends on a `@schematichq/*` version not on npm yet is the
+one case where the override is committed, with the lockfile it produces.
+Until the release lands a clone needs `../schematic-js` beside it and the
+Vercel preview cannot build. Once it publishes, the last commit before the
+branch merges is `pnpm run unlink:local && pnpm install`; the alias in
+`next.config.mjs` stays.
 
 Note that `verifyDepsBeforeRun` makes `pnpm run unlink:local` install first,
-and the install after it fails on the missing 3.0.0 until it publishes. Run
+and that install fails on the missing version until it publishes. Run
 `node scripts/local-packages.mjs off` directly if the switch gets stuck.
 
 ### Demo mode
