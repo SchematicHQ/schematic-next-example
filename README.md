@@ -203,9 +203,9 @@ shape. It uses the same hooks the elements do and renders entirely your own mark
 ```tsx
 import {
   deriveInvoiceList,
+  plural,
   useInvoices,
   useResolvedLocale,
-  useTranslator,
 } from "@schematichq/schematic-components/elements";
 
 const {
@@ -218,17 +218,20 @@ const {
   includePending: true,
 });
 const locale = useResolvedLocale();
-const t = useTranslator({ invoicesHeader: "Billing history" });
 const list = page && deriveInvoiceList(page, { locale });
 ```
 
 `useInvoices` handles fetching and pagination; `deriveInvoiceList` turns a raw
 page into display-ready rows (formatted dates, localised amounts, credit
 flags), each carrying the raw `amountMinor`, `currency`, and `date` beside the
-formatted text. `useResolvedLocale` and `useTranslator` resolve the same locale
-and copy the element would, so your own markup and a `<Invoices>` elsewhere on
-the page never disagree. See `src/components/billing/InvoiceHistory.tsx` for
-the loading, error, and empty states, plus show-more and load-more handling.
+formatted text. `useResolvedLocale` resolves the same locale the element
+formats in, so your own markup and a `<Invoices>` elsewhere on the page never
+disagree on a date or an amount. The copy is yours: the element's string
+catalogue holds only what the packaged card renders, so a status label or a
+column header is written beside the markup that uses it, and `plural` serves a
+count-bearing string in the viewer's language. See
+`src/components/billing/InvoiceHistory.tsx` for the loading, error, and empty
+states, plus show-more and load-more handling.
 
 `/account/billing` renders the same data through the packaged `<Invoices>`
 element instead, styled by `<SchematicStyles />` — mounted once on the
