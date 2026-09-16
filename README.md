@@ -88,9 +88,8 @@ so it is safe to commit and needs no toggling.
 `@schematichq/schematic-components` 3.0.0 is not on npm yet, so this branch
 commits its override and the lockfile that produces. Until it publishes a
 clone needs `../schematic-js` beside it and the Vercel preview cannot build.
-Once a release candidate exists the last commit before this branch merges is
-`pnpm run unlink:local`, pin the exact version in `package.json`, and
-`pnpm install`; the alias in `next.config.mjs` stays.
+Once it publishes the last commit before this branch merges is
+`pnpm run unlink:local && pnpm install`; the alias in `next.config.mjs` stays.
 
 Note that `verifyDepsBeforeRun` makes `pnpm run unlink:local` install first,
 and the install after it fails on the missing 3.0.0 until it publishes. Run
@@ -258,14 +257,14 @@ Schematic's components sit inside a real one.
 - **`src/components/ThemeProvider.tsx`** — resolves the theme from
   `localStorage` and `prefers-color-scheme`, and applies it before first paint
   so a dark reload never flashes light.
-- **`src/components/ui/`** — `Card`, `Button`, `Input`, `Badge`, `PageHeader`.
-  Variants (`size`, `tone`) own the properties a caller would otherwise fight
-  over, so `className` is only used for layout.
-- **`src/styles/palette.ts`** — the token subset that third-party widgets need.
-  Schematic and Clerk are configured through props, not CSS, so they can't read
-  the custom properties. `useEmbedSettings` and `useClerkAppearance` translate
-  this palette into each vendor's shape and re-derive on theme change, which is
-  what keeps embeds and auth screens matching the rest of the app.
+- **`src/components/ui/`** — `Card`, `Button`, `Badge`. Variants (`size`,
+  `tone`) own the properties a caller would otherwise fight over, so
+  `className` is only used for layout.
+- **`src/styles/palette.ts`** — the token subset the embedded components need.
+  They are configured through props, not CSS, so they can't read the custom
+  properties. `useEmbedSettings` translates this palette into `EmbedProvider`'s
+  shape and re-derives on theme change, which is what keeps the embeds matching
+  the rest of the app.
 
 ## Project layout
 
@@ -274,7 +273,7 @@ src/
   app/              routes; api/ holds the token + pins endpoints
   components/
     ui/             design-system primitives
-  hooks/            useAccessToken, useEmbedSettings, useClerkAppearance, …
+  hooks/            useAccessToken, useEmbedSettings, …
   styles/           palette shared with third-party widgets
   utils/            auth helpers and demo-mode identity
 ```

@@ -1,3 +1,12 @@
+/*
+ * A complete restyle of the packaged <Invoices> element through its class
+ * names, kept on disk and left unimported so it can be swapped in for
+ * <SchematicStyles />. Nothing compiles it, so when the element's markup
+ * changes this sheet does not fail — check it against the class names in
+ * schematic-js/components/src/elements/styles/invoices.ts and the styling
+ * section of schematic-js/components/src/elements/docs/invoices.md.
+ */
+
 .schematic-invoices {
   background: var(--card);
   border: 1px solid var(--border);
