@@ -37,7 +37,7 @@ export default defineConfig([
         {
           patterns: [
             {
-              group: ["../*"],
+              group: ["../**"],
               message: 'Use the "@/" alias instead of a parent-relative path.',
             },
           ],
