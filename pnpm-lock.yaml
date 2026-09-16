@@ -16,8 +16,8 @@ importers:
         specifier: ^7.2.1
         version: 7.8.2(next@16.3.3(@babel/core@7.29.7)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@schematichq/schematic-components':
-        specifier: 2.25.0
-        version: 2.25.0(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.14.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
+        specifier: 2.25.1
+        version: 2.25.1(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
       '@schematichq/schematic-react':
         specifier: 1.5.0
         version: 1.5.0(react@19.2.8)
@@ -26,7 +26,7 @@ importers:
         version: 1.5.10
       '@stripe/react-stripe-js':
         specifier: ^5.6.1
-        version: 5.6.1(@stripe/stripe-js@9.14.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        version: 5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       axios:
         specifier: ^1.18.0
         version: 1.20.0
@@ -530,8 +530,8 @@ packages:
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
-  '@schematichq/schematic-components@2.25.0':
-    resolution: {integrity: sha512-yiD/u+a4kdtwUj4iV0WTpD7XcybEg8YfLsc9BYqhA4Xt6FfnLUmJG06QTTPoOrQXm9B8aM5LElFjvGHBe1xldQ==}
+  '@schematichq/schematic-components@2.25.1':
+    resolution: {integrity: sha512-CTLCoTjc1n8v+Hr+pvzBTHDuIDmh5c5GEQSY9U2g8A5EaAwqGrciaT68MCPmeFQmyeXREzAo0CUeksuMDW2PFg==}
     peerDependencies:
       '@stripe/react-stripe-js': '>=3'
       react: '>=18'
@@ -562,8 +562,8 @@ packages:
       react: '>=16.8.0 <20.0.0'
       react-dom: '>=16.8.0 <20.0.0'
 
-  '@stripe/stripe-js@9.14.0':
-    resolution: {integrity: sha512-eCeVT2ee5YWyzz+m/cGwuatcPobe0MxzUGJtat8vUuZo4vNg1bzhoImKaTG2uB1ytIO03MrYAP4d6PTiGl+IZQ==}
+  '@stripe/stripe-js@9.16.0':
+    resolution: {integrity: sha512-PNZmy9hbuiuiyjAsigMlQChzJqrNEzQUtYIL/z5w0dsx27Ha69SBTYa2o8/M0Hbfiz9V2qctqX2DBd5sa57qoA==}
     engines: {node: '>=12.16'}
 
   '@swc/helpers@0.5.23':
@@ -2681,11 +2681,11 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@schematichq/schematic-components@2.25.0(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.14.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)':
+  '@schematichq/schematic-components@2.25.1(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)':
     dependencies:
       '@schematichq/schematic-icons': 0.8.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@stripe/react-stripe-js': 5.6.1(@stripe/stripe-js@9.14.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@stripe/stripe-js': 9.14.0
+      '@stripe/react-stripe-js': 5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@stripe/stripe-js': 9.16.0
       i18next: 26.4.2(typescript@6.0.3)
       lodash: 4.18.1
       pako: 3.0.1
@@ -2726,14 +2726,14 @@ snapshots:
 
   '@stablelib/base64@1.0.1': {}
 
-  '@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.14.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.16.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
-      '@stripe/stripe-js': 9.14.0
+      '@stripe/stripe-js': 9.16.0
       prop-types: 15.8.1
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
 
-  '@stripe/stripe-js@9.14.0': {}
+  '@stripe/stripe-js@9.16.0': {}
 
   '@swc/helpers@0.5.23':
     dependencies:
