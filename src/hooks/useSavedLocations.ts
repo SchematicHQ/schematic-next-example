@@ -2,7 +2,7 @@
 
 import { useOrganization } from "@clerk/nextjs";
 
-import { isDemoMode } from "../utils/demoContext";
+import { isDemoMode } from "@/utils/demoContext";
 
 // Returns the company's persisted pinned locations.
 //
