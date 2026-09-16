@@ -8,6 +8,7 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
+import { requestAccessToken } from "@/hooks/useAccessToken";
 import useEmbedSettings from "@/hooks/useEmbedSettings";
 
 // The plan this button drops the customer straight into checkout for.
@@ -69,15 +70,12 @@ function Checkout() {
         addOnStage: true,
         usageStage: true,
       },
+      hideSkipped: true,
     });
 
     try {
-      const response = await fetch("/api/accessToken");
-      const result = (await response.json()) as { accessToken?: string };
-      if (result.accessToken === undefined) {
-        throw new Error("Response did not include an access token");
-      }
-      setAccessToken(result.accessToken);
+      const { accessToken } = await requestAccessToken();
+      setAccessToken(accessToken);
     } catch (error) {
       setError(
         error instanceof Error ? error : new Error("Failed to start checkout"),
