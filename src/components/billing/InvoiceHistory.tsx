@@ -13,6 +13,16 @@ import { INVOICE_LIMIT, INVOICE_QUERY } from "@/utils/billing";
 
 const ERROR_MESSAGE = "There was a problem retrieving your invoices.";
 
+/**
+ * The fixed copy above hides what actually failed. In development the
+ * error's own message shows beneath it, so a mis-wired provider or a 404
+ * can be read off the page rather than dug out of the hook.
+ */
+const ErrorDetail = ({ error }: { error: Error }) =>
+  process.env.NODE_ENV === "development" ? (
+    <p className="text-xs text-muted-fg">{error.message}</p>
+  ) : null;
+
 function countCopy(locale: string, count: number, shown: number): string {
   const noun = plural(locale, count, { one: "invoice", other: "invoices" });
   return shown < count ? `${shown} of ${count} ${noun}` : `${count} ${noun}`;
@@ -49,10 +59,19 @@ const InvoicesSkeleton = () => (
   </Card>
 );
 
-const InvoicesError = ({ onRetry }: { onRetry: () => void }) => (
+const InvoicesError = ({
+  error,
+  onRetry,
+}: {
+  error: Error;
+  onRetry: () => void;
+}) => (
   <Card role="alert">
     <div className="flex flex-wrap items-center justify-between gap-4">
-      <p className="text-sm text-danger">{ERROR_MESSAGE}</p>
+      <div className="space-y-1">
+        <p className="text-sm text-danger">{ERROR_MESSAGE}</p>
+        <ErrorDetail error={error} />
+      </div>
       <Button onClick={onRetry}>Try again</Button>
     </div>
   </Card>
@@ -79,7 +98,7 @@ export function InvoiceHistory() {
 
   if (list === undefined) {
     if (error !== undefined) {
-      return <InvoicesError onRetry={refetch} />;
+      return <InvoicesError error={error} onRetry={refetch} />;
     }
     if (isPending) {
       return <InvoicesSkeleton />;
@@ -196,9 +215,10 @@ export function InvoiceHistory() {
       )}
 
       {error !== undefined && (
-        <p className="mt-5 text-sm text-danger" role="alert">
-          {ERROR_MESSAGE}
-        </p>
+        <div className="mt-5 space-y-1" role="alert">
+          <p className="text-sm text-danger">{ERROR_MESSAGE}</p>
+          <ErrorDetail error={error} />
+        </div>
       )}
     </Card>
   );
