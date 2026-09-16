@@ -2,16 +2,21 @@
 
 import {
   deriveInvoiceList,
-  type StringKey,
-  type Translator,
+  plural,
   useInvoices,
   useResolvedLocale,
-  useTranslator,
 } from "@schematichq/schematic-components/elements";
 import { useMemo, useState } from "react";
 
 import { Badge, type BadgeTone, Button, Card } from "@/components/ui";
-import { INVOICE_LIMIT, INVOICE_QUERY, INVOICE_STRINGS } from "@/utils/billing";
+import { INVOICE_LIMIT, INVOICE_QUERY } from "@/utils/billing";
+
+const ERROR_MESSAGE = "There was a problem retrieving your invoices.";
+
+function countCopy(locale: string, count: number, shown: number): string {
+  const noun = plural(locale, count, { one: "invoice", other: "invoices" });
+  return shown < count ? `${shown} of ${count} ${noun}` : `${count} ${noun}`;
+}
 
 const STATUS_TONE: Record<string, BadgeTone> = {
   paid: "success",
@@ -21,25 +26,14 @@ const STATUS_TONE: Record<string, BadgeTone> = {
   void: "neutral",
 };
 
-const STATUS_KEY: Record<string, StringKey> = {
-  draft: "invoiceStatusDraft",
-  open: "invoiceStatusOpen",
-  paid: "invoiceStatusPaid",
-  uncollectible: "invoiceStatusUncollectible",
-  void: "invoiceStatusVoid",
-};
+const StatusPill = ({ status }: { status: string }) => (
+  <Badge className="capitalize" tone={STATUS_TONE[status] ?? "neutral"}>
+    {status}
+  </Badge>
+);
 
-const StatusPill = ({ status, t }: { status: string; t: Translator }) => {
-  const key = STATUS_KEY[status] as StringKey | undefined;
-  return (
-    <Badge className="capitalize" tone={STATUS_TONE[status] ?? "neutral"}>
-      {key === undefined ? status : t(key)}
-    </Badge>
-  );
-};
-
-const InvoicesSkeleton = ({ label }: { label: string }) => (
-  <Card aria-busy="true" aria-label={label} role="status">
+const InvoicesSkeleton = () => (
+  <Card aria-busy="true" aria-label="Loading invoices" role="status">
     <div className="animate-pulse space-y-4">
       <div className="h-5 w-32 rounded-md bg-muted" />
       <div className="space-y-3 pt-2">
@@ -55,24 +49,15 @@ const InvoicesSkeleton = ({ label }: { label: string }) => (
   </Card>
 );
 
-const InvoicesError = ({
-  message,
-  onRetry,
-  retryText,
-}: {
-  message: string;
-  onRetry: () => void;
-  retryText: string;
-}) => (
+const InvoicesError = ({ onRetry }: { onRetry: () => void }) => (
   <Card role="alert">
     <div className="flex flex-wrap items-center justify-between gap-4">
-      <p className="text-sm text-danger">{message}</p>
-      <Button onClick={onRetry}>{retryText}</Button>
+      <p className="text-sm text-danger">{ERROR_MESSAGE}</p>
+      <Button onClick={onRetry}>Try again</Button>
     </div>
   </Card>
 );
 
-/** Billing history, hand-built on `useInvoices`. */
 export function InvoiceHistory() {
   const {
     data: page,
@@ -83,7 +68,6 @@ export function InvoiceHistory() {
   } = useInvoices(INVOICE_QUERY);
 
   const locale = useResolvedLocale();
-  const t = useTranslator(INVOICE_STRINGS);
 
   const [expanded, setExpanded] = useState(false);
 
@@ -95,16 +79,10 @@ export function InvoiceHistory() {
 
   if (list === undefined) {
     if (error !== undefined) {
-      return (
-        <InvoicesError
-          message={error.message}
-          onRetry={refetch}
-          retryText={t("retry")}
-        />
-      );
+      return <InvoicesError onRetry={refetch} />;
     }
     if (isPending) {
-      return <InvoicesSkeleton label={t("invoicesLoading")} />;
+      return <InvoicesSkeleton />;
     }
   }
 
@@ -118,22 +96,17 @@ export function InvoiceHistory() {
   return (
     <Card>
       <div className="flex items-baseline justify-between gap-4">
-        <h2 className="text-xl">{t("invoicesHeader")}</h2>
+        <h2 className="text-xl">Billing history</h2>
         {rows.length > 0 && (
           <span className="text-sm text-muted-fg">
-            {/* The company's invoices, not the rows loaded — the same count,
-                through the same strings, as the packaged element renders on
-                /account/billing. */}
-            {visible.length < count
-              ? t("invoicesShowing", { count, shown: visible.length })
-              : t("invoicesCount", { count })}
+            {countCopy(locale, count, visible.length)}
           </span>
         )}
       </div>
 
       {rows.length === 0 ? (
         <p className="py-9 text-center text-sm text-muted-fg">
-          {t("invoicesEmpty")}
+          No invoices created yet
         </p>
       ) : (
         <table className="mt-5 w-full border-collapse">
@@ -143,19 +116,19 @@ export function InvoiceHistory() {
                 className="pb-2.5 text-sm font-medium text-muted-fg"
                 scope="col"
               >
-                {t("invoicesDateColumn")}
+                Date
               </th>
               <th
                 className="pb-2.5 text-right text-sm font-medium text-muted-fg"
                 scope="col"
               >
-                {t("invoicesAmountColumn")}
+                Amount
               </th>
               <th
                 className="pb-2.5 text-right text-sm font-medium text-muted-fg"
                 scope="col"
               >
-                {t("invoicesStatusColumn")}
+                Status
               </th>
             </tr>
           </thead>
@@ -176,12 +149,7 @@ export function InvoiceHistory() {
                       rel="noreferrer"
                       target="_blank"
                     >
-                      {/* A link needs a name: a row whose dates the API sent
-                          unusable has no date text to give it one, and the
-                          packaged element says so the same way. */}
-                      {row.dateText === ""
-                        ? t("invoicesUndated")
-                        : row.dateText}
+                      {row.dateText === "" ? "View invoice" : row.dateText}
                     </a>
                   )}
                 </td>
@@ -189,7 +157,7 @@ export function InvoiceHistory() {
                   {row.isCredit ? (
                     <span
                       className="cursor-help text-muted-fg"
-                      title={t("invoicesCredit")}
+                      title="Credit applied to your account"
                     >
                       ({row.amountText})
                     </span>
@@ -198,9 +166,7 @@ export function InvoiceHistory() {
                   )}
                 </td>
                 <td className="py-3 text-right whitespace-nowrap">
-                  {row.status !== null && (
-                    <StatusPill status={row.status} t={t} />
-                  )}
+                  {row.status !== null && <StatusPill status={row.status} />}
                 </td>
               </tr>
             ))}
@@ -212,7 +178,7 @@ export function InvoiceHistory() {
         <div className="mt-5 flex items-center gap-3">
           {canCollapse && (
             <Button onClick={() => setExpanded((value) => !value)}>
-              {expanded ? t("invoicesSeeLess") : t("invoicesSeeMore")}
+              {expanded ? "See less" : "See more"}
             </Button>
           )}
           {showingAll && list?.hasMore === true && (
@@ -223,7 +189,7 @@ export function InvoiceHistory() {
                 void loadMore();
               }}
             >
-              {t("invoicesLoadMore")}
+              Load more
             </Button>
           )}
         </div>
@@ -231,7 +197,7 @@ export function InvoiceHistory() {
 
       {error !== undefined && (
         <p className="mt-5 text-sm text-danger" role="alert">
-          {error.message}
+          {ERROR_MESSAGE}
         </p>
       )}
     </Card>
