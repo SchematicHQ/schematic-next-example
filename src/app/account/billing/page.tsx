@@ -18,7 +18,6 @@ export default function AccountBillingPage() {
         <Invoices
           limit={INVOICE_LIMIT}
           query={INVOICE_QUERY}
-          showStatus
           strings={INVOICE_STRINGS}
         />
       </div>
