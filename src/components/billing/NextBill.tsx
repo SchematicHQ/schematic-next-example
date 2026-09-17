@@ -3,6 +3,7 @@
 import {
   deriveUpcomingInvoice,
   type DiscountLine,
+  httpStatus,
   useResolvedLocale,
   useUpcomingInvoice,
 } from "@schematichq/schematic-components/elements";
@@ -11,6 +12,10 @@ import { useMemo } from "react";
 import { Badge, Button, Card } from "@/components/ui";
 
 const ERROR_MESSAGE = "There was a problem retrieving your upcoming invoice.";
+// A 404 with nothing to show is the account not being on the flag that
+// serves company reads; the endpoint answers 204 for "nothing to bill".
+const UNAVAILABLE_MESSAGE =
+  "Your upcoming invoice is not available for this account.";
 
 /**
  * The fixed copy above hides what actually failed. In development the
@@ -45,7 +50,9 @@ const BillError = ({
   <Card role="alert">
     <div className="flex flex-wrap items-center justify-between gap-4">
       <div className="space-y-1">
-        <p className="text-sm text-danger">{ERROR_MESSAGE}</p>
+        <p className="text-sm text-danger">
+          {httpStatus(error) === 404 ? UNAVAILABLE_MESSAGE : ERROR_MESSAGE}
+        </p>
         <ErrorDetail error={error} />
       </div>
       <Button onClick={onRetry}>Try again</Button>
