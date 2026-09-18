@@ -2,6 +2,7 @@
 
 import {
   Invoices,
+  PaymentMethods,
   UpcomingBill,
 } from "@schematichq/schematic-components/elements";
 
@@ -13,13 +14,14 @@ export default function AccountBillingPage() {
       <header className="mb-6">
         <h1>Billing</h1>
         <p className="mt-1 text-muted-fg">
-          What your account will be charged next and what it has been charged
-          already, rendered by the packaged elements.
+          What your account will be charged next, how it pays, and what it has
+          been charged already, rendered by the packaged elements.
         </p>
       </header>
 
       <div className="space-y-6">
         <UpcomingBill />
+        <PaymentMethods />
         <Invoices
           limit={INVOICE_LIMIT}
           query={INVOICE_QUERY}
