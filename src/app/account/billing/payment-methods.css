@@ -4,14 +4,17 @@
  * <SchematicStyles />, beside invoices.css and upcoming-bill.css. Nothing
  * compiles it, so when the element's markup changes this sheet does not
  * fail — check it against the class names in
- * schematic-js/components/src/elements/styles/payment-methods.ts and the
- * markup section of
+ * schematic-js/components/src/elements/styles/payment-methods.ts and
+ * styles/dialog.ts, and the markup section of
  * schematic-js/components/src/elements/docs/payment-methods.md.
  *
  * The root carries the same class list in every state; `data-state` is
- * "pending", "error", or "ready". The Add form carries its own `data-state`
- * while Stripe loads ("pending"), when it could not ("error"), and once its
- * fields are up ("ready").
+ * "pending", "error", or "ready". The card is a heading bar and one pill
+ * naming the default method. Edit opens a native <dialog> inside the root,
+ * which the browser positions and backdrops; the sheet only dresses it.
+ * The Add form inside the dialog carries its own `data-state` while Stripe
+ * loads ("pending"), when it could not ("error"), and once its fields are
+ * up ("ready").
  */
 
 .schematic-payment-methods {
@@ -28,7 +31,7 @@
   padding: 2.8125rem;
 }
 
-/* The heading on the left, Add on the right; Add alone sits at the end. */
+/* The heading on the left, the expiry warning on the right. */
 .schematic-payment-methods .schematic-header {
   align-items: center;
   display: flex;
@@ -42,81 +45,36 @@
   margin: 0;
 }
 
-.schematic-payment-methods__add {
-  margin-inline-start: auto;
-}
-
-/* Add and Save, as the app's bordered button. */
-.schematic-payment-methods__add,
-.schematic-payment-methods__save,
-.schematic-payment-methods .schematic-status__retry {
+/* The warning as the app's badge: amber within four months, red once past. */
+.schematic-payment-methods__expiry-warning {
   align-items: center;
-  background: none;
-  border: 1px solid var(--border-2);
-  border-radius: 0.75rem;
-  color: var(--fg);
-  cursor: pointer;
+  border: 1px solid var(--amber-line, rgba(201, 138, 30, 0.3));
+  background: var(--amber-soft);
+  border-radius: 9999px;
+  color: var(--amber-ink);
   display: inline-flex;
-  font-family: inherit;
   font-size: var(--text-sm, 0.875rem);
-  font-weight: 600;
-  gap: 0.5rem;
+  font-weight: 500;
   line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
-  padding: 0.375rem 0.875rem;
-  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0.125rem 0.625rem;
+  white-space: nowrap;
 }
 
-.schematic-payment-methods__add:hover,
-.schematic-payment-methods__save:hover,
-.schematic-payment-methods .schematic-status__retry:hover {
-  background: var(--muted);
+.schematic-payment-methods__expiry-warning[data-expiry="expired"] {
+  background: var(--danger-soft);
+  border-color: var(--danger-line);
+  color: var(--danger-deep);
 }
 
-.schematic-payment-methods__add:disabled,
-.schematic-payment-methods__save:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.schematic-payment-methods__add:focus-visible,
-.schematic-payment-methods__save:focus-visible,
-.schematic-payment-methods .schematic-status__retry:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.schematic-payment-methods__list {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* The name on the left, the expiry and actions on the right; a narrow card
-   wraps the actions under the name. */
-.schematic-payment-methods__row {
+/* The pill: the default method on the left, Edit or Add on the right. */
+.schematic-payment-methods__current {
   align-items: center;
-  border-top: 1px solid var(--border);
+  background: var(--muted);
+  border-radius: 9999px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  padding: 0.75rem 0;
-}
-
-.schematic-payment-methods__row:first-child {
-  border-top: none;
-  padding-top: 0;
-}
-
-.schematic-payment-methods__row:last-child {
-  padding-bottom: 0;
-}
-
-/* The default row, in the accent's faint tint. */
-.schematic-payment-methods__row[data-default="true"]
-  .schematic-payment-methods__brand {
-  color: var(--accent-deep);
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 0.625rem 1.25rem;
 }
 
 .schematic-payment-methods__method {
@@ -124,10 +82,10 @@
   display: inline-flex;
   flex-grow: 1;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
-.schematic-payment-methods__brand {
+.schematic-payment-methods__label {
   font-weight: 500;
 }
 
@@ -135,46 +93,15 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* The Default badge, as the app's neutral badge. */
-.schematic-payment-methods .schematic-badge {
-  align-items: center;
-  background: var(--muted);
-  border: 1px solid var(--border-2);
-  border-radius: 9999px;
+.schematic-payment-methods__empty {
   color: var(--muted-fg);
-  display: inline-flex;
+  flex-grow: 1;
   font-size: var(--text-sm, 0.875rem);
-  font-weight: 500;
-  gap: 0.375rem;
   line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
-  padding: 0.125rem 0.625rem;
 }
 
-/* Muted while the card is fine, amber within four months, red once past. */
-.schematic-payment-methods__expires {
-  color: var(--muted-fg);
-  font-size: var(--text-sm, 0.875rem);
-  font-variant-numeric: tabular-nums;
-  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
-  white-space: nowrap;
-}
-
-.schematic-payment-methods__expires[data-expiry="soon"] {
-  color: var(--amber-ink);
-}
-
-.schematic-payment-methods__expires[data-expiry="expired"] {
-  color: var(--danger);
-}
-
-.schematic-payment-methods__actions {
-  align-items: center;
-  display: inline-flex;
-  gap: 1rem;
-  white-space: nowrap;
-}
-
-/* Make default, Remove, Cancel, and both Try agains: inline text actions. */
+/* Edit, Choose different, Set default, Cancel, Select existing, and every
+   Try again: inline text actions. */
 .schematic-payment-methods .schematic-link-button {
   background: none;
   border: none;
@@ -205,31 +132,221 @@
   text-decoration: none;
 }
 
-/* Remove is the one action that cannot be undone. */
-.schematic-payment-methods__remove {
-  color: var(--danger);
+.schematic-payment-methods__edit {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
-.schematic-payment-methods__remove:hover {
-  color: var(--danger-deep);
+/* Add new, Save, and the retry in the error state, as the app's bordered
+   button. */
+.schematic-payment-methods .schematic-cta,
+.schematic-payment-methods .schematic-status__retry {
+  align-items: center;
+  background: none;
+  border: 1px solid var(--border-2);
+  border-radius: 0.75rem;
+  color: var(--fg);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 600;
+  gap: 0.5rem;
+  justify-content: center;
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
+  padding: 0.375rem 0.875rem;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.schematic-payment-methods__empty {
+.schematic-payment-methods .schematic-cta:hover,
+.schematic-payment-methods .schematic-status__retry:hover {
+  background: var(--muted);
+}
+
+.schematic-payment-methods .schematic-cta:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.schematic-payment-methods .schematic-cta:focus-visible,
+.schematic-payment-methods .schematic-status__retry:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* The dialog: the browser centres it and paints the backdrop; this gives
+   it the card's surface. No padding of its own, so a click on the dialog
+   and not on a child is a click on the backdrop. */
+dialog.schematic-dialog.schematic-payment-methods__dialog {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  color: var(--fg);
+  font-family: var(--body);
+  margin: auto;
+  max-height: calc(100vh - 2rem);
+  max-width: 36rem;
+  padding: 0;
+  width: calc(100% - 2rem);
+}
+
+.schematic-payment-methods__dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.schematic-payment-methods__dialog .schematic-dialog__header {
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+}
+
+.schematic-payment-methods__dialog .schematic-dialog__title {
+  font-family: var(--heading);
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: 600;
+  line-height: var(--text-lg--line-height, calc(1.75 / 1.125));
+  margin: 0;
+}
+
+/* Close, as the app's icon button. */
+.schematic-payment-methods__dialog .schematic-dialog__close {
+  align-items: center;
+  background: none;
+  border: 1px solid var(--border-2);
+  border-radius: 0.75rem;
+  color: var(--fg);
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 1rem;
+  height: 2.25rem;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  width: 2.25rem;
+}
+
+.schematic-payment-methods__dialog .schematic-dialog__close:hover {
+  background: var(--muted);
+}
+
+.schematic-payment-methods__dialog .schematic-dialog__close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.schematic-payment-methods__dialog .schematic-dialog__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+}
+
+/* The toggle that reveals the other methods, underlined only on hover,
+   with its chevron turning as it opens. */
+.schematic-payment-methods__choose {
+  align-items: center;
+  align-self: flex-start;
+  display: inline-flex;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.schematic-payment-methods__choose:hover {
+  text-decoration: underline;
+}
+
+.schematic-payment-methods__chevron {
+  display: inline-block;
+  font-size: 0.75em;
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.schematic-payment-methods__choose[aria-expanded="true"]
+  .schematic-payment-methods__chevron {
+  transform: rotate(180deg);
+}
+
+ul.schematic-payment-methods__list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* The name on the left, the expiry and actions on the right; a narrow
+   dialog wraps the actions under the name. */
+li.schematic-payment-methods__row {
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 0;
+}
+
+li.schematic-payment-methods__row:last-child {
+  border-bottom: none;
+}
+
+.schematic-payment-methods__expires {
   color: var(--muted-fg);
   font-size: var(--text-sm, 0.875rem);
+  font-variant-numeric: tabular-nums;
   line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
-  margin: 0;
-  padding: 2.25rem 0;
-  text-align: center;
+  white-space: nowrap;
 }
 
-/* The Add form under the list; its fields are Stripe's own iframe. */
+.schematic-payment-methods__set-default {
+  white-space: nowrap;
+}
+
+/* Remove: a bare ×, muted until hovered. */
+.schematic-payment-methods__remove {
+  background: none;
+  border: none;
+  border-radius: 9999px;
+  color: var(--muted-fg);
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0 0.25rem;
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.schematic-payment-methods__remove:hover:not(:disabled) {
+  color: var(--fg);
+}
+
+.schematic-payment-methods__remove:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.schematic-payment-methods__remove:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.schematic-cta.schematic-payment-methods__add-new {
+  width: 100%;
+}
+
+/* The Add form; its fields are Stripe's own iframe. */
 .schematic-payment-methods__form {
-  border-top: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding-top: 1.25rem;
+}
+
+.schematic-payment-methods__fields {
+  min-height: 3rem;
 }
 
 .schematic-payment-methods__form-actions {
@@ -238,11 +355,20 @@
   gap: 1rem;
 }
 
+.schematic-payment-methods__save {
+  flex-shrink: 0;
+}
+
+.schematic-payment-methods__cancel,
+.schematic-payment-methods__select-existing {
+  align-self: flex-start;
+}
+
 .schematic-payment-methods__form-error {
   margin: 0;
 }
 
-/* The error state: a message beside a retry button, in place of the rows;
+/* The error state: a message beside a retry button, in place of the pill;
    also the form that could not load, with Cancel as the way out. */
 .schematic-payment-methods .schematic-status {
   align-items: center;
@@ -252,7 +378,7 @@
   justify-content: space-between;
 }
 
-/* A failure with rows still on screen sits under them as a note. */
+/* A failure with the method still on screen sits under it as a note. */
 .schematic-payment-methods .schematic-status__message,
 .schematic-payment-methods .schematic-status-note,
 .schematic-payment-methods .schematic-error {
@@ -262,8 +388,8 @@
   margin: 0;
 }
 
-/* The failed write and its retry sit on one line beneath the list. */
-.schematic-payment-methods__write-error {
+/* The failed write and its retry sit on one line at the foot of the dialog. */
+.schematic-payment-methods__error {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
@@ -271,7 +397,11 @@
   justify-content: space-between;
 }
 
-.schematic-payment-methods__write-retry {
+.schematic-payment-methods__error-message {
+  flex-grow: 1;
+}
+
+.schematic-payment-methods__error-retry {
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -292,26 +422,29 @@
     infinite;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1.25rem;
 }
 
 .schematic-payment-methods .schematic-skeleton__heading {
   background: var(--muted);
   border-radius: 0.375rem;
   height: 1.25rem;
-  margin-bottom: 0.75rem;
   width: 10rem;
 }
 
+/* The pill's shape, so the page does not reflow when the method arrives. */
 .schematic-payment-methods .schematic-skeleton__row {
   align-items: center;
+  background: var(--muted);
+  border-radius: 9999px;
   display: flex;
   gap: 1rem;
   justify-content: space-between;
+  padding: 0.625rem 1.25rem;
 }
 
 .schematic-payment-methods .schematic-skeleton__cell {
-  background: var(--muted);
+  background: var(--border);
   border-radius: 0.25rem;
   height: 1rem;
 }
@@ -320,12 +453,20 @@
   width: 10rem;
 }
 
-.schematic-payment-methods .schematic-skeleton__cell[data-column="actions"] {
-  width: 6rem;
+.schematic-payment-methods .schematic-skeleton__cell[data-column="action"] {
+  width: 2.5rem;
 }
 
-/* The form's placeholder while Stripe loads: one field-height bar. */
+/* The form's placeholder while Stripe loads: one field-height bar, in a
+   row that is not a pill. */
+.schematic-payment-methods__form .schematic-skeleton__row {
+  background: none;
+  border-radius: 0;
+  padding: 0;
+}
+
 .schematic-payment-methods .schematic-skeleton__cell[data-column="field"] {
+  background: var(--muted);
   border-radius: 0.375rem;
   height: 3rem;
   width: 100%;
@@ -344,5 +485,9 @@
 @media (prefers-reduced-motion: reduce) {
   .schematic-payment-methods .schematic-skeleton {
     animation: none;
+  }
+
+  .schematic-payment-methods__chevron {
+    transition: none;
   }
 }

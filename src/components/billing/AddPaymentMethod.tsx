@@ -1,5 +1,6 @@
 "use client";
 
+import { useResolvedLocale } from "@schematichq/schematic-components/elements";
 import { useSetupIntent } from "@schematichq/schematic-react";
 import {
   Elements,
@@ -8,13 +9,15 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import type {
+  Appearance,
   Stripe,
   StripeConstructorOptions,
+  StripeElementLocale,
   StripeElements,
 } from "@stripe/stripe-js";
 import { type FormEvent, useEffect, useState } from "react";
 
-import { Button } from "@/components/ui";
+import { Button, LinkButton } from "@/components/ui";
 
 const LOAD_ERROR = "Could not load the payment form.";
 const SAVE_ERROR = "Could not save the payment method.";
@@ -22,11 +25,21 @@ const SAVE_ERROR = "Could not save the payment method.";
 type FormState =
   | { status: "loading" }
   | { status: "failed"; message: string }
-  | { status: "ready"; clientSecret: string; stripe: Stripe };
+  | {
+      status: "ready";
+      appearance: Appearance;
+      clientSecret: string;
+      stripe: Stripe;
+    };
 
 interface AddPaymentMethodProps {
   /** The form is finished with: saved, or cancelled. */
   onDone: () => void;
+  /**
+   * The "Select existing payment method" link back to the method on file;
+   * omitted when there is none to select.
+   */
+  onSelectExisting?: () => void;
   /**
    * Makes the saved method the default. The server never promotes a method
    * on its own, so a form that skipped this would leave the new card idle.
@@ -34,12 +47,40 @@ interface AddPaymentMethodProps {
   setDefault: (externalId: string) => Promise<void>;
 }
 
+/**
+ * Stripe's fields render in an iframe, where the app's CSS reaches nothing,
+ * so the palette from `globals.css` is read off the document and handed
+ * over as values. The custom properties hold literal colours, so they come
+ * back as written; the font is read resolved off the body, since `--body`
+ * names a `var()` the iframe could not follow. A dark theme gets Stripe's
+ * night theme under the same colours, so its own chrome reads too.
+ */
+function resolveAppearance(): Appearance {
+  const root = document.documentElement;
+  const palette = getComputedStyle(root);
+  const read = (name: string) => palette.getPropertyValue(name).trim();
+  return {
+    theme: root.classList.contains("dark") ? "night" : "stripe",
+    variables: {
+      borderRadius: read("--r"),
+      colorBackground: read("--card"),
+      colorDanger: read("--danger"),
+      colorPrimary: read("--accent"),
+      colorText: read("--fg"),
+      colorTextSecondary: read("--muted-fg"),
+      fontFamily: getComputedStyle(document.body).fontFamily,
+    },
+  };
+}
+
 /** A Stripe PaymentElement over a setup intent the API mints for the company. */
 export function AddPaymentMethod({
   onDone,
+  onSelectExisting,
   setDefault,
 }: AddPaymentMethodProps) {
   const { create } = useSetupIntent();
+  const locale = useResolvedLocale();
   const [state, setState] = useState<FormState>({ status: "loading" });
 
   useEffect(() => {
@@ -56,7 +97,9 @@ export function AddPaymentMethod({
         // A connected account is reached through Schematic's own key with
         // the account named; a direct account uses its own key.
         let key = intent.publishableKey ?? intent.schematicPublishableKey;
-        const options: StripeConstructorOptions = {};
+        const options: StripeConstructorOptions = {
+          locale: locale as StripeElementLocale,
+        };
         if (intent.accountId) {
           key = intent.schematicPublishableKey;
           options.stripeAccount = intent.accountId;
@@ -66,7 +109,12 @@ export function AddPaymentMethod({
           throw new Error("Stripe.js did not load.");
         }
         if (!cancelled) {
-          setState({ status: "ready", clientSecret, stripe });
+          setState({
+            status: "ready",
+            appearance: resolveAppearance(),
+            clientSecret,
+            stripe,
+          });
         }
       })
       .catch((cause: unknown) => {
@@ -78,14 +126,15 @@ export function AddPaymentMethod({
     return () => {
       cancelled = true;
     };
-  }, [create]);
+    // `create` is memoized by the hook; a new locale is a new Stripe load.
+  }, [create, locale]);
 
   if (state.status === "loading") {
     return (
       <div
         aria-busy="true"
         aria-label="Loading the payment form"
-        className="animate-pulse border-t border-border pt-4"
+        className="animate-pulse"
         role="status"
       >
         <div className="h-12 w-full rounded-md bg-muted" />
@@ -96,21 +145,28 @@ export function AddPaymentMethod({
   if (state.status === "failed") {
     return (
       <div
-        className="flex flex-wrap items-center justify-between gap-4 border-t border-border pt-4"
+        className="flex flex-wrap items-center justify-between gap-4"
         role="alert"
       >
         <p className="text-sm text-danger">{state.message}</p>
-        <Button onClick={onDone}>Cancel</Button>
+        <LinkButton onClick={onDone}>Cancel</LinkButton>
       </div>
     );
   }
 
   return (
     <Elements
-      options={{ clientSecret: state.clientSecret }}
+      options={{
+        appearance: state.appearance,
+        clientSecret: state.clientSecret,
+      }}
       stripe={state.stripe}
     >
-      <Fields onDone={onDone} setDefault={setDefault} />
+      <Fields
+        onDone={onDone}
+        onSelectExisting={onSelectExisting}
+        setDefault={setDefault}
+      />
     </Elements>
   );
 }
@@ -135,7 +191,11 @@ async function confirm(
 }
 
 /** Inside `<Elements>`, where Stripe's hooks resolve. */
-function Fields({ onDone, setDefault }: AddPaymentMethodProps) {
+function Fields({
+  onDone,
+  onSelectExisting,
+  setDefault,
+}: AddPaymentMethodProps) {
   const stripe = useStripe();
   const elements = useElements();
   const [saving, setSaving] = useState(false);
@@ -157,33 +217,35 @@ function Fields({ onDone, setDefault }: AddPaymentMethodProps) {
       return;
     }
     // Stripe has the method from here on. A default that fails to take is
-    // the list's to report and retry, so the form closes either way.
+    // the dialog's to report and retry, so the form closes either way.
     await setDefault(outcome.id).catch(() => {});
     onDone();
   };
 
   return (
-    <form
-      className="space-y-4 border-t border-border pt-4"
-      onSubmit={(event) => void submit(event)}
-    >
+    <form className="space-y-4" onSubmit={(event) => void submit(event)}>
       <PaymentElement />
       {message !== null && (
         <p className="text-sm text-danger" role="alert">
           {message}
         </p>
       )}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         <Button
           disabled={stripe === null || elements === null || saving}
           type="submit"
         >
           Save
         </Button>
-        <Button disabled={saving} onClick={onDone}>
+        <LinkButton disabled={saving} onClick={onDone}>
           Cancel
-        </Button>
+        </LinkButton>
       </div>
+      {onSelectExisting !== undefined && (
+        <LinkButton disabled={saving} onClick={onSelectExisting}>
+          Select existing payment method
+        </LinkButton>
+      )}
     </form>
   );
 }

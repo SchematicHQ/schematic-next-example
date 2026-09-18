@@ -26,3 +26,15 @@ export const Button = ({
     {...props}
   />
 );
+
+const LINK_BUTTON =
+  "cursor-pointer text-sm font-semibold text-accent underline underline-offset-[0.2em] transition-colors duration-150 hover:text-accent-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:text-muted-fg disabled:no-underline";
+
+/** An action that reads as a link — Edit, Set default, Cancel — not a control. */
+export const LinkButton = ({
+  className,
+  type = "button",
+  ...props
+}: ComponentPropsWithoutRef<"button">) => (
+  <button className={cn(LINK_BUTTON, className)} type={type} {...props} />
+);
