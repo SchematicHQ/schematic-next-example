@@ -2,7 +2,7 @@
 
 import { InvoiceHistory } from "@/components/billing/InvoiceHistory";
 import { NextBill } from "@/components/billing/NextBill";
-import { PaymentMethodsList } from "@/components/billing/PaymentMethodsList";
+import { PaymentMethodCard } from "@/components/billing/PaymentMethodCard";
 
 export default function BillingPage() {
   return (
@@ -18,7 +18,7 @@ export default function BillingPage() {
 
       <div className="space-y-6">
         <NextBill />
-        <PaymentMethodsList />
+        <PaymentMethodCard />
         <InvoiceHistory />
       </div>
     </div>
