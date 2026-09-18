@@ -249,44 +249,69 @@ is `UpcomingInvoice | null`, where `null` is a loaded answer meaning there is
 nothing to bill (no subscription), so only `undefined` is still loading. See
 `src/components/billing/NextBill.tsx`.
 
-Between them is `usePaymentMethods` and `derivePaymentMethods`: the cards on
-file, which is the default, and whether one is about to expire. The hook
-carries the writes beside the read, `setDefault` and `remove`, each a promise
-that reloads the list on success and rejects on failure, with `isMutating`
-while one is on the wire and `mutationError` holding the last rejection.
-`src/components/billing/PaymentMethodsList.tsx` disables every row's actions
-on `isMutating`, reports `mutationError` under the list with a Try again that
-re-runs that write, and keeps the rows either way. Which rows can go is the
-server's call, carried on each row's `canRemove`; three rules hold:
+Between them is `usePaymentMethods` and `derivePaymentMethods`: the methods
+on file split into the `current` default and the `others`, each row with a
+`label` — a key such as `paymentMethodsCardEndingIn` for the host to put words
+to, or the text the provider supplied, a bank's name or a Link email — its
+`last4`, and its short expiry, plus an `expiryWarning` when the default card
+has fewer than four months left. The hook carries the writes beside the read,
+`setDefault` and `remove`, each a promise that reloads the list on success and
+rejects on failure, with `isMutating` while one is on the wire and
+`mutationError` holding the last rejection.
+
+`src/components/billing/PaymentMethodCard.tsx` lays that out the way the
+embed does: a "Payment details" heading with the expiry warning beside it,
+and one pill naming the default method with Edit on the right, or "No payment
+method added yet" with Add. The pill offers no Remove: the server refuses to
+remove the default while other methods exist, so a Remove there would fail
+every time. Edit opens `src/components/billing/PaymentMethodDialog.tsx`, a
+native `<dialog>` opened with `showModal()` so the browser owns the focus
+trap, the backdrop, and Escape. It shows the pill again, and "Choose
+different payment method" unfolds the other methods as rows — name, "Expires
+8/27", Set default, and a remove control only where the server's `canRemove`
+allows it — under a full-width "Add new payment method". The dialog disables
+every action on `isMutating`, reports `mutationError` at its foot with a Try
+again that re-runs that write, and a write that lands folds the rows away and
+leaves the dialog on the refreshed method. Which rows can go is the server's
+call; three rules hold:
 
 - The default cannot be removed while other methods exist.
 - The last method stays while a subscription is active.
 - A method added through the form becomes the default, and nothing else is
-  ever promoted: a list with no default shows no badge until someone picks.
+  ever promoted: a list with no default shows an empty pill until someone
+  picks, and every method is offered in the dialog.
 
-Add opens `src/components/billing/AddPaymentMethod.tsx` under the list. It
-mints a setup intent with `useSetupIntent().create()`, loads Stripe.js with
-the key the intent names (Schematic's own key plus `stripeAccount` for a
-connected account, the account's key otherwise), mounts Stripe's
-`PaymentElement` on the client secret, and on Save confirms the setup in
-place; the saved method is then made the default through the list's own
-`setDefault`, so a failure there lands under the list like any other write.
-`@stripe/stripe-js` is imported inside the form rather than at the top of
-the module, because importing it starts loading Stripe.js from Stripe's CDN,
-and `/billing` should not pay for that until someone clicks Add.
+"Add new payment method" swaps `src/components/billing/AddPaymentMethod.tsx`
+into the dialog, with "Select existing payment method" beneath it as the way
+back; with nothing on file the dialog opens straight onto the form, and
+Cancel closes it. The form mints a setup intent with
+`useSetupIntent().create()`, loads Stripe.js with the key the intent names
+(Schematic's own key plus `stripeAccount` for a connected account, the
+account's key otherwise), mounts Stripe's `PaymentElement` on the client
+secret, and on Save confirms the setup in place; the saved method is then made
+the default through the card's own `setDefault`, so a failure there lands at
+the foot of the dialog like any other write. Stripe's fields render in an
+iframe the app's CSS cannot reach, so the form hands Stripe an `appearance`
+read off the palette in `globals.css` — the card, text, accent, and danger
+colours, the radius, and the body font — with Stripe's night theme under the
+dark one. `@stripe/stripe-js` is imported inside the form rather than at the
+top of the module, because importing it starts loading Stripe.js from Stripe's
+CDN, and `/billing` should not pay for that until someone opens the form.
 
 `/account/billing` renders those three cards from the packaged
 `<UpcomingBill>`, `<PaymentMethods>`, and `<Invoices>` instead, styled by
 `<SchematicStyles />` — mounted once on the provider in
 `src/components/ClientWrapper.tsx`. That is the packaged elements as a host
 gets them out of the box, and the sheet follows the app's `color-scheme`, so
-they track the theme toggle with nothing to wire up. `<PaymentMethods>` lazy
-loads its own Stripe form the same way, and takes `allowAdd` and
-`allowRemove` for a host that wants a read-only list.
-`src/app/account/billing/*.css` is the other way to do it: a complete restyle
-through the documented class names, kept on disk and left unimported so you
-can swap them in; `payment-methods.css` reaches the Add form and the
-write error under the list as well as the rows. Copy is renamed by key — `strings={{ invoicesHeader: "Billing history" }}` — which is
+they track the theme toggle with nothing to wire up. `<PaymentMethods>` is
+the same pill and dialog, lazy loads its Stripe form the same way and themes
+it from its own tokens, and takes `allowEdit={false}` for a host that wants
+the method on file with no way to change it and `showExpiration={false}` to
+drop the warning. `src/app/account/billing/*.css` is the other way to do it:
+a complete restyle through the documented class names, kept on disk and left
+unimported so you can swap them in; `payment-methods.css` reaches the dialog,
+its rows, the Add form, and the write error at its foot as well as the pill.
+Copy is renamed by key — `strings={{ invoicesHeader: "Billing history" }}` — which is
 the whole integration for a host that wants different words in one language;
 `translate` on the provider routes every string through an i18n stack instead.
 Both pages take their query, row limit, and copy from `src/utils/billing.ts`,
