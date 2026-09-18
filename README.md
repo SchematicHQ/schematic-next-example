@@ -12,14 +12,14 @@ for the embedded portal, pricing table, and checkout. Auth is
 
 ## What's in here
 
-| Route              | Shows                                                           |
-| ------------------ | --------------------------------------------------------------- |
-| `/`                | Feature flags and usage tracking gating a weather search        |
-| `/pricing`         | `<PricingTable>` — plans and upgrade CTA                        |
-| `/usage`           | `<SchematicEmbed>` — the full customer portal                   |
-| `/custom-checkout` | Driving `<CheckoutDialog>` yourself from your own button        |
-| `/billing`         | Next bill and billing history, built on the elements data hooks |
-| `/account/billing` | The same two cards from `<UpcomingBill>` and `<Invoices>`       |
+| Route              | Shows                                                                             |
+| ------------------ | --------------------------------------------------------------------------------- |
+| `/`                | Feature flags and usage tracking gating a weather search                          |
+| `/pricing`         | `<PricingTable>` — plans and upgrade CTA                                          |
+| `/usage`           | `<SchematicEmbed>` — the full customer portal                                     |
+| `/custom-checkout` | Driving `<CheckoutDialog>` yourself from your own button                          |
+| `/billing`         | Next bill, payment methods, and billing history, built on the elements data hooks |
+| `/account/billing` | The same three cards from `<UpcomingBill>`, `<PaymentMethods>`, and `<Invoices>`  |
 
 ## Prerequisites
 
@@ -32,6 +32,16 @@ for the embedded portal, pricing table, and checkout. Auth is
 
 For the full component experience you'll also want a Stripe account connected to
 Schematic, with Stripe customer IDs in private metadata on your Clerk orgs.
+The payment methods card on both billing pages reads through that
+connection, so it needs:
+
+- The Stripe integration installed on your Schematic account.
+- A Stripe customer for the company (the demo company, in demo mode). Without
+  one the card reports that payment methods are not available.
+- `company-context-api` on, as above.
+- `@stripe/stripe-js` and `@stripe/react-stripe-js` installed, which they are
+  here. Both are optional peers of `schematic-components`: the list renders
+  without them, and only the Add form needs them.
 
 ## Getting started
 
@@ -239,14 +249,44 @@ is `UpcomingInvoice | null`, where `null` is a loaded answer meaning there is
 nothing to bill (no subscription), so only `undefined` is still loading. See
 `src/components/billing/NextBill.tsx`.
 
-`/account/billing` renders those two cards from the packaged `<UpcomingBill>`
-and `<Invoices>` instead, styled by `<SchematicStyles />` — mounted once on
-the provider in `src/components/ClientWrapper.tsx`. That is the packaged
-elements as a host gets them out of the box, and the sheet follows the app's
-`color-scheme`, so they track the theme toggle with nothing to wire up.
+Between them is `usePaymentMethods` and `derivePaymentMethods`: the cards on
+file, which is the default, and whether one is about to expire. The hook
+carries the writes beside the read, `setDefault` and `remove`, each a promise
+that reloads the list on success and rejects on failure, with `isMutating`
+while one is on the wire and `mutationError` holding the last rejection.
+`src/components/billing/PaymentMethodsList.tsx` disables every row's actions
+on `isMutating`, reports `mutationError` under the list with a Try again that
+re-runs that write, and keeps the rows either way. Which rows can go is the
+server's call, carried on each row's `canRemove`; three rules hold:
+
+- The default cannot be removed while other methods exist.
+- The last method stays while a subscription is active.
+- A method added through the form becomes the default, and nothing else is
+  ever promoted: a list with no default shows no badge until someone picks.
+
+Add opens `src/components/billing/AddPaymentMethod.tsx` under the list. It
+mints a setup intent with `useSetupIntent().create()`, loads Stripe.js with
+the key the intent names (Schematic's own key plus `stripeAccount` for a
+connected account, the account's key otherwise), mounts Stripe's
+`PaymentElement` on the client secret, and on Save confirms the setup in
+place; the saved method is then made the default through the list's own
+`setDefault`, so a failure there lands under the list like any other write.
+`@stripe/stripe-js` is imported inside the form rather than at the top of
+the module, because importing it starts loading Stripe.js from Stripe's CDN,
+and `/billing` should not pay for that until someone clicks Add.
+
+`/account/billing` renders those three cards from the packaged
+`<UpcomingBill>`, `<PaymentMethods>`, and `<Invoices>` instead, styled by
+`<SchematicStyles />` — mounted once on the provider in
+`src/components/ClientWrapper.tsx`. That is the packaged elements as a host
+gets them out of the box, and the sheet follows the app's `color-scheme`, so
+they track the theme toggle with nothing to wire up. `<PaymentMethods>` lazy
+loads its own Stripe form the same way, and takes `allowAdd` and
+`allowRemove` for a host that wants a read-only list.
 `src/app/account/billing/*.css` is the other way to do it: a complete restyle
 through the documented class names, kept on disk and left unimported so you
-can swap them in. Copy is renamed by key — `strings={{ invoicesHeader: "Billing history" }}` — which is
+can swap them in; `payment-methods.css` reaches the Add form and the
+write error under the list as well as the rows. Copy is renamed by key — `strings={{ invoicesHeader: "Billing history" }}` — which is
 the whole integration for a host that wants different words in one language;
 `translate` on the provider routes every string through an i18n stack instead.
 Both pages take their query, row limit, and copy from `src/utils/billing.ts`,
