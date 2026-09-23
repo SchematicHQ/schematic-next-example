@@ -281,6 +281,15 @@ call; three rules hold:
   ever promoted: a list with no default shows an empty pill until someone
   picks, and every method is offered in the dialog.
 
+Brand marks, the dialog's close control and the chevron are glyphs from the
+schematic-icons font that `<SchematicStyles />` inlines, so they need no
+setup on the packaged page. Two things follow. A Content Security Policy
+with a `font-src` directive needs `data:` in it, or the browser refuses the
+font and the labels stand alone. And a page that swaps `payment-methods.css`
+in for `<SchematicStyles />` must render `<style>{iconsCss}</style>` once,
+from `@schematichq/schematic-components/elements`, or the glyphs render
+empty; the sheet only sizes and colors them.
+
 "Add new payment method" swaps `src/components/billing/AddPaymentMethod.tsx`
 into the dialog, with "Select existing payment method" beneath it as the way
 back; with nothing on file the dialog opens straight onto the form, and
