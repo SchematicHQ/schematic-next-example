@@ -283,7 +283,12 @@ call; three rules hold:
 
 Brand marks, the dialog's close control and the chevron are glyphs from the
 schematic-icons font that `<SchematicStyles />` inlines, so they need no
-setup on the packaged page. Two things follow. A Content Security Policy
+setup on the packaged page. The hand-built page uses the same glyphs: each
+row's `icon` names its brand mark, and `PaymentMethodPill.tsx` renders it as
+`<i className="schematic-icon schematic-icon--{icon}">` beside the label,
+with `close` and `chevron-down`/`chevron-up` on the dialog's controls. The
+root layout's `<SchematicStyles />` loads the font for both pages. Two things
+follow. A Content Security Policy
 with a `font-src` directive needs `data:` in it, or the browser refuses the
 font and the labels stand alone. And a page that swaps `payment-methods.css`
 in for `<SchematicStyles />` must render `<style>{iconsCss}</style>` once,
