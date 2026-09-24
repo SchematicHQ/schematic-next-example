@@ -113,7 +113,7 @@
   line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
 }
 
-/* Edit, Choose different, Set default, Cancel, Select existing, and every
+/* Edit, Choose different, Set default, Select existing, and every
    Try again: inline text actions. */
 .schematic-payment-methods .schematic-link-button {
   background: none;
@@ -357,17 +357,11 @@ li.schematic-payment-methods__row:last-child {
   min-height: 3rem;
 }
 
-.schematic-payment-methods__form-actions {
-  align-items: center;
-  display: flex;
-  gap: 1rem;
-}
-
+/* Save spans the form, as the embed's does. */
 .schematic-payment-methods__save {
-  flex-shrink: 0;
+  width: 100%;
 }
 
-.schematic-payment-methods__cancel,
 .schematic-payment-methods__select-existing {
   align-self: flex-start;
 }
@@ -376,8 +370,7 @@ li.schematic-payment-methods__row:last-child {
   margin: 0;
 }
 
-/* The error state: a message beside a retry button, in place of the pill;
-   also the form that could not load, with Cancel as the way out. */
+/* The error state: a message beside a retry button, in place of the pill. */
 .schematic-payment-methods .schematic-status {
   align-items: center;
   display: flex;

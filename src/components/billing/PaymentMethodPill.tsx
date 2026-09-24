@@ -13,6 +13,12 @@ const LABELS: Record<PaymentMethodLabelKey, string> = {
   paymentMethodsCardEndingIn: "Card ending in",
   paymentMethodsApplePayEndingIn: "Apple Pay ending in",
   paymentMethodsGooglePayEndingIn: "Google Pay ending in",
+  paymentMethodsApplePay: "Apple Pay",
+  paymentMethodsGooglePay: "Google Pay",
+  paymentMethodsAmazonPayAccount: "Amazon Pay account",
+  paymentMethodsCashAppAccount: "CashApp account",
+  paymentMethodsPayPalAccount: "PayPal account",
+  paymentMethodsLinkAccount: "Link account",
   paymentMethodsBankAccount: "Bank account",
   paymentMethodsGeneric: "Payment method",
 };
