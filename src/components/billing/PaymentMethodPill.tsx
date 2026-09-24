@@ -17,13 +17,22 @@ const LABELS: Record<PaymentMethodLabelKey, string> = {
   paymentMethodsGeneric: "Payment method",
 };
 
-/** "Card ending in 4444": the label and the digits that follow it. */
+/**
+ * "Card ending in 4444": the brand's mark, the label, and the digits that
+ * follow it. The mark is `row.icon` from the schematic-icons font, which
+ * `<SchematicStyles />` in the root layout already loads; it is decorative,
+ * since the label names the method.
+ */
 export const MethodName = ({ row }: { row: PaymentMethodRow }) => (
   <span
     className="inline-flex grow flex-wrap items-center gap-x-1"
     data-brand={row.brand}
     data-kind={row.kind}
   >
+    <i
+      aria-hidden="true"
+      className={`schematic-icon schematic-icon--${row.icon} mr-0.5 shrink-0 text-xl text-muted-fg`}
+    />
     <span className="font-medium">
       {row.label.key === undefined ? row.label.text : LABELS[row.label.key]}
     </span>

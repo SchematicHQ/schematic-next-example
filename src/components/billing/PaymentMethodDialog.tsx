@@ -65,12 +65,15 @@ const OtherMethodRow = ({
     {row.canRemove && (
       <button
         aria-label="Remove"
-        className="cursor-pointer rounded-full px-1 text-xl leading-none text-muted-fg transition-colors duration-150 hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-50"
+        className="inline-flex cursor-pointer rounded-full p-1 text-sm leading-none text-muted-fg transition-colors duration-150 hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-50"
         disabled={disabled}
         onClick={onRemove}
         type="button"
       >
-        ×
+        <i
+          aria-hidden="true"
+          className="schematic-icon schematic-icon--close"
+        />
       </button>
     )}
   </li>
@@ -134,7 +137,10 @@ export function PaymentMethodDialog({
           Edit payment details
         </h2>
         <Button aria-label="Close" onClick={onClose} size="icon">
-          ×
+          <i
+            aria-hidden="true"
+            className="schematic-icon schematic-icon--close"
+          />
         </Button>
       </div>
 
@@ -154,12 +160,10 @@ export function PaymentMethodDialog({
               onClick={onChoose}
             >
               Choose different payment method
-              <span
+              <i
                 aria-hidden="true"
-                className={`inline-block text-xs transition-transform duration-150 ${choosing ? "rotate-180" : ""}`}
-              >
-                ▼
-              </span>
+                className={`schematic-icon ${choosing ? "schematic-icon--chevron-up" : "schematic-icon--chevron-down"}`}
+              />
             </LinkButton>
             {choosing && (
               <>
