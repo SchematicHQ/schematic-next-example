@@ -92,10 +92,9 @@ const ExpiryWarning = ({ derived }: { derived: DerivedPaymentMethods }) => {
  * opens a dialog where the other saved methods can be made the default or
  * removed and a new one added through Stripe.
  *
- * The pill offers no Remove. The server refuses to remove the default while
- * others exist and the last method on a subscription, so a Remove here
- * would always fail; removal lives on the other rows in the dialog, where
- * the server's `canRemove` decides which offer it.
+ * The card's pill offers no Remove; inside the dialog it does, as the
+ * embed's does, and so do the other rows, each only where the server's
+ * `canRemove` allows it.
  */
 export function PaymentMethodCard() {
   const {

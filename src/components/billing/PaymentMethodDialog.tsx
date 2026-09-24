@@ -153,7 +153,17 @@ export function PaymentMethodDialog({
           />
         ) : (
           <>
-            <MethodPill row={current} />
+            <MethodPill row={current}>
+              {current?.canRemove === true && (
+                <LinkButton
+                  className="whitespace-nowrap"
+                  disabled={isMutating}
+                  onClick={() => onRemove(current)}
+                >
+                  Remove
+                </LinkButton>
+              )}
+            </MethodPill>
             <LinkButton
               aria-expanded={choosing}
               className="inline-flex items-center gap-2 no-underline hover:underline"

@@ -262,21 +262,21 @@ rejects on failure, with `isMutating` while one is on the wire and
 `src/components/billing/PaymentMethodCard.tsx` lays that out the way the
 embed does: a "Payment details" heading with the expiry warning beside it,
 and one pill naming the default method with Edit on the right, or "No payment
-method added yet" with Add. The pill offers no Remove: the server refuses to
-remove the default while other methods exist, so a Remove there would fail
-every time. Edit opens `src/components/billing/PaymentMethodDialog.tsx`, a
+method added yet" with Add. Edit opens `src/components/billing/PaymentMethodDialog.tsx`, a
 native `<dialog>` opened with `showModal()` so the browser owns the focus
-trap, the backdrop, and Escape. It shows the pill again, and "Choose
+trap, the backdrop, and Escape. It shows the pill again, with Remove where
+the server's `canRemove` allows it, as the embed's dialog does, and "Choose
 different payment method" unfolds the other methods as rows — name, "Expires
 8/27", Set default, and a remove control only where the server's `canRemove`
 allows it — under a full-width "Add new payment method". The dialog disables
 every action on `isMutating`, reports `mutationError` at its foot with a Try
 again that re-runs that write, and a write that lands folds the rows away and
 leaves the dialog on the refreshed method. Which rows can go is the server's
-call; three rules hold:
+call; two rules hold:
 
-- The default cannot be removed while other methods exist.
-- The last method stays while a subscription is active.
+- Any method can be removed, the default included, except the last one on an
+  active paid subscription. Removing the default leaves the pill empty until
+  another method is set as the default.
 - A method added through the form becomes the default, and nothing else is
   ever promoted: a list with no default shows an empty pill until someone
   picks, and every method is offered in the dialog.

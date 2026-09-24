@@ -145,7 +145,8 @@
   text-decoration: none;
 }
 
-.schematic-payment-methods__edit {
+.schematic-payment-methods__edit,
+.schematic-payment-methods__remove-current {
   flex-shrink: 0;
   white-space: nowrap;
 }
