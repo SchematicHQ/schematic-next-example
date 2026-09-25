@@ -28,13 +28,28 @@ export const Button = ({
 );
 
 const LINK_BUTTON =
-  "cursor-pointer text-sm font-semibold text-accent underline underline-offset-[0.2em] transition-colors duration-150 hover:text-accent-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:text-muted-fg disabled:no-underline";
+  "cursor-pointer text-sm font-semibold underline underline-offset-[0.2em] transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:text-muted-fg disabled:no-underline";
 
-/** An action that reads as a link — Edit, Set default, Cancel — not a control. */
+/** `danger` marks the action that destroys something, such as Remove. */
+const LINK_TONE = {
+  accent: "text-accent hover:text-accent-deep",
+  danger: "text-danger hover:text-danger-deep",
+} as const;
+
+interface LinkButtonProps extends ComponentPropsWithoutRef<"button"> {
+  tone?: keyof typeof LINK_TONE;
+}
+
+/** An action that reads as a link — Edit, Cancel, Remove — not a control. */
 export const LinkButton = ({
   className,
+  tone = "accent",
   type = "button",
   ...props
-}: ComponentPropsWithoutRef<"button">) => (
-  <button className={cn(LINK_BUTTON, className)} type={type} {...props} />
+}: LinkButtonProps) => (
+  <button
+    className={cn(LINK_BUTTON, LINK_TONE[tone], className)}
+    type={type}
+    {...props}
+  />
 );

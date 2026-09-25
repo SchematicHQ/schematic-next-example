@@ -2,7 +2,6 @@ import type {
   PaymentMethodLabelKey,
   PaymentMethodRow,
 } from "@schematichq/schematic-components/elements";
-import type { ReactNode } from "react";
 
 /**
  * The words a row's label can ask for. `derivePaymentMethods` hands back a
@@ -44,30 +43,4 @@ export const MethodName = ({ row }: { row: PaymentMethodRow }) => (
     </span>
     {row.last4 !== null && <span className="tabular-nums">{row.last4}</span>}
   </span>
-);
-
-/**
- * The pill: the method on file, or the empty copy, with whatever action the
- * caller puts beside it. The card shows it with Edit; the dialog without.
- */
-export const MethodPill = ({
-  children,
-  row,
-}: {
-  children?: ReactNode;
-  row: PaymentMethodRow | null;
-}) => (
-  <div
-    className="flex items-center justify-between gap-4 rounded-full bg-muted px-5 py-2.5"
-    data-testid="schematic-payment-method-current"
-  >
-    {row === null ? (
-      <span className="grow text-sm text-muted-fg">
-        No payment method added yet
-      </span>
-    ) : (
-      <MethodName row={row} />
-    )}
-    {children}
-  </div>
 );

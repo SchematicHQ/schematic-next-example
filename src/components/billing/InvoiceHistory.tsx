@@ -8,8 +8,12 @@ import {
 } from "@schematichq/schematic-components/elements";
 import { useMemo, useState } from "react";
 
-import { Badge, type BadgeTone, Button, Card } from "@/components/ui";
+import { Badge, type BadgeTone, Button, PanelSection } from "@/components/ui";
 import { INVOICE_LIMIT, INVOICE_QUERY } from "@/utils/billing";
+
+const SECTION = {
+  title: "Billing history",
+};
 
 const ERROR_MESSAGE = "There was a problem retrieving your invoices.";
 
@@ -43,20 +47,22 @@ const StatusPill = ({ status }: { status: string }) => (
 );
 
 const InvoicesSkeleton = () => (
-  <Card aria-busy="true" aria-label="Loading invoices" role="status">
-    <div className="animate-pulse space-y-4">
-      <div className="h-5 w-32 rounded-md bg-muted" />
-      <div className="space-y-3 pt-2">
-        {[0, 1, 2, 3].map((row) => (
-          <div className="flex items-center justify-between gap-4" key={row}>
-            <div className="h-4 w-28 rounded bg-muted" />
-            <div className="h-4 w-16 rounded bg-muted" />
-            <div className="h-5 w-16 rounded-full bg-muted" />
-          </div>
-        ))}
-      </div>
+  <PanelSection {...SECTION}>
+    <div
+      aria-busy="true"
+      aria-label="Loading invoices"
+      className="animate-pulse space-y-3"
+      role="status"
+    >
+      {[0, 1, 2, 3].map((row) => (
+        <div className="flex items-center justify-between gap-4" key={row}>
+          <div className="h-4 w-28 rounded bg-muted" />
+          <div className="h-4 w-16 rounded bg-muted" />
+          <div className="h-5 w-16 rounded-full bg-muted" />
+        </div>
+      ))}
     </div>
-  </Card>
+  </PanelSection>
 );
 
 const InvoicesError = ({
@@ -66,15 +72,18 @@ const InvoicesError = ({
   error: Error;
   onRetry: () => void;
 }) => (
-  <Card role="alert">
-    <div className="flex flex-wrap items-center justify-between gap-4">
+  <PanelSection {...SECTION}>
+    <div
+      className="flex flex-wrap items-center justify-between gap-4"
+      role="alert"
+    >
       <div className="space-y-1">
         <p className="text-sm text-danger">{ERROR_MESSAGE}</p>
         <ErrorDetail error={error} />
       </div>
       <Button onClick={onRetry}>Try again</Button>
     </div>
-  </Card>
+  </PanelSection>
 );
 
 export function InvoiceHistory() {
@@ -113,22 +122,20 @@ export function InvoiceHistory() {
   const hasActions = canCollapse || (showingAll && list?.hasMore === true);
 
   return (
-    <Card>
-      <div className="flex items-baseline justify-between gap-4">
-        <h2 className="text-xl">Billing history</h2>
-        {rows.length > 0 && (
+    <PanelSection
+      {...SECTION}
+      aside={
+        rows.length > 0 && (
           <span className="text-sm text-muted-fg">
             {countCopy(locale, count, visible.length)}
           </span>
-        )}
-      </div>
-
+        )
+      }
+    >
       {rows.length === 0 ? (
-        <p className="py-9 text-center text-sm text-muted-fg">
-          No invoices created yet
-        </p>
+        <p className="text-sm text-muted-fg">No invoices created yet</p>
       ) : (
-        <table className="mt-5 w-full border-collapse">
+        <table className="w-full border-collapse">
           <thead>
             <tr className="border-b border-border text-left">
               <th
@@ -194,7 +201,7 @@ export function InvoiceHistory() {
       )}
 
       {hasActions && (
-        <div className="mt-5 flex items-center gap-3">
+        <div className="flex items-center gap-3">
           {canCollapse && (
             <Button onClick={() => setExpanded((value) => !value)}>
               {expanded ? "See less" : "See more"}
@@ -215,11 +222,11 @@ export function InvoiceHistory() {
       )}
 
       {error !== undefined && (
-        <div className="mt-5 space-y-1" role="alert">
+        <div className="space-y-1" role="alert">
           <p className="text-sm text-danger">{ERROR_MESSAGE}</p>
           <ErrorDetail error={error} />
         </div>
       )}
-    </Card>
+    </PanelSection>
   );
 }
