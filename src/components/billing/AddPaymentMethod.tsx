@@ -36,11 +36,6 @@ interface AddPaymentMethodProps {
   /** The form is finished with: saved, or cancelled. */
   onDone: () => void;
   /**
-   * The "Select existing payment method" link back to the method on file;
-   * omitted when there is none to select.
-   */
-  onSelectExisting?: () => void;
-  /**
    * Makes the saved method the default. The server never promotes a method
    * on its own, so a form that skipped this would leave the new card idle.
    */
@@ -76,7 +71,6 @@ function resolveAppearance(): Appearance {
 /** A Stripe PaymentElement over a setup intent the API mints for the company. */
 export function AddPaymentMethod({
   onDone,
-  onSelectExisting,
   setDefault,
 }: AddPaymentMethodProps) {
   const { create } = useSetupIntent();
@@ -86,8 +80,8 @@ export function AddPaymentMethod({
   useEffect(() => {
     let cancelled = false;
     // Importing @stripe/stripe-js starts loading Stripe.js from Stripe's CDN,
-    // so it is imported here rather than at the top: /billing only pays for
-    // it once the form opens.
+    // so it is imported here rather than at the top: /account/portal only pays
+    // for it once the form opens.
     Promise.all([create(), import("@stripe/stripe-js")])
       .then(async ([intent, { loadStripe }]) => {
         const clientSecret = intent.setupIntentClientSecret;
@@ -162,11 +156,7 @@ export function AddPaymentMethod({
       }}
       stripe={state.stripe}
     >
-      <Fields
-        onDone={onDone}
-        onSelectExisting={onSelectExisting}
-        setDefault={setDefault}
-      />
+      <Fields onDone={onDone} setDefault={setDefault} />
     </Elements>
   );
 }
@@ -191,11 +181,7 @@ async function confirm(
 }
 
 /** Inside `<Elements>`, where Stripe's hooks resolve. */
-function Fields({
-  onDone,
-  onSelectExisting,
-  setDefault,
-}: AddPaymentMethodProps) {
+function Fields({ onDone, setDefault }: AddPaymentMethodProps) {
   const stripe = useStripe();
   const elements = useElements();
   const [saving, setSaving] = useState(false);
@@ -217,7 +203,7 @@ function Fields({
       return;
     }
     // Stripe has the method from here on. A default that fails to take is
-    // the dialog's to report and retry, so the form closes either way.
+    // the list's to report and retry, so the form closes either way.
     await setDefault(outcome.id).catch(() => {});
     onDone();
   };
@@ -235,17 +221,12 @@ function Fields({
           disabled={stripe === null || elements === null || saving}
           type="submit"
         >
-          Save
+          Save payment method
         </Button>
         <LinkButton disabled={saving} onClick={onDone}>
           Cancel
         </LinkButton>
       </div>
-      {onSelectExisting !== undefined && (
-        <LinkButton disabled={saving} onClick={onSelectExisting}>
-          Select existing payment method
-        </LinkButton>
-      )}
     </form>
   );
 }

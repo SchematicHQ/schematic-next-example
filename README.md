@@ -18,7 +18,7 @@ for the embedded portal, pricing table, and checkout. Auth is
 | `/pricing`         | `<PricingTable>` — plans and upgrade CTA                                          |
 | `/usage`           | `<SchematicEmbed>` — the full customer portal                                     |
 | `/custom-checkout` | Driving `<CheckoutDialog>` yourself from your own button                          |
-| `/billing`         | Next bill, payment methods, and billing history, built on the elements data hooks |
+| `/account/portal`  | Next bill, payment methods, and billing history, built on the elements data hooks |
 | `/account/billing` | The same three cards from `<UpcomingBill>`, `<PaymentMethods>`, and `<Invoices>`  |
 
 ## Prerequisites
@@ -26,7 +26,7 @@ for the embedded portal, pricing table, and checkout. Auth is
 - A Schematic account
 - A Clerk account (not needed if you run in demo mode)
 - The `company-context-api` flag on your Schematic account, which is what the
-  `/company/*` endpoints behind `/billing` and `/account/billing` are gated on.
+  `/company/*` endpoints behind `/account/portal` and `/account/billing` are gated on.
   Without it those reads 404 and both pages show an error rather than an empty
   history — ask Schematic to enable it.
 
@@ -207,7 +207,7 @@ than reading the wrong company's billing. On the client,
 
 ### Building your own UI on Schematic data
 
-`/billing` is the example to copy when the prebuilt components aren't the right
+`/account/portal` is the example to copy when the prebuilt components aren't the right
 shape. It uses the same hooks the elements do and renders entirely your own markup:
 
 ```tsx
@@ -259,58 +259,56 @@ has fewer than four months left. The hook carries the writes beside the read,
 rejects on failure, with `isMutating` while one is on the wire and
 `mutationError` holding the last rejection.
 
-`src/components/billing/PaymentMethodCard.tsx` lays that out the way the
-embed does: a "Payment details" heading with the expiry warning beside it,
-and one pill naming the default method with Edit on the right, or "No payment
-method added yet" with Add. Edit opens `src/components/billing/PaymentMethodDialog.tsx`, a
-native `<dialog>` opened with `showModal()` so the browser owns the focus
-trap, the backdrop, and Escape. It shows the pill again, with Remove where
-the server's `canRemove` allows it, as the embed's dialog does, and "Choose
-different payment method" unfolds the other methods as rows — name, "Expires
-8/27", Set default, and a remove control only where the server's `canRemove`
-allows it — under a full-width "Add new payment method". The dialog disables
-every action on `isMutating`, reports `mutationError` at its foot with a Try
-again that re-runs that write, and a write that lands folds the rows away and
-leaves the dialog on the refreshed method. Which rows can go is the server's
-call; two rules hold:
+`src/components/billing/PaymentMethodCard.tsx` lays that out as one list,
+so every payment task is a click away rather than behind the embed's
+Edit, "Choose different payment method", and "Add new payment method". The
+default leads with a Default badge and every other method follows, each row
+with its name, "Expires 8/27" for a card, a Set default link where it is
+not the default, and, where the server's `canRemove` allows it, a faint ×
+closing the row that turns red when pointed at, so the destructive action
+never reads like the constructive one; the × asks once more in place before
+it removes anything. "+ Add payment method" under the list
+opens the Stripe form in `src/components/billing/AddPaymentMethodDialog.tsx`,
+a native `<dialog>` opened with `showModal()` so the browser owns the focus
+trap, the backdrop, and Escape. The expiry warning sits beside the "Payment
+details" heading. Every action is disabled on `isMutating`, and
+`mutationError` shows under the list with a Try again that re-runs that
+write. Which rows can go is the server's call; two rules hold:
 
 - Any method can be removed, the default included, except the last one on an
-  active paid subscription. Removing the default leaves the pill empty until
+  active paid subscription. Removing the default leaves no row badged until
   another method is set as the default.
 - A method added through the form becomes the default, and nothing else is
-  ever promoted: a list with no default shows an empty pill until someone
-  picks, and every method is offered in the dialog.
+  ever promoted: a list with no default badges none until someone picks.
 
-Brand marks, the dialog's close control and the chevron are glyphs from the
+Brand marks and the dialog's close control are glyphs from the
 schematic-icons font that `<SchematicStyles />` inlines, so they need no
 setup on the packaged page. The hand-built page uses the same glyphs: each
-row's `icon` names its brand mark, and `PaymentMethodPill.tsx` renders it as
+row's `icon` names its brand mark, and `PaymentMethodName.tsx` renders it as
 `<i className="schematic-icon schematic-icon--{icon}">` beside the label,
-with `close` and `chevron-down`/`chevron-up` on the dialog's controls. The
-root layout's `<SchematicStyles />` loads the font for both pages. Two things
-follow. A Content Security Policy
+with `close` on the dialog's control. The root layout's `<SchematicStyles />`
+loads the font for both pages. Two things follow. A Content Security Policy
 with a `font-src` directive needs `data:` in it, or the browser refuses the
 font and the labels stand alone. And a page that swaps `payment-methods.css`
 in for `<SchematicStyles />` must render `<style>{iconsCss}</style>` once,
 from `@schematichq/schematic-components/elements`, or the glyphs render
 empty; the sheet only sizes and colors them.
 
-"Add new payment method" swaps `src/components/billing/AddPaymentMethod.tsx`
-into the dialog, with "Select existing payment method" beneath it as the way
-back; with nothing on file the dialog opens straight onto the form, and
-Cancel closes it. The form mints a setup intent with
-`useSetupIntent().create()`, loads Stripe.js with the key the intent names
-(Schematic's own key plus `stripeAccount` for a connected account, the
-account's key otherwise), mounts Stripe's `PaymentElement` on the client
-secret, and on Save confirms the setup in place; the saved method is then made
-the default through the card's own `setDefault`, so a failure there lands at
-the foot of the dialog like any other write. Stripe's fields render in an
-iframe the app's CSS cannot reach, so the form hands Stripe an `appearance`
-read off the palette in `globals.css` — the card, text, accent, and danger
-colours, the radius, and the body font — with Stripe's night theme under the
-dark one. `@stripe/stripe-js` is imported inside the form rather than at the
-top of the module, because importing it starts loading Stripe.js from Stripe's
-CDN, and `/billing` should not pay for that until someone opens the form.
+The dialog holds `src/components/billing/AddPaymentMethod.tsx`; Cancel, the
+close control, or the backdrop closes it without saving. The form mints a
+setup intent with `useSetupIntent().create()`, loads Stripe.js with the key
+the intent names (Schematic's own key plus `stripeAccount` for a connected
+account, the account's key otherwise), mounts Stripe's `PaymentElement` on
+the client secret, and on "Save payment method" confirms the setup in place;
+the saved method is then made the default through the section's own
+`setDefault`, so a failure there lands under the list like any other write.
+Stripe's fields render in an iframe the app's CSS cannot reach, so the form
+hands Stripe an `appearance` read off the palette in `globals.css` — the
+card, text, accent, and danger colours, the radius, and the body font — with
+Stripe's night theme under the dark one. `@stripe/stripe-js` is imported
+inside the form rather than at the top of the module, because importing it
+starts loading Stripe.js from Stripe's CDN, and `/account/portal` should not
+pay for that until someone opens the form.
 
 `/account/billing` renders those three cards from the packaged
 `<UpcomingBill>`, `<PaymentMethods>`, and `<Invoices>` instead, styled by
@@ -318,7 +316,7 @@ CDN, and `/billing` should not pay for that until someone opens the form.
 `src/components/ClientWrapper.tsx`. That is the packaged elements as a host
 gets them out of the box, and the sheet follows the app's `color-scheme`, so
 they track the theme toggle with nothing to wire up. `<PaymentMethods>` is
-the same pill and dialog, lazy loads its Stripe form the same way and themes
+the embed's pill and dialog, lazy loads its Stripe form the same way and themes
 it from its own tokens, and takes `allowEdit={false}` for a host that wants
 the method on file with no way to change it and `showExpiration={false}` to
 drop the warning. `src/app/account/billing/*.css` is the other way to do it:

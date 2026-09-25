@@ -4,17 +4,19 @@ import {
   type DerivedPaymentMethods,
   derivePaymentMethods,
   httpStatus,
+  type PaymentMethodRow,
   usePaymentMethods,
   useResolvedLocale,
 } from "@schematichq/schematic-components/elements";
 import { useCallback, useMemo, useState } from "react";
 
-import {
-  PaymentMethodDialog,
-  type PaymentMethodDialogView,
-} from "@/components/billing/PaymentMethodDialog";
-import { MethodPill } from "@/components/billing/PaymentMethodPill";
-import { Badge, Button, Card, LinkButton } from "@/components/ui";
+import { AddPaymentMethodDialog } from "@/components/billing/AddPaymentMethodDialog";
+import { MethodName } from "@/components/billing/PaymentMethodName";
+import { Badge, Button, LinkButton, PanelSection } from "@/components/ui";
+
+const SECTION = {
+  title: "Payment details",
+};
 
 const ERROR_MESSAGE = "There was a problem retrieving your payment methods.";
 // A 404 with nothing to show is the account not being on the flag that
@@ -32,17 +34,23 @@ const ErrorDetail = ({ error }: { error: Error }) =>
     <p className="text-xs text-muted-fg">{error.message}</p>
   ) : null;
 
-/** The heading bar and the pill, so the page does not reflow on arrival. */
+const LIST = "divide-y divide-border rounded-card border border-border";
+
+/** A row's shape, so the section does not reflow on arrival. */
 const MethodSkeleton = () => (
-  <Card aria-busy="true" aria-label="Loading payment methods" role="status">
-    <div className="animate-pulse space-y-5">
-      <div className="h-5 w-40 rounded-md bg-muted" />
-      <div className="flex items-center justify-between gap-4 rounded-full bg-muted px-5 py-2.5">
-        <div className="h-4 w-40 rounded bg-border" />
-        <div className="h-4 w-10 rounded bg-border" />
+  <PanelSection {...SECTION}>
+    <div
+      aria-busy="true"
+      aria-label="Loading payment methods"
+      className={`${LIST} animate-pulse`}
+      role="status"
+    >
+      <div className="flex items-center justify-between gap-4 px-4 py-3.5">
+        <div className="h-4 w-44 rounded bg-muted" />
+        <div className="h-4 w-14 rounded bg-muted" />
       </div>
     </div>
-  </Card>
+  </PanelSection>
 );
 
 const MethodError = ({
@@ -52,8 +60,11 @@ const MethodError = ({
   error: Error;
   onRetry: () => void;
 }) => (
-  <Card role="alert">
-    <div className="flex flex-wrap items-center justify-between gap-4">
+  <PanelSection {...SECTION}>
+    <div
+      className="flex flex-wrap items-center justify-between gap-4"
+      role="alert"
+    >
       <div className="space-y-1">
         <p className="text-sm text-danger">
           {httpStatus(error) === 404 ? UNAVAILABLE_MESSAGE : ERROR_MESSAGE}
@@ -62,10 +73,10 @@ const MethodError = ({
       </div>
       <Button onClick={onRetry}>Try again</Button>
     </div>
-  </Card>
+  </PanelSection>
 );
 
-/** "Expires in 2 months", or "Expired", beside the heading. */
+/** "Expires in 2 months", or "Expired", beside the section heading. */
 const ExpiryWarning = ({ derived }: { derived: DerivedPaymentMethods }) => {
   if (derived.expiryWarning === "none") {
     return null;
@@ -86,15 +97,102 @@ const ExpiryWarning = ({ derived }: { derived: DerivedPaymentMethods }) => {
 };
 
 /**
- * The company's payment method on file, hand-built on `usePaymentMethods`
- * the way the embed lays it out: one pill naming the default, a warning
- * beside the heading when that card is about to expire, and an Edit that
- * opens a dialog where the other saved methods can be made the default or
- * removed and a new one added through Stripe.
+ * One saved method: its name, a Default badge on the one billed, when a
+ * card expires, and its actions. Remove asks once more in place before it
+ * writes, since it cannot be undone from here.
+ */
+const MethodRow = ({
+  confirming,
+  disabled,
+  onCancelRemove,
+  onConfirmRemove,
+  onRemove,
+  onSetDefault,
+  row,
+}: {
+  confirming: boolean;
+  disabled: boolean;
+  onCancelRemove: () => void;
+  onConfirmRemove: () => void;
+  onRemove: () => void;
+  onSetDefault: () => void;
+  row: PaymentMethodRow;
+}) => (
+  <li
+    className="flex items-center gap-4 px-4 py-3"
+    data-brand={row.brand}
+    data-kind={row.kind}
+    data-testid="schematic-payment-method"
+  >
+    {/* The card's details, however many lines, on the left; the Default
+        badge and the actions centred against all of them on the right. */}
+    <div className="min-w-0 grow space-y-0.5">
+      <div className="flex">
+        <MethodName row={row} />
+      </div>
+      {row.expiresShort !== null && (
+        <p className="text-sm text-muted-fg tabular-nums">
+          Expires {row.expiresShort}
+        </p>
+      )}
+    </div>
+    <div className="flex shrink-0 items-center self-center">
+      {confirming ? (
+        <div className="flex items-center gap-3">
+          <span className="text-sm">Remove this method?</span>
+          <LinkButton
+            disabled={disabled}
+            onClick={onConfirmRemove}
+            tone="danger"
+          >
+            Remove
+          </LinkButton>
+          <LinkButton disabled={disabled} onClick={onCancelRemove}>
+            Cancel
+          </LinkButton>
+        </div>
+      ) : (
+        // Set default reads as a link; Remove is a different shape in a
+        // different place — a faint × closing the row, red once pointed at —
+        // so the two are never mistaken for one another.
+        <div className="flex items-center gap-4">
+          {row.isDefault ? (
+            <Badge tone="success">Default</Badge>
+          ) : (
+            <LinkButton disabled={disabled} onClick={onSetDefault}>
+              Set default
+            </LinkButton>
+          )}
+          {row.canRemove && (
+            <button
+              aria-label="Remove"
+              className="inline-flex size-7 cursor-pointer items-center justify-center rounded-full text-lg leading-none text-muted-fg/60 transition-colors duration-150 hover:text-danger focus-visible:text-danger focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:text-muted-fg/60"
+              disabled={disabled}
+              onClick={onRemove}
+              title="Remove"
+              type="button"
+            >
+              <i
+                aria-hidden="true"
+                className="schematic-icon schematic-icon--close"
+              />
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  </li>
+);
+
+/**
+ * The company's payment methods, hand-built on `usePaymentMethods` as one
+ * list: the default first with its badge, every other method after it, and
+ * each task a click away — Set default and Remove on the row, "Add payment
+ * method" under the list opening the Stripe form in a dialog. A warning
+ * sits beside the heading when the default card is about to expire.
  *
- * The card's pill offers no Remove; inside the dialog it does, as the
- * embed's does, and so do the other rows, each only where the server's
- * `canRemove` allows it.
+ * Remove shows only where the server's `canRemove` allows it. A method the
+ * form saves becomes the default.
  */
 export function PaymentMethodCard() {
   const {
@@ -110,12 +208,12 @@ export function PaymentMethodCard() {
 
   const locale = useResolvedLocale();
 
-  // Null while the dialog is closed.
-  const [dialog, setDialog] = useState<PaymentMethodDialogView | null>(null);
-  const [choosing, setChoosing] = useState(false);
+  const [adding, setAdding] = useState(false);
+  // The row whose Remove is waiting on its confirmation.
+  const [confirming, setConfirming] = useState<string | null>(null);
   // The write that last failed, so Try again re-runs it rather than
-  // refetching; also whether this dialog session has written at all, which
-  // is what decides whether a `mutationError` is its to show.
+  // refetching; also whether anything has been written yet, which is what
+  // decides whether a `mutationError` is this section's to show.
   const [lastWrite, setLastWrite] = useState<(() => Promise<void>) | null>(
     null,
   );
@@ -127,14 +225,11 @@ export function PaymentMethodCard() {
   }, [methods, locale]);
 
   // A rejected write also lands on `mutationError`, so the rejection here
-  // is already reported and only needs catching. A write that lands leaves
-  // the dialog on the refreshed method, the other rows folded away.
+  // is already reported and only needs catching.
   const write = useCallback(async (action: () => Promise<void>) => {
     setLastWrite(() => action);
     try {
       await action();
-      setDialog("current");
-      setChoosing(false);
     } catch {
       // Reported through `mutationError`.
     }
@@ -145,12 +240,6 @@ export function PaymentMethodCard() {
     [setDefault, write],
   );
 
-  const open = () => {
-    setLastWrite(null);
-    setChoosing(false);
-    setDialog("current");
-  };
-
   if (derived === undefined) {
     if (error !== undefined) {
       return <MethodError error={error} onRetry={refetch} />;
@@ -160,36 +249,65 @@ export function PaymentMethodCard() {
     }
   }
 
+  // The default leads; the rest keep the server's order.
+  const rows =
+    derived === undefined
+      ? []
+      : derived.current === null
+        ? derived.rows
+        : [derived.current, ...derived.others];
+
   return (
-    <Card>
-      <div className="space-y-5">
-        <div className="flex items-center justify-between gap-4">
-          <h2 className="text-xl">Payment details</h2>
-          {derived !== undefined && <ExpiryWarning derived={derived} />}
-        </div>
+    <PanelSection
+      {...SECTION}
+      aside={derived !== undefined && <ExpiryWarning derived={derived} />}
+    >
+      <div className="space-y-4">
+        {rows.length === 0 ? (
+          <p className="text-sm text-muted-fg">No payment method added yet</p>
+        ) : (
+          <ul aria-label="Payment methods" className={LIST}>
+            {rows.map((row) => (
+              <MethodRow
+                confirming={confirming === row.id}
+                disabled={isMutating}
+                key={row.id}
+                onCancelRemove={() => setConfirming(null)}
+                onConfirmRemove={() => {
+                  setConfirming(null);
+                  void write(() => remove(row.id));
+                }}
+                onRemove={() => setConfirming(row.id)}
+                onSetDefault={() => void makeDefault(row.externalId)}
+                row={row}
+              />
+            ))}
+          </ul>
+        )}
 
-        <MethodPill row={derived?.current ?? null}>
-          <LinkButton onClick={open}>
-            {derived?.current ? "Edit" : "Add"}
-          </LinkButton>
-        </MethodPill>
+        {lastWrite !== null && mutationError !== undefined && (
+          <div
+            className="flex flex-wrap items-center justify-between gap-4"
+            role="alert"
+          >
+            <p className="text-sm text-danger">{mutationError.message}</p>
+            <LinkButton
+              disabled={isMutating}
+              onClick={() => void write(lastWrite)}
+            >
+              Try again
+            </LinkButton>
+          </div>
+        )}
 
-        {derived !== undefined && dialog !== null && (
-          <PaymentMethodDialog
-            choosing={choosing}
-            derived={derived}
-            isMutating={isMutating}
-            mutationError={lastWrite === null ? undefined : mutationError}
-            onChoose={() => setChoosing((was) => !was)}
-            onClose={() => setDialog(null)}
-            onRemove={(row) => void write(() => remove(row.id))}
-            onRetry={
-              lastWrite === null ? undefined : () => void write(lastWrite)
-            }
-            onSetDefault={(row) => void makeDefault(row.externalId)}
-            onView={setDialog}
+        <Button disabled={isMutating} onClick={() => setAdding(true)}>
+          + Add payment method
+        </Button>
+
+        {adding && (
+          <AddPaymentMethodDialog
+            onClose={() => setAdding(false)}
             setDefault={makeDefault}
-            view={dialog}
           />
         )}
 
@@ -200,6 +318,6 @@ export function PaymentMethodCard() {
           </div>
         )}
       </div>
-    </Card>
+    </PanelSection>
   );
 }
