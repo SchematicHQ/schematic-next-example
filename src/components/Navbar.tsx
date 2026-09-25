@@ -23,6 +23,24 @@ const BillingIcon = () => (
   </svg>
 );
 
+const PortalIcon = () => (
+  <svg
+    aria-hidden="true"
+    fill="none"
+    height="16"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width="16"
+  >
+    <rect height="18" rx="2" width="18" x="3" y="3" />
+    <path d="M3 9h18" />
+    <path d="M9 21V9" />
+  </svg>
+);
+
 const NAV_LINK =
   "rounded-md text-sm text-muted-fg transition-colors hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
@@ -45,9 +63,6 @@ const Navbar = () => {
             <Link href="/custom-checkout" className={NAV_LINK}>
               Checkout
             </Link>
-            <Link href="/billing" className={NAV_LINK}>
-              Billing
-            </Link>
           </div>
         </div>
 
@@ -55,10 +70,13 @@ const Navbar = () => {
           <ThemeToggle />
           {/* Clerk's UserButton requires ClerkProvider, which is absent in
               demo mode. Render a static label instead — and with no user menu
-              to hang it on, the account link has to sit out here to stay
+              to hang them on, the account links have to sit out here to stay
               reachable. */}
           {isDemoMode() ? (
             <>
+              <Link href="/account/portal" className={NAV_LINK}>
+                Account portal
+              </Link>
               <Link href="/account/billing" className={NAV_LINK}>
                 Account
               </Link>
@@ -68,6 +86,11 @@ const Navbar = () => {
             <Show when="signed-in">
               <UserButton>
                 <UserButton.MenuItems>
+                  <UserButton.Link
+                    href="/account/portal"
+                    label="Account portal"
+                    labelIcon={<PortalIcon />}
+                  />
                   <UserButton.Link
                     href="/account/billing"
                     label="Billing"
