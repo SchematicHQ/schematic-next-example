@@ -75,7 +75,7 @@ const Navbar = () => {
           {isDemoMode() ? (
             <>
               <Link href="/account/portal" className={NAV_LINK}>
-                Account portal
+                Billing portal
               </Link>
               <Link href="/account/billing" className={NAV_LINK}>
                 Account
@@ -88,7 +88,7 @@ const Navbar = () => {
                 <UserButton.MenuItems>
                   <UserButton.Link
                     href="/account/portal"
-                    label="Account portal"
+                    label="Billing portal"
                     labelIcon={<PortalIcon />}
                   />
                   <UserButton.Link

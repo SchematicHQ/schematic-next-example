@@ -7,7 +7,7 @@ interface PanelProps extends Omit<
   "title"
 > {
   children: ReactNode;
-  title: string;
+  title?: string;
 }
 
 /**
@@ -25,12 +25,14 @@ export const Panel = ({ children, className, title, ...props }: PanelProps) => {
       )}
       {...props}
     >
-      <h2
-        className="border-b border-border px-6 py-5 text-2xl md:px-9"
-        id={titleId}
-      >
-        {title}
-      </h2>
+      {title && (
+        <h2
+          className="border-b border-border px-6 py-5 text-2xl md:px-9"
+          id={titleId}
+        >
+          {title}
+        </h2>
+      )}
       <div className="divide-y divide-border">{children}</div>
     </section>
   );
