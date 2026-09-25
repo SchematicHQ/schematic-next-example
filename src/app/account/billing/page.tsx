@@ -14,8 +14,7 @@ export default function AccountBillingPage() {
       <header className="mb-6">
         <h1>Billing</h1>
         <p className="mt-1 text-muted-fg">
-          What your account will be charged next, how it pays, and what it has
-          been charged already, rendered by the packaged elements.
+          Keep track of what you pay for and make changes whenever you need to.
         </p>
       </header>
 

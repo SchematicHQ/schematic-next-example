@@ -11,9 +11,8 @@ export default function AccountPortalPage() {
       <header className="mb-8">
         <h1>Account portal</h1>
         <p className="mt-1 text-muted-fg">
-          What your account will be charged next, how it pays, and what it has
-          been charged already, built on the elements hooks in this app&apos;s
-          own markup.
+          Everything about your account in one place, from your plan to how you
+          pay for it.
         </p>
       </header>
 
