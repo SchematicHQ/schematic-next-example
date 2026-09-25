@@ -99,7 +99,7 @@ function discountText(discount: DiscountLine): string {
 
 /**
  * The company's next bill, hand-built on `useUpcomingInvoice`, as a section
- * of the account portal's billing panel.
+ * of the billing portal's billing panel.
  */
 export function NextBill() {
   const { data: invoice, error, isPending, refetch } = useUpcomingInvoice();
