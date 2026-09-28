@@ -310,7 +310,10 @@ inside the form rather than at the top of the module, because importing it
 starts loading Stripe.js from Stripe's CDN, and `/account/portal` should not
 pay for that until someone opens the form.
 
-The "Plan usage" panel below those three is `useFeatureUsage` and
+The "Plan usage" panel beside those three (after them on a narrow screen)
+opens with `useFeatureUsage` and `deriveIncludedFeatures`: every feature the
+plan includes, with its allowance or price and what has been used. See
+`src/components/billing/IncludedFeatureList.tsx`. The same hook feeds
 `deriveMeteredFeatures`: each
 event- or trait-based feature with what has been used against its limit, a
 `meter` with its value, total and tone, and when it resets. For an
