@@ -1,7 +1,9 @@
 "use client";
 
 import {
+  IncludedFeatures,
   Invoices,
+  MeteredFeatures,
   PaymentMethods,
   UpcomingBill,
 } from "@schematichq/schematic-components/elements";
@@ -20,6 +22,8 @@ export default function AccountBillingPage() {
 
       <div className="space-y-6">
         <UpcomingBill />
+        <IncludedFeatures />
+        <MeteredFeatures addMoreUrl="/custom-checkout" />
         <PaymentMethods />
         <Invoices
           limit={INVOICE_LIMIT}
