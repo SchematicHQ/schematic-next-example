@@ -12,14 +12,14 @@ for the embedded portal, pricing table, and checkout. Auth is
 
 ## What's in here
 
-| Route              | Shows                                                                                                                             |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
-| `/`                | Feature flags and usage tracking gating a weather search                                                                          |
-| `/pricing`         | `<PricingTable>` — plans and upgrade CTA                                                                                          |
-| `/usage`           | `<SchematicEmbed>` — the full customer portal                                                                                     |
-| `/custom-checkout` | Driving `<CheckoutDialog>` yourself from your own button                                                                          |
-| `/account/portal`  | Next bill, usage, payment methods, and billing history, built on the elements data hooks                                          |
-| `/account/billing` | The same, from `<UpcomingBill>`, `<IncludedFeatures>`, `<MeteredFeatures>`, `<CreditUsage>`, `<PaymentMethods>`, and `<Invoices>` |
+| Route              | Shows                                                                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `/`                | Feature flags and usage tracking gating a weather search                                                                                   |
+| `/pricing`         | `<PricingTable>` — plans and upgrade CTA                                                                                                   |
+| `/usage`           | `<SchematicEmbed>` — the full customer portal                                                                                              |
+| `/custom-checkout` | Driving `<CheckoutDialog>` yourself from your own button                                                                                   |
+| `/account/portal`  | Bills and payments (next bill, payment methods, billing history) and plan usage (usage, credits), built on the elements data hooks         |
+| `/account/billing` | The same two groups from `<UpcomingBill>`, `<PaymentMethods>`, `<Invoices>` and `<IncludedFeatures>`, `<MeteredFeatures>`, `<CreditUsage>` |
 
 ## Prerequisites
 
@@ -249,17 +249,6 @@ is `UpcomingInvoice | null`, where `null` is a loaded answer meaning there is
 nothing to bill (no subscription), so only `undefined` is still loading. See
 `src/components/billing/NextBill.tsx`.
 
-Under the next bill is `useFeatureUsage` and `deriveMeteredFeatures`: each
-event- or trait-based feature with what has been used against its limit, a
-`meter` with its value, total and tone, and when it resets. For an
-event-based feature, `useFeatureUserUsage` names the team members who used
-it most this period. See `src/components/billing/FeatureUsage.tsx`.
-
-Beside it is `useCreditBalances` and `deriveCreditUsage`: each credit with
-what is left, its ledger of grants newest first, each dated by when it
-refreshes or runs out, and, where the plan grants it per license, how the
-allowance adds up. See `src/components/billing/Credits.tsx`.
-
 Between them is `usePaymentMethods` and `derivePaymentMethods`: the methods
 on file split into the `current` default and the `others`, each row with a
 `label` — a key such as `paymentMethodsCardEndingIn` for the host to put words
@@ -321,9 +310,22 @@ inside the form rather than at the top of the module, because importing it
 starts loading Stripe.js from Stripe's CDN, and `/account/portal` should not
 pay for that until someone opens the form.
 
-`/account/billing` renders those cards from the packaged
-`<UpcomingBill>`, `<IncludedFeatures>`, `<MeteredFeatures>`, `<CreditUsage>`,
-`<PaymentMethods>`, and `<Invoices>` instead, styled by
+The "Plan usage" panel below those three is `useFeatureUsage` and
+`deriveMeteredFeatures`: each
+event- or trait-based feature with what has been used against its limit, a
+`meter` with its value, total and tone, and when it resets. For an
+event-based feature, `useFeatureUserUsage` names the team members who used
+it most this period. See `src/components/billing/FeatureUsage.tsx`.
+
+Beside it is `useCreditBalances` and `deriveCreditUsage`: each credit with
+what is left, its ledger of grants newest first, each dated by when it
+refreshes or runs out, and, where the plan grants it per license, how the
+allowance adds up. See `src/components/billing/Credits.tsx`.
+
+`/account/billing` renders the same two groups from the packaged elements
+instead — `<UpcomingBill>`, `<PaymentMethods>`, and `<Invoices>` under "Bills
+and payments", `<IncludedFeatures>`, `<MeteredFeatures>`, and `<CreditUsage>`
+under "Plan usage", each at `headingLevel={3}` beneath its group's heading — styled by
 `<SchematicStyles />` — mounted once on the provider in
 `src/components/ClientWrapper.tsx`. That is the packaged elements as a host
 gets them out of the box, and the sheet follows the app's `color-scheme`, so

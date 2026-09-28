@@ -18,13 +18,18 @@ export default function BillingPortalPage() {
         </p>
       </header>
 
-      <Panel>
-        <NextBill />
-        <FeatureUsage />
-        <Credits />
-        <PaymentMethodCard />
-        <InvoiceHistory />
-      </Panel>
+      <div className="space-y-8">
+        <Panel title="Bills and payments">
+          <NextBill />
+          <PaymentMethodCard />
+          <InvoiceHistory />
+        </Panel>
+
+        <Panel title="Plan usage">
+          <FeatureUsage />
+          <Credits />
+        </Panel>
+      </div>
     </div>
   );
 }
