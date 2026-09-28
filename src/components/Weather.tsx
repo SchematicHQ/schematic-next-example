@@ -1,18 +1,18 @@
 "use client";
 
-import { useEffect, useCallback, useState, useMemo, useRef } from "react";
-import axios from "axios";
-import debounce from "lodash/debounce";
 import {
+  UsagePeriod,
+  useSchematicEntitlement,
   useSchematicEvents,
   useSchematicFlag,
-  useSchematicEntitlement,
   useSchematicIsPending,
-  UsagePeriod,
 } from "@schematichq/schematic-react";
+import axios from "axios";
+import debounce from "lodash/debounce";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import useSavedLocations from "../hooks/useSavedLocations";
-import Loader from "./Loader";
+import Loader from "@/components/Loader";
+import useSavedLocations from "@/hooks/useSavedLocations";
 
 interface WeatherData {
   description: string;
