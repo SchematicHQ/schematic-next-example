@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  CreditUsage,
   IncludedFeatures,
   Invoices,
   MeteredFeatures,
@@ -24,6 +25,7 @@ export default function AccountBillingPage() {
         <UpcomingBill />
         <IncludedFeatures />
         <MeteredFeatures addMoreUrl="/custom-checkout" />
+        <CreditUsage buyMoreUrl="/custom-checkout" />
         <PaymentMethods />
         <Invoices
           limit={INVOICE_LIMIT}
