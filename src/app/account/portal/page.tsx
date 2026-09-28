@@ -2,6 +2,7 @@
 
 import { Credits } from "@/components/billing/Credits";
 import { FeatureUsage } from "@/components/billing/FeatureUsage";
+import { IncludedFeatureList } from "@/components/billing/IncludedFeatureList";
 import { InvoiceHistory } from "@/components/billing/InvoiceHistory";
 import { NextBill } from "@/components/billing/NextBill";
 import { PaymentMethodCard } from "@/components/billing/PaymentMethodCard";
@@ -9,7 +10,7 @@ import { Panel } from "@/components/ui";
 
 export default function BillingPortalPage() {
   return (
-    <div className="mx-auto w-full max-w-2xl">
+    <div className="w-full">
       <header className="mb-8">
         <h1>Billing portal</h1>
         <p className="mt-1 text-muted-fg">
@@ -18,7 +19,7 @@ export default function BillingPortalPage() {
         </p>
       </header>
 
-      <div className="space-y-8">
+      <div className="grid items-start gap-8 lg:grid-cols-2">
         <Panel title="Bills and payments">
           <NextBill />
           <PaymentMethodCard />
@@ -26,6 +27,7 @@ export default function BillingPortalPage() {
         </Panel>
 
         <Panel title="Plan usage">
+          <IncludedFeatureList />
           <FeatureUsage />
           <Credits />
         </Panel>
