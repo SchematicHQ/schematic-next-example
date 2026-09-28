@@ -1,5 +1,6 @@
 "use client";
 
+import { FeatureUsage } from "@/components/billing/FeatureUsage";
 import { InvoiceHistory } from "@/components/billing/InvoiceHistory";
 import { NextBill } from "@/components/billing/NextBill";
 import { PaymentMethodCard } from "@/components/billing/PaymentMethodCard";
@@ -18,6 +19,7 @@ export default function BillingPortalPage() {
 
       <Panel>
         <NextBill />
+        <FeatureUsage />
         <PaymentMethodCard />
         <InvoiceHistory />
       </Panel>

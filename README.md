@@ -12,14 +12,14 @@ for the embedded portal, pricing table, and checkout. Auth is
 
 ## What's in here
 
-| Route              | Shows                                                                             |
-| ------------------ | --------------------------------------------------------------------------------- |
-| `/`                | Feature flags and usage tracking gating a weather search                          |
-| `/pricing`         | `<PricingTable>` — plans and upgrade CTA                                          |
-| `/usage`           | `<SchematicEmbed>` — the full customer portal                                     |
-| `/custom-checkout` | Driving `<CheckoutDialog>` yourself from your own button                          |
-| `/account/portal`  | Next bill, payment methods, and billing history, built on the elements data hooks |
-| `/account/billing` | The same three cards from `<UpcomingBill>`, `<PaymentMethods>`, and `<Invoices>`  |
+| Route              | Shows                                                                                                            |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| `/`                | Feature flags and usage tracking gating a weather search                                                         |
+| `/pricing`         | `<PricingTable>` — plans and upgrade CTA                                                                         |
+| `/usage`           | `<SchematicEmbed>` — the full customer portal                                                                    |
+| `/custom-checkout` | Driving `<CheckoutDialog>` yourself from your own button                                                         |
+| `/account/portal`  | Next bill, usage, payment methods, and billing history, built on the elements data hooks                         |
+| `/account/billing` | The same, from `<UpcomingBill>`, `<IncludedFeatures>`, `<MeteredFeatures>`, `<PaymentMethods>`, and `<Invoices>` |
 
 ## Prerequisites
 
@@ -249,6 +249,12 @@ is `UpcomingInvoice | null`, where `null` is a loaded answer meaning there is
 nothing to bill (no subscription), so only `undefined` is still loading. See
 `src/components/billing/NextBill.tsx`.
 
+Under the next bill is `useFeatureUsage` and `deriveMeteredFeatures`: each
+event- or trait-based feature with what has been used against its limit, a
+`meter` with its value, total and tone, and when it resets. For an
+event-based feature, `useFeatureUserUsage` names the team members who used
+it most this period. See `src/components/billing/FeatureUsage.tsx`.
+
 Between them is `usePaymentMethods` and `derivePaymentMethods`: the methods
 on file split into the `current` default and the `others`, each row with a
 `label` — a key such as `paymentMethodsCardEndingIn` for the host to put words
@@ -310,12 +316,15 @@ inside the form rather than at the top of the module, because importing it
 starts loading Stripe.js from Stripe's CDN, and `/account/portal` should not
 pay for that until someone opens the form.
 
-`/account/billing` renders those three cards from the packaged
-`<UpcomingBill>`, `<PaymentMethods>`, and `<Invoices>` instead, styled by
+`/account/billing` renders those cards from the packaged
+`<UpcomingBill>`, `<IncludedFeatures>`, `<MeteredFeatures>`, `<PaymentMethods>`,
+and `<Invoices>` instead, styled by
 `<SchematicStyles />` — mounted once on the provider in
 `src/components/ClientWrapper.tsx`. That is the packaged elements as a host
 gets them out of the box, and the sheet follows the app's `color-scheme`, so
-they track the theme toggle with nothing to wire up. `<PaymentMethods>` is
+they track the theme toggle with nothing to wire up. `<MeteredFeatures>`
+links "Add More" to `/custom-checkout` through `addMoreUrl`; the elements
+open no checkout of their own. `<PaymentMethods>` is
 the embed's pill and dialog, lazy loads its Stripe form the same way and themes
 it from its own tokens, and takes `allowEdit={false}` for a host that wants
 the method on file with no way to change it and `showExpiration={false}` to
