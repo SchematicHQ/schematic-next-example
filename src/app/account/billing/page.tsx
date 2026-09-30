@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  CreditUsage,
   IncludedFeatures,
   Invoices,
   MeteredFeatures,
@@ -20,16 +21,29 @@ export default function AccountBillingPage() {
         </p>
       </header>
 
-      <div className="space-y-6">
-        <UpcomingBill />
-        <IncludedFeatures />
-        <MeteredFeatures addMoreUrl="/custom-checkout" />
-        <PaymentMethods />
-        <Invoices
-          limit={INVOICE_LIMIT}
-          query={INVOICE_QUERY}
-          strings={INVOICE_STRINGS}
-        />
+      <div className="space-y-10">
+        <section aria-labelledby="billing-group" className="space-y-6">
+          <h2 className="text-2xl" id="billing-group">
+            Bills and payments
+          </h2>
+          <UpcomingBill headingLevel={3} />
+          <PaymentMethods headingLevel={3} />
+          <Invoices
+            headingLevel={3}
+            limit={INVOICE_LIMIT}
+            query={INVOICE_QUERY}
+            strings={INVOICE_STRINGS}
+          />
+        </section>
+
+        <section aria-labelledby="usage-group" className="space-y-6">
+          <h2 className="text-2xl" id="usage-group">
+            Plan usage
+          </h2>
+          <IncludedFeatures headingLevel={3} />
+          <MeteredFeatures addMoreUrl="/custom-checkout" headingLevel={3} />
+          <CreditUsage buyMoreUrl="/custom-checkout" headingLevel={3} />
+        </section>
       </div>
     </div>
   );
