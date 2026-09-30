@@ -15,6 +15,10 @@ verifyDepsBeforeRun: install
 overrides:
   "@types/react": 19.2.14
   "@types/react-dom": 19.2.3
+  # Two keys, one per line the tree resolves (minimatch 3 wants 1.x, minimatch
+  # 10 wants 5.x); each has its own patched release.
+  brace-expansion@^1.0.0: ^1.1.21
+  brace-expansion@^5.0.0: ^5.0.12
 
 allowBuilds:
   # Native bindings that ship prebuilt per-platform packages as optional
