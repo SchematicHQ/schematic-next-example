@@ -84,18 +84,18 @@ function priceText(price: PlanPrice): string {
 }
 
 /**
- * A usage-based feature's figure and what qualifies it: "$0.02" beside the
- * name with "per 100 GB of storage" under it; "$180.00/mo" for an allocation
- * paid in advance; "2 AI credits per use" for a credit-burning feature.
+ * "$0.02 per 100 GB", "Additional $0.05 per Email", "2 AI credits per use",
+ * "$180.00/mo" — the figures in full colour, the words around them muted.
  */
-function usageBasedDetail(row: UsageBasedRow): {
-  value: string | null;
-  note: string | null;
-} {
-  const notes: string[] = [];
-  let value: string | null = null;
+function usageBasedDetail(row: UsageBasedRow): ReactNode[] {
+  const parts: ReactNode[] = [];
+  const figure = (key: string, text: string) => (
+    <span className="font-medium text-fg" key={key}>
+      {text}
+    </span>
+  );
   if (row.tierBased) {
-    notes.push("Tiered pricing");
+    parts.push("Tiered pricing");
   }
   if (row.unitPrice !== null) {
     const per =
@@ -106,19 +106,30 @@ function usageBasedDetail(row: UsageBasedRow): {
       row.unitPrice.period === null
         ? ""
         : `/${shortPeriod(row.unitPrice.period)}`;
-    value = row.unitPrice.cost;
-    notes.push(`${row.additional ? "Additional, " : ""}per ${per}${period}`);
+    parts.push(
+      <span key="price">
+        {row.additional && "Additional "}
+        {figure("cost", row.unitPrice.cost)} per {per}
+        {period}
+      </span>,
+    );
   }
   if (row.perUse !== null) {
-    notes.push(`${row.perUse.amount} ${row.perUse.units} per use`);
+    parts.push(`${row.perUse.amount} ${row.perUse.units} per use`);
   }
   if (row.cost !== null) {
-    value =
-      row.cost.period === null
-        ? row.cost.amount
-        : `${row.cost.amount}/${shortPeriod(row.cost.period)}`;
+    parts.push(
+      figure(
+        "allocation",
+        row.cost.period === null
+          ? row.cost.amount
+          : `${row.cost.amount}/${shortPeriod(row.cost.period)}`,
+      ),
+    );
   }
-  return { value, note: notes.length === 0 ? null : notes.join(" · ") };
+  return parts.flatMap((part, index) =>
+    index === 0 ? [part] : [<span key={`sep-${index}`}> · </span>, part],
+  );
 }
 
 function planCreditText(row: PlanCreditRow): string {
@@ -251,21 +262,16 @@ function PlanUsage({ view }: { view: PlanManagerView }) {
         {(row) => {
           const detail = usageBasedDetail(row);
           return (
-            <li className="space-y-0.5" key={row.featureId}>
-              <div className="flex justify-between gap-4">
-                <span className="font-medium">
-                  {row.quantity === null
-                    ? row.name
-                    : `${row.quantity.amount} ${row.quantity.units}`}
+            <li className="flex justify-between gap-4" key={row.featureId}>
+              <span className="font-medium">
+                {row.quantity === null
+                  ? row.name
+                  : `${row.quantity.amount} ${row.quantity.units}`}
+              </span>
+              {detail.length > 0 && (
+                <span className="text-right text-muted-fg tabular-nums">
+                  {detail}
                 </span>
-                {detail.value !== null && (
-                  <span className="font-medium tabular-nums">
-                    {detail.value}
-                  </span>
-                )}
-              </div>
-              {detail.note !== null && (
-                <p className="text-sm text-muted-fg">{detail.note}</p>
               )}
             </li>
           );
