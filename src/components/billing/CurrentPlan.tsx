@@ -1,19 +1,23 @@
 "use client";
 
 import {
+  type CreditGroupRow,
   derivePlanManager,
   httpStatus,
+  type PlanCreditRow,
+  type PlanManagerView,
   type PlanNotice,
   type PlanPrice,
+  type UsageBasedRow,
   useCompany,
   useCreditBalances,
   useFeatureUsage,
   useResolvedLocale,
 } from "@schematichq/schematic-components/elements";
 import Link from "next/link";
-import { useMemo } from "react";
+import { type ReactNode, useMemo, useState } from "react";
 
-import { Button, PanelSection } from "@/components/ui";
+import { Button, LinkButton, PanelSection } from "@/components/ui";
 import { shortPeriod } from "@/utils/usageCopy";
 
 const SECTION = {
@@ -22,6 +26,17 @@ const SECTION = {
 
 const ERROR_MESSAGE = "There was a problem retrieving your plan.";
 const UNAVAILABLE_MESSAGE = "Your plan is not available for this account.";
+
+/** Rows a credit list shows before "See all". */
+const VISIBLE_ROWS = 3;
+
+const PERIOD_WORD: Record<string, string> = {
+  day: "day",
+  month: "month",
+  quarter: "quarter",
+  week: "week",
+  year: "year",
+};
 
 const UNITS = {
   day: ["day", "days"],
@@ -68,10 +83,219 @@ function priceText(price: PlanPrice): string {
   }
 }
 
+/** "$0.02 per 100 GB", "Additional $0.05 per email", "2 AI credits per use", "$180.00/mo". */
+function usageBasedDetail(row: UsageBasedRow): string | null {
+  const parts: string[] = [];
+  if (row.tierBased) {
+    parts.push("Tiered pricing");
+  }
+  if (row.unitPrice !== null) {
+    const per =
+      row.unitPrice.packageSize === null
+        ? row.unitPrice.units
+        : `${row.unitPrice.packageSize} ${row.unitPrice.units}`;
+    const period =
+      row.unitPrice.period === null
+        ? ""
+        : `/${shortPeriod(row.unitPrice.period)}`;
+    parts.push(
+      `${row.additional ? "Additional " : ""}${row.unitPrice.cost} per ${per}${period}`,
+    );
+  }
+  if (row.perUse !== null) {
+    parts.push(`${row.perUse.amount} ${row.perUse.units} per use`);
+  }
+  if (row.cost !== null) {
+    parts.push(
+      row.cost.period === null
+        ? row.cost.amount
+        : `${row.cost.amount}/${shortPeriod(row.cost.period)}`,
+    );
+  }
+  return parts.length === 0 ? null : parts.join(" · ");
+}
+
+function planCreditText(row: PlanCreditRow): string {
+  const text = row.text;
+  if (text.kind === "perLicense") {
+    const plus =
+      text.plus === null
+        ? ""
+        : `, plus ${text.plus.amount} ${text.plus.creditName} a ${PERIOD_WORD[text.plus.period] ?? text.plus.period}`;
+    return `${text.amount} ${text.creditName} per ${text.licenseName}${plus}`;
+  }
+  return text.period === null
+    ? `${text.amount} ${text.creditName}`
+    : `${text.amount} ${text.creditName} a ${PERIOD_WORD[text.period] ?? text.period}`;
+}
+
+/** "220 AI credits/mo in all — 12 Seats × 10 + 100". */
+function compositionText(row: PlanCreditRow): string | null {
+  const c = row.composition;
+  if (c === null) {
+    return null;
+  }
+  const fixed = c.fixed === null ? "" : ` + ${c.fixed}`;
+  return `${c.total} ${c.creditName}/${shortPeriod(c.period)} in all — ${c.quantity} ${c.licenseName} × ${c.perUnit}${fixed}`;
+}
+
+/** "(2) 500 credit pack — 500 AI credits"; promotional grants never count. */
+function creditGroupText(row: CreditGroupRow, countAlways: boolean): string {
+  const amount = `${row.quantity} ${row.creditName}`;
+  const named =
+    row.bundleName === null ? amount : `${row.bundleName} — ${amount}`;
+  const counted =
+    row.count > 1 && (countAlways || row.bundleName !== null)
+      ? `(${row.count}) `
+      : "";
+  return `${counted}${named}`;
+}
+
+/** A titled list; a `truncate`d one shows three rows before "See all". */
+function PlanList<Row>({
+  children,
+  footer,
+  rows,
+  title,
+  truncate = false,
+}: {
+  children: (row: Row) => ReactNode;
+  footer?: ReactNode;
+  rows: Row[];
+  title: string;
+  truncate?: boolean;
+}) {
+  const [all, setAll] = useState(!truncate);
+  if (rows.length === 0) {
+    return null;
+  }
+  const shown = all ? rows : rows.slice(0, VISIBLE_ROWS);
+  return (
+    <div className="space-y-2">
+      <h4 className="text-xs font-semibold tracking-wider text-muted-fg uppercase">
+        {title}
+      </h4>
+      <ul className="space-y-2 text-sm">{shown.map(children)}</ul>
+      {truncate && rows.length > VISIBLE_ROWS && (
+        <LinkButton aria-expanded={all} onClick={() => setAll((v) => !v)}>
+          {all ? "Show fewer" : `See all (${rows.length})`}
+        </LinkButton>
+      )}
+      {footer}
+    </div>
+  );
+}
+
+const Used = ({ amount, tip }: { amount: number; tip?: string }) =>
+  amount > 0 ? (
+    <span className="text-muted-fg tabular-nums" title={tip}>
+      {amount} used{tip !== undefined && " ↻"}
+    </span>
+  ) : null;
+
+/** What the plan bills by use, and the credits it and the company's purchases bring. */
+function PlanUsage({ view }: { view: PlanManagerView }) {
+  return (
+    <>
+      <PlanList rows={view.usageBased} title="Usage-based">
+        {(row) => {
+          const detail = usageBasedDetail(row);
+          return (
+            <li className="flex justify-between gap-4" key={row.featureId}>
+              <span className="font-medium">
+                {row.quantity === null
+                  ? row.name
+                  : `${row.quantity.amount} ${row.quantity.units}`}
+              </span>
+              {detail !== null && (
+                <span className="text-right text-muted-fg tabular-nums">
+                  {detail}
+                </span>
+              )}
+            </li>
+          );
+        }}
+      </PlanList>
+
+      <PlanList
+        footer={
+          view.autoTopup !== null && (
+            <div className="flex items-start justify-between gap-4 rounded-xl bg-muted px-4 py-3 text-sm">
+              <div className="space-y-1">
+                <p className="font-semibold">Auto top-up</p>
+                {view.autoTopup.lines.map((line) => (
+                  <p key={line.creditId}>
+                    {line.kind === "disabled"
+                      ? `Off for ${line.unit}`
+                      : `Adds ${line.amount} ${line.unit} when ${line.threshold} are left`}
+                  </p>
+                ))}
+              </div>
+              <Link
+                className="font-semibold text-accent underline underline-offset-[0.2em] hover:text-accent-deep"
+                href="/custom-checkout"
+              >
+                Edit
+              </Link>
+            </div>
+          )
+        }
+        rows={view.planCredits}
+        title="Credits in plan"
+        truncate
+      >
+        {(row) => {
+          const composition = compositionText(row);
+          return (
+            <li className="space-y-1" key={row.creditId}>
+              <div className="flex justify-between gap-4">
+                <span className="font-medium">{planCreditText(row)}</span>
+                <Used
+                  amount={row.used}
+                  tip={
+                    row.autoTopup === null
+                      ? undefined
+                      : `Tops up ${row.autoTopup.amount} credits when ${row.autoTopup.threshold} are left`
+                  }
+                />
+              </div>
+              {composition !== null && (
+                <p className="text-muted-fg">{composition}</p>
+              )}
+            </li>
+          );
+        }}
+      </PlanList>
+
+      {(
+        [
+          ["Top-ups", view.topUps, true],
+          ["Credit bundles", view.bundles, false],
+          ["Promotional credits", view.promotional, false],
+        ] as const
+      ).map(([title, rows, countAlways]) => (
+        <PlanList key={title} rows={[...rows]} title={title} truncate>
+          {(row) => (
+            <li className="flex justify-between gap-4" key={row.key}>
+              <span className="font-medium">
+                {title === "Promotional credits"
+                  ? `${row.quantity} ${row.creditName}`
+                  : creditGroupText(row, countAlways)}
+              </span>
+              <Used amount={row.used} />
+            </li>
+          )}
+        </PlanList>
+      ))}
+    </>
+  );
+}
+
 /**
  * The company's plan, hand-built on `useCompany` and `derivePlanManager`:
- * where its subscription is headed, the plan and its price, and the
- * add-ons. Usage and credits have sections of their own on this page.
+ * where its subscription is headed, the plan and its price, the add-ons,
+ * what it bills by use, and the credits the plan and the company's
+ * purchases bring — what `<PlanManager>` shows, in the app's markup.
  */
 export function CurrentPlan() {
   const company = useCompany();
@@ -177,22 +401,21 @@ export function CurrentPlan() {
             )}
           </div>
         )}
-        {view.addOns.length > 0 && (
-          <ul className="space-y-2 text-sm" data-testid="plan-add-ons">
-            {view.addOns.map((addOn) => (
-              <li className="flex justify-between gap-4" key={addOn.id}>
-                <span className="font-medium">{addOn.name}</span>
-                {addOn.price !== null && (
-                  <span className="tabular-nums">
-                    {addOn.price.period === "one-time"
-                      ? `${addOn.price.amount} once`
-                      : `${addOn.price.amount}/${shortPeriod(addOn.price.period)}`}
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
+        <PlanList rows={view.addOns} title="Add-ons">
+          {(addOn) => (
+            <li className="flex justify-between gap-4" key={addOn.id}>
+              <span className="font-medium">{addOn.name}</span>
+              {addOn.price !== null && (
+                <span className="tabular-nums">
+                  {addOn.price.period === "one-time"
+                    ? `${addOn.price.amount} once`
+                    : `${addOn.price.amount}/${shortPeriod(addOn.price.period)}`}
+                </span>
+              )}
+            </li>
+          )}
+        </PlanList>
+        <PlanUsage view={view} />
       </div>
     </PanelSection>
   );

@@ -313,8 +313,10 @@ pay for that until someone opens the form.
 The "Plan usage" panel beside those three (after them on a narrow screen)
 opens with `useCompany` and `derivePlanManager`: where the subscription is
 headed (a trial, a cancellation, a custom plan's invoice, a scheduled
-downgrade), the plan and its price, and the add-ons, with a "Change plan"
-link to `/custom-checkout`. See `src/components/billing/CurrentPlan.tsx`.
+downgrade), the plan and its price, the add-ons, the usage-based features
+with their prices, and the credits in the plan (per license, with the auto
+top-up settings), top-ups, bundles and promotional credits — what
+`<PlanManager>` shows — with a "Change plan" link to `/custom-checkout`. See `src/components/billing/CurrentPlan.tsx`.
 Then `useFeatureUsage` and `deriveIncludedFeatures`: every feature the
 plan includes, with its allowance or price and what has been used. See
 `src/components/billing/IncludedFeatureList.tsx`. The same hook feeds
