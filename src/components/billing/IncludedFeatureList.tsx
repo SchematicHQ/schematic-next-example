@@ -72,7 +72,7 @@ export function IncludedFeatureList() {
 
   return (
     <PanelSection {...SECTION}>
-      <ul className="space-y-5">
+      <ul className="space-y-6">
         {shown.map((row) => {
           const usage = usageText(row.usage, row.usageSummary);
           return (

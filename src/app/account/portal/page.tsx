@@ -1,6 +1,7 @@
 "use client";
 
 import { Credits } from "@/components/billing/Credits";
+import { CurrentPlan } from "@/components/billing/CurrentPlan";
 import { FeatureUsage } from "@/components/billing/FeatureUsage";
 import { IncludedFeatureList } from "@/components/billing/IncludedFeatureList";
 import { InvoiceHistory } from "@/components/billing/InvoiceHistory";
@@ -27,6 +28,7 @@ export default function BillingPortalPage() {
         </Panel>
 
         <Panel title="Plan usage">
+          <CurrentPlan />
           <IncludedFeatureList />
           <FeatureUsage />
           <Credits />

@@ -64,12 +64,12 @@ export const PanelSection = ({
   return (
     <section
       aria-labelledby={titleId}
-      className={cn("space-y-4 px-6 py-7 md:px-9", className)}
+      className={cn("space-y-5 px-6 py-8 md:px-9", className)}
       {...props}
     >
       <div className="flex min-h-6 flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <h3
-          className="text-xs font-semibold tracking-wider text-muted-fg uppercase"
+          className="text-[0.8125rem] font-semibold tracking-wider text-fg/70 uppercase"
           id={titleId}
         >
           {title}
