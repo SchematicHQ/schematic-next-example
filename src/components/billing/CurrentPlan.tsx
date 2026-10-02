@@ -17,7 +17,7 @@ import {
 import Link from "next/link";
 import { type ReactNode, useMemo, useState } from "react";
 
-import { CancelSubscription } from "@/components/billing/CancelSubscription";
+import { PlanActions } from "@/components/billing/CancelSubscription";
 import { Button, LinkButton, PanelSection } from "@/components/ui";
 import { shortPeriod } from "@/utils/usageCopy";
 
@@ -433,7 +433,11 @@ export function CurrentPlan() {
           </p>
         )}
         <PlanCard
-          actions={view.canChangePlan && <ChangePlanLink />}
+          actions={
+            <PlanActions
+              changePlan={view.canChangePlan && <ChangePlanLink />}
+            />
+          }
           plan={view.plan}
         />
         <PlanList rows={view.addOns} title="Add-ons">
@@ -451,7 +455,6 @@ export function CurrentPlan() {
           )}
         </PlanList>
         <PlanUsage view={view} />
-        <CancelSubscription />
       </div>
     </PanelSection>
   );

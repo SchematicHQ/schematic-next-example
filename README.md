@@ -317,8 +317,9 @@ downgrade), the plan and its price, the add-ons, the usage-based features
 with their prices, and the credits in the plan (per license, with the auto
 top-up settings), top-ups, bundles and promotional credits — what
 `<PlanManager>` shows — with a "Change plan" link to `/custom-checkout`. See `src/components/billing/CurrentPlan.tsx`.
-Beneath it, `useUnsubscribe` and `deriveUnsubscribe` cancel the subscription
-at period end after an inline confirmation; see
+Beside "Change plan" in the plan's block, `useUnsubscribe` and
+`deriveUnsubscribe` cancel the subscription at period end after a
+confirmation that takes the actions' place; see
 `src/components/billing/CancelSubscription.tsx`.
 Then `useFeatureUsage` and `deriveIncludedFeatures`: every feature the
 plan includes, with its allowance or price and what has been used. See
