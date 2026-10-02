@@ -225,9 +225,7 @@ function PlanList<Row>({
       <h4 className="text-[0.8125rem] font-semibold tracking-wider text-fg/70 uppercase">
         {title}
       </h4>
-      <ul className="divide-y divide-border text-[0.9375rem] [&>li]:py-2.5 [&>li:first-child]:pt-0">
-        {shown.map(children)}
-      </ul>
+      <ul className="space-y-3 text-[0.9375rem]">{shown.map(children)}</ul>
       {truncate && rows.length > VISIBLE_ROWS && (
         <LinkButton aria-expanded={all} onClick={() => setAll((v) => !v)}>
           {all ? "Show fewer" : `See all (${rows.length})`}
