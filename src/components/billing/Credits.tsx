@@ -163,7 +163,7 @@ export function Credits() {
 
   return (
     <PanelSection {...SECTION}>
-      <ul className="space-y-8">
+      <ul className="space-y-7">
         {credits.map((credit) => {
           const composition = compositionText(credit);
           return (

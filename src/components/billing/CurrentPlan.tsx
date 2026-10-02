@@ -83,11 +83,19 @@ function priceText(price: PlanPrice): string {
   }
 }
 
-/** "$0.02 per 100 GB", "Additional $0.05 per email", "2 AI credits per use", "$180.00/mo". */
-function usageBasedDetail(row: UsageBasedRow): string | null {
-  const parts: string[] = [];
+/**
+ * A usage-based feature's figure and what qualifies it: "$0.02" beside the
+ * name with "per 100 GB of storage" under it; "$180.00/mo" for an allocation
+ * paid in advance; "2 AI credits per use" for a credit-burning feature.
+ */
+function usageBasedDetail(row: UsageBasedRow): {
+  value: string | null;
+  note: string | null;
+} {
+  const notes: string[] = [];
+  let value: string | null = null;
   if (row.tierBased) {
-    parts.push("Tiered pricing");
+    notes.push("Tiered pricing");
   }
   if (row.unitPrice !== null) {
     const per =
@@ -98,21 +106,19 @@ function usageBasedDetail(row: UsageBasedRow): string | null {
       row.unitPrice.period === null
         ? ""
         : `/${shortPeriod(row.unitPrice.period)}`;
-    parts.push(
-      `${row.additional ? "Additional " : ""}${row.unitPrice.cost} per ${per}${period}`,
-    );
+    value = row.unitPrice.cost;
+    notes.push(`${row.additional ? "Additional, " : ""}per ${per}${period}`);
   }
   if (row.perUse !== null) {
-    parts.push(`${row.perUse.amount} ${row.perUse.units} per use`);
+    notes.push(`${row.perUse.amount} ${row.perUse.units} per use`);
   }
   if (row.cost !== null) {
-    parts.push(
+    value =
       row.cost.period === null
         ? row.cost.amount
-        : `${row.cost.amount}/${shortPeriod(row.cost.period)}`,
-    );
+        : `${row.cost.amount}/${shortPeriod(row.cost.period)}`;
   }
-  return parts.length === 0 ? null : parts.join(" · ");
+  return { value, note: notes.length === 0 ? null : notes.join(" · ") };
 }
 
 function planCreditText(row: PlanCreditRow): string {
@@ -160,7 +166,7 @@ function PlanCard({
   plan: PlanManagerView["plan"];
 }) {
   return (
-    <div className="space-y-6 rounded-xl border border-border p-6">
+    <div className="space-y-5 rounded-xl border border-border p-6">
       {plan === null ? (
         <p className="text-sm text-muted-fg">You are not on a plan.</p>
       ) : (
@@ -216,10 +222,12 @@ function PlanList<Row>({
   const shown = all ? rows : rows.slice(0, VISIBLE_ROWS);
   return (
     <div className="space-y-3">
-      <h4 className="text-xs font-semibold tracking-wider text-muted-fg uppercase">
+      <h4 className="text-[0.8125rem] font-semibold tracking-wider text-fg/70 uppercase">
         {title}
       </h4>
-      <ul className="space-y-3 text-sm">{shown.map(children)}</ul>
+      <ul className="divide-y divide-border text-[0.9375rem] [&>li]:py-2.5 [&>li:first-child]:pt-0">
+        {shown.map(children)}
+      </ul>
       {truncate && rows.length > VISIBLE_ROWS && (
         <LinkButton aria-expanded={all} onClick={() => setAll((v) => !v)}>
           {all ? "Show fewer" : `See all (${rows.length})`}
@@ -232,7 +240,7 @@ function PlanList<Row>({
 
 const Used = ({ amount, tip }: { amount: number; tip?: string }) =>
   amount > 0 ? (
-    <span className="text-muted-fg tabular-nums" title={tip}>
+    <span className="text-sm text-muted-fg tabular-nums" title={tip}>
       {amount} used{tip !== undefined && " ↻"}
     </span>
   ) : null;
@@ -245,16 +253,21 @@ function PlanUsage({ view }: { view: PlanManagerView }) {
         {(row) => {
           const detail = usageBasedDetail(row);
           return (
-            <li className="flex justify-between gap-4" key={row.featureId}>
-              <span className="font-medium">
-                {row.quantity === null
-                  ? row.name
-                  : `${row.quantity.amount} ${row.quantity.units}`}
-              </span>
-              {detail !== null && (
-                <span className="text-right text-muted-fg tabular-nums">
-                  {detail}
+            <li className="space-y-0.5" key={row.featureId}>
+              <div className="flex justify-between gap-4">
+                <span className="font-medium">
+                  {row.quantity === null
+                    ? row.name
+                    : `${row.quantity.amount} ${row.quantity.units}`}
                 </span>
+                {detail.value !== null && (
+                  <span className="font-medium tabular-nums">
+                    {detail.value}
+                  </span>
+                )}
+              </div>
+              {detail.note !== null && (
+                <p className="text-sm text-muted-fg">{detail.note}</p>
               )}
             </li>
           );
@@ -304,7 +317,7 @@ function PlanUsage({ view }: { view: PlanManagerView }) {
                 />
               </div>
               {composition !== null && (
-                <p className="text-muted-fg">{composition}</p>
+                <p className="text-sm text-muted-fg">{composition}</p>
               )}
             </li>
           );
@@ -408,7 +421,7 @@ export function CurrentPlan() {
 
   return (
     <PanelSection {...SECTION}>
-      <div className="space-y-8">
+      <div className="space-y-6">
         {notice !== null && (
           <p className="rounded-xl bg-muted px-4 py-3 text-sm" role="status">
             {notice}
@@ -423,7 +436,7 @@ export function CurrentPlan() {
             <li className="flex justify-between gap-4" key={addOn.id}>
               <span className="font-medium">{addOn.name}</span>
               {addOn.price !== null && (
-                <span className="tabular-nums">
+                <span className="font-medium tabular-nums">
                   {addOn.price.period === "one-time"
                     ? `${addOn.price.amount} once`
                     : `${addOn.price.amount}/${shortPeriod(addOn.price.period)}`}
