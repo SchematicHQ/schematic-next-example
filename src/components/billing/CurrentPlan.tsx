@@ -17,6 +17,7 @@ import {
 import Link from "next/link";
 import { type ReactNode, useMemo, useState } from "react";
 
+import { CancelSubscription } from "@/components/billing/CancelSubscription";
 import { Button, LinkButton, PanelSection } from "@/components/ui";
 import { shortPeriod } from "@/utils/usageCopy";
 
@@ -450,6 +451,7 @@ export function CurrentPlan() {
           )}
         </PlanList>
         <PlanUsage view={view} />
+        <CancelSubscription />
       </div>
     </PanelSection>
   );

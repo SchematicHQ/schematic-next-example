@@ -12,14 +12,14 @@ for the embedded portal, pricing table, and checkout. Auth is
 
 ## What's in here
 
-| Route              | Shows                                                                                                                                                       |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/`                | Feature flags and usage tracking gating a weather search                                                                                                    |
-| `/pricing`         | `<PricingTable>` — plans and upgrade CTA                                                                                                                    |
-| `/usage`           | `<SchematicEmbed>` — the full customer portal                                                                                                               |
-| `/custom-checkout` | Driving `<CheckoutDialog>` yourself from your own button                                                                                                    |
-| `/account/portal`  | Bills and payments (next bill, payment methods, billing history) and plan usage (current plan, usage, credits), built on the elements data hooks            |
-| `/account/billing` | The same two groups from `<UpcomingBill>`, `<PaymentMethods>`, `<Invoices>` and `<PlanManager>`, `<IncludedFeatures>`, `<MeteredFeatures>`, `<CreditUsage>` |
+| Route              | Shows                                                                                                                                                                              |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`                | Feature flags and usage tracking gating a weather search                                                                                                                           |
+| `/pricing`         | `<PricingTable>` — plans and upgrade CTA                                                                                                                                           |
+| `/usage`           | `<SchematicEmbed>` — the full customer portal                                                                                                                                      |
+| `/custom-checkout` | Driving `<CheckoutDialog>` yourself from your own button                                                                                                                           |
+| `/account/portal`  | Bills and payments (next bill, payment methods, billing history) and plan usage (current plan and cancelling it, usage, credits), built on the elements data hooks                 |
+| `/account/billing` | The same two groups from `<UpcomingBill>`, `<PaymentMethods>`, `<Invoices>` and `<PlanManager>`, `<UnsubscribeButton>`, `<IncludedFeatures>`, `<MeteredFeatures>`, `<CreditUsage>` |
 
 ## Prerequisites
 
@@ -317,6 +317,9 @@ downgrade), the plan and its price, the add-ons, the usage-based features
 with their prices, and the credits in the plan (per license, with the auto
 top-up settings), top-ups, bundles and promotional credits — what
 `<PlanManager>` shows — with a "Change plan" link to `/custom-checkout`. See `src/components/billing/CurrentPlan.tsx`.
+Beneath it, `useUnsubscribe` and `deriveUnsubscribe` cancel the subscription
+at period end after an inline confirmation; see
+`src/components/billing/CancelSubscription.tsx`.
 Then `useFeatureUsage` and `deriveIncludedFeatures`: every feature the
 plan includes, with its allowance or price and what has been used. See
 `src/components/billing/IncludedFeatureList.tsx`. The same hook feeds
@@ -333,7 +336,7 @@ allowance adds up. See `src/components/billing/Credits.tsx`.
 
 `/account/billing` renders the same two groups from the packaged elements
 instead — `<UpcomingBill>`, `<PaymentMethods>`, and `<Invoices>` under "Bills
-and payments", `<PlanManager>`, `<IncludedFeatures>`, `<MeteredFeatures>`,
+and payments", `<PlanManager>`, `<UnsubscribeButton>`, `<IncludedFeatures>`, `<MeteredFeatures>`,
 and `<CreditUsage>` under "Plan usage", each at `headingLevel={3}` beneath its group's heading — styled by
 `<SchematicStyles />` — mounted once on the provider in
 `src/components/ClientWrapper.tsx`. That is the packaged elements as a host
@@ -341,7 +344,8 @@ gets them out of the box, and the sheet follows the app's `color-scheme`, so
 they track the theme toggle with nothing to wire up. `<PlanManager>`,
 `<MeteredFeatures>` and `<CreditUsage>` link "Change plan", "Add More" and
 "Buy More" to `/custom-checkout` through `changePlanUrl`, `addMoreUrl` and
-`buyMoreUrl`; the elements
+`buyMoreUrl`, and `<UnsubscribeButton>` its "Manage plan" through
+`managePlanUrl`; the elements
 open no checkout of their own. `<PaymentMethods>` is
 the embed's pill and dialog, lazy loads its Stripe form the same way and themes
 it from its own tokens, and takes `allowEdit={false}` for a host that wants

@@ -7,6 +7,7 @@ import {
   MeteredFeatures,
   PaymentMethods,
   PlanManager,
+  UnsubscribeButton,
   UpcomingBill,
 } from "@schematichq/schematic-components/elements";
 
@@ -42,6 +43,7 @@ export default function AccountBillingPage() {
             Plan usage
           </h2>
           <PlanManager changePlanUrl="/custom-checkout" headingLevel={3} />
+          <UnsubscribeButton managePlanUrl="/custom-checkout" />
           <IncludedFeatures headingLevel={3} />
           <MeteredFeatures addMoreUrl="/custom-checkout" headingLevel={3} />
           <CreditUsage buyMoreUrl="/custom-checkout" headingLevel={3} />
