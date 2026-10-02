@@ -151,6 +151,50 @@ function creditGroupText(row: CreditGroupRow, countAlways: boolean): string {
   return `${counted}${named}`;
 }
 
+/** The plan and its price in a block of their own, its actions beneath. */
+function PlanCard({
+  actions,
+  plan,
+}: {
+  actions: ReactNode;
+  plan: PlanManagerView["plan"];
+}) {
+  return (
+    <div className="space-y-5 rounded-xl border border-border p-5">
+      {plan === null ? (
+        <p className="text-sm text-muted-fg">You are not on a plan.</p>
+      ) : (
+        <div className="flex items-baseline justify-between gap-4">
+          <div className="space-y-1">
+            <p className="font-display text-3xl leading-none font-extrabold">
+              {plan.name}
+            </p>
+            {plan.description !== null && (
+              <p className="text-sm text-muted-fg">{plan.description}</p>
+            )}
+          </div>
+          {plan.price !== null && (
+            <p className="font-semibold tabular-nums">
+              {priceText(plan.price)}
+            </p>
+          )}
+        </div>
+      )}
+      {actions}
+    </div>
+  );
+}
+
+/** The way to the checkout, as a button-weight link. */
+const ChangePlanLink = () => (
+  <Link
+    className="inline-flex items-center rounded-xl bg-fg px-3.5 py-1.5 text-sm font-semibold text-bg transition-opacity duration-150 hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+    href="/custom-checkout"
+  >
+    Change plan
+  </Link>
+);
+
 /** A titled list; a `truncate`d one shows three rows before "See all". */
 function PlanList<Row>({
   children,
@@ -363,44 +407,17 @@ export function CurrentPlan() {
   const notice = view.notice === null ? null : noticeText(view.notice);
 
   return (
-    <PanelSection
-      {...SECTION}
-      aside={
-        view.canChangePlan && (
-          <Link
-            className="text-sm font-semibold text-accent underline underline-offset-[0.2em] hover:text-accent-deep"
-            href="/custom-checkout"
-          >
-            Change plan
-          </Link>
-        )
-      }
-    >
+    <PanelSection {...SECTION}>
       <div className="space-y-4">
         {notice !== null && (
           <p className="rounded-xl bg-muted px-4 py-3 text-sm" role="status">
             {notice}
           </p>
         )}
-        {view.plan === null ? (
-          <p className="text-sm text-muted-fg">You are not on a plan.</p>
-        ) : (
-          <div className="flex items-baseline justify-between gap-4">
-            <div className="space-y-1">
-              <p className="font-display text-3xl leading-none font-extrabold">
-                {view.plan.name}
-              </p>
-              {view.plan.description !== null && (
-                <p className="text-sm text-muted-fg">{view.plan.description}</p>
-              )}
-            </div>
-            {view.plan.price !== null && (
-              <p className="font-semibold tabular-nums">
-                {priceText(view.plan.price)}
-              </p>
-            )}
-          </div>
-        )}
+        <PlanCard
+          actions={view.canChangePlan && <ChangePlanLink />}
+          plan={view.plan}
+        />
         <PlanList rows={view.addOns} title="Add-ons">
           {(addOn) => (
             <li className="flex justify-between gap-4" key={addOn.id}>
