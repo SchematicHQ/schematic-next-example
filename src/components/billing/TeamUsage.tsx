@@ -60,8 +60,10 @@ export function TeamUsage({ count, total, unit, users }: TeamUsageProps) {
             >
               {(user.label.trim()[0] ?? "?").toUpperCase()}
             </span>
-            <span className="grow truncate">{user.label}</span>
-            <span className="tabular-nums text-muted-fg">
+            <span className="min-w-0 grow truncate">{user.label}</span>
+            {/* Never wraps: a long unit takes its room from the name,
+                which truncates, so the column keeps its right edge. */}
+            <span className="shrink-0 text-right whitespace-nowrap tabular-nums text-muted-fg">
               {amount(user.amount)}
             </span>
           </li>
