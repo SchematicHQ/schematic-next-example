@@ -147,7 +147,7 @@ export function FeatureUsage() {
 
   return (
     <PanelSection {...SECTION}>
-      <ul className="space-y-6">
+      <ul className="space-y-8">
         {rows.map((row) => {
           const limit = [
             row.limit === null ? null : limitText(row.limit),

@@ -160,7 +160,7 @@ function PlanCard({
   plan: PlanManagerView["plan"];
 }) {
   return (
-    <div className="space-y-5 rounded-xl border border-border p-5">
+    <div className="space-y-6 rounded-xl border border-border p-6">
       {plan === null ? (
         <p className="text-sm text-muted-fg">You are not on a plan.</p>
       ) : (
@@ -215,11 +215,11 @@ function PlanList<Row>({
   }
   const shown = all ? rows : rows.slice(0, VISIBLE_ROWS);
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       <h4 className="text-xs font-semibold tracking-wider text-muted-fg uppercase">
         {title}
       </h4>
-      <ul className="space-y-2 text-sm">{shown.map(children)}</ul>
+      <ul className="space-y-3 text-sm">{shown.map(children)}</ul>
       {truncate && rows.length > VISIBLE_ROWS && (
         <LinkButton aria-expanded={all} onClick={() => setAll((v) => !v)}>
           {all ? "Show fewer" : `See all (${rows.length})`}
@@ -408,7 +408,7 @@ export function CurrentPlan() {
 
   return (
     <PanelSection {...SECTION}>
-      <div className="space-y-4">
+      <div className="space-y-8">
         {notice !== null && (
           <p className="rounded-xl bg-muted px-4 py-3 text-sm" role="status">
             {notice}
