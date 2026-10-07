@@ -19,10 +19,10 @@ importers:
         version: 7.8.2(next@16.3.6(@babel/core@7.29.7)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@schematichq/schematic-components':
         specifier: 2.30.0
-        version: 2.30.0(@schematichq/schematic-react@1.9.0(react@19.2.8))(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.17.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@stripe/stripe-js@9.17.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
+        version: 2.30.0(@schematichq/schematic-react@1.10.0(react@19.2.8))(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.17.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@stripe/stripe-js@9.17.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
       '@schematichq/schematic-react':
-        specifier: 1.9.0
-        version: 1.9.0(react@19.2.8)
+        specifier: 1.10.0
+        version: 1.10.0(react@19.2.8)
       '@schematichq/schematic-typescript-node':
         specifier: ^1.4.4
         version: 1.5.10
@@ -546,8 +546,8 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@schematichq/schematic-react@1.9.0':
-    resolution: {integrity: sha512-9o+3npyd/dqJpnYeQ/iO1HJL2VRk9lSw8DN/JOvTPBDXAlfH/pyUPMcIignlBl3EmIxc1XqRxCt0eZkhW1tbRA==}
+  '@schematichq/schematic-react@1.10.0':
+    resolution: {integrity: sha512-3dMsO1lh/YagVwn5jqSeDSYyi940VsmqPbZYYBe75VOpQnN1cLYmmiJ8jFxyxahxTkC2a+ygQDBZ0mtU/leoig==}
     peerDependencies:
       react: '>=18'
 
@@ -2668,7 +2668,7 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@schematichq/schematic-components@2.30.0(@schematichq/schematic-react@1.9.0(react@19.2.8))(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.17.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@stripe/stripe-js@9.17.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)':
+  '@schematichq/schematic-components@2.30.0(@schematichq/schematic-react@1.10.0(react@19.2.8))(@stripe/react-stripe-js@5.6.1(@stripe/stripe-js@9.17.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@stripe/stripe-js@9.17.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)':
     dependencies:
       '@schematichq/schematic-icons': 0.8.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@stripe/react-stripe-js': 5.6.1(@stripe/stripe-js@9.17.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -2681,7 +2681,7 @@ snapshots:
       styled-components: 6.5.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       uuid: 14.0.2
     optionalDependencies:
-      '@schematichq/schematic-react': 1.9.0(react@19.2.8)
+      '@schematichq/schematic-react': 1.10.0(react@19.2.8)
     transitivePeerDependencies:
       - css-to-react-native
       - react-native
@@ -2696,7 +2696,7 @@ snapshots:
       - css-to-react-native
       - react-native
 
-  '@schematichq/schematic-react@1.9.0(react@19.2.8)':
+  '@schematichq/schematic-react@1.10.0(react@19.2.8)':
     dependencies:
       react: 19.2.8
 
