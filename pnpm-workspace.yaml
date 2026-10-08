@@ -19,6 +19,8 @@ overrides:
   # 10 wants 5.x); each has its own patched release.
   brace-expansion@^1.0.0: ^1.1.21
   brace-expansion@^5.0.0: ^5.0.12
+  # @tailwindcss/node and postcss 8.5.26 still resolve 1.2.1 (GHSA-68fv-2mgg-jv7q).
+  source-map-js: ^1.2.2
 
 allowBuilds:
   # Native bindings that ship prebuilt per-platform packages as optional
