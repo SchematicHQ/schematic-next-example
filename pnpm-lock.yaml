@@ -10,7 +10,6 @@ overrides:
   brace-expansion@^1.0.0: ^1.1.21
   brace-expansion@^5.0.0: ^5.0.12
   source-map-js: ^1.2.2
-  '@schematichq/schematic-components': link:../schematic-js/components
 
 importers:
 
@@ -20,8 +19,8 @@ importers:
         specifier: ^7.2.1
         version: 7.8.2(next@16.3.8(@babel/core@7.29.7)(@types/node@24.13.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@schematichq/schematic-components':
-        specifier: link:../schematic-js/components
-        version: link:../schematic-js/components
+        specifier: ^2.34.0
+        version: 2.34.0(@schematichq/schematic-react@1.14.0(react@19.2.8))(@stripe/react-stripe-js@6.12.0(@stripe/stripe-js@9.17.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@stripe/stripe-js@9.17.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
       '@schematichq/schematic-js':
         specifier: ^1.14.0
         version: 1.14.0
@@ -214,6 +213,12 @@ packages:
 
   '@emnapi/wasi-threads@1.2.1':
     resolution: {integrity: sha512-uTII7OYF+/Mes/MrcIOYp5yOtSMLBWSIoLPpcgwipoiKbli6k322tcoFsxoIIxPDqW01SQGAgko4EzZi2BNv2w==}
+
+  '@emotion/is-prop-valid@1.4.0':
+    resolution: {integrity: sha512-QgD4fyscGcbbKwJmqNvUMSE02OsHUa+lAWKdEUIJKgqe5IwRSKd7+KhibEWdaKwgjLj0DRSHA9biAIqGBk05lw==}
+
+  '@emotion/memoize@0.9.0':
+    resolution: {integrity: sha512-30FAj7/EoJ5mwVPOWhAyCX+FPfMDrVecJAM+Iw9NRoSl4BBAQeqj4cApHHUXOVvIPgLVDsCFoz/hGD+5QQD1GQ==}
 
   '@eslint-community/eslint-utils@4.10.1':
     resolution: {integrity: sha512-cuadcxVFE8sDK6iWJbs8Sn0av2Nrh2QSGQhVlBW9AaAHqHwjWsZHT8LJ4hFGPh7ASBV2deFdM7H/DPjulmh8rg==}
@@ -533,6 +538,24 @@ packages:
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
+  '@schematichq/schematic-components@2.34.0':
+    resolution: {integrity: sha512-lLy6FzMn193PAkXvTZMqbCKJpL29awMZS+1yqllP0+oNDBEXCWkEioXRbm7gEqcswntY6BKCB79RUtiwq0Jj7w==}
+    peerDependencies:
+      '@schematichq/schematic-react': ^1.14.0
+      '@stripe/react-stripe-js': '>=3'
+      '@stripe/stripe-js': '>=4'
+      react: '>=18'
+      react-dom: '>=18'
+    peerDependenciesMeta:
+      '@schematichq/schematic-react':
+        optional: true
+
+  '@schematichq/schematic-icons@0.8.0':
+    resolution: {integrity: sha512-hI3/Ksx4Jvqhv9rnHjw9GkeMKSyLgDQMyur9hiLM6MAO+NFqPh6WKq3JU1GqOr0Cj2ZuKNV3dRS/68g0WQ1ZhQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   '@schematichq/schematic-js@1.14.0':
     resolution: {integrity: sha512-MzJRP+GGLGAPQmlBtMA3RVZwotCG36MEQCQKyG6HjvV3VctH6GWVo8jM6SJN4DtY7IX1OtIQJMsM7fbJ49xGCw==}
 
@@ -685,6 +708,9 @@ packages:
 
   '@types/react@19.2.14':
     resolution: {integrity: sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==}
+
+  '@types/stylis@4.2.7':
+    resolution: {integrity: sha512-VgDNokpBoKF+wrdvhAAfS55OMQpL6QRglwTwNC3kIgBrzZxA4WsFj+2eLfEA/uMUDzBcEhYmjSbwQakn/i3ajA==}
 
   '@typescript-eslint/eslint-plugin@8.68.0':
     resolution: {integrity: sha512-WASHDpCm6qO5jj9g1a+8NiW5+GCkAyLReR56/4VruYmNgfUmqpxOfZ2Yfb8xGfJPWv5Qi6LSD8sXdces3vbp/Q==}
@@ -1435,6 +1461,14 @@ packages:
     resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}
     engines: {node: '>= 6'}
 
+  i18next@26.4.4:
+    resolution: {integrity: sha512-O+rqmQUi54OwAgnZ4SAwO6aRrbXZt36VZXWt6zvq0FpC3vJbH46oQRs6u4Uwm1vf8ZI7UqOXQiJhQVTor7vRiQ==}
+    peerDependencies:
+      typescript: ^5 || ^6 || ^7
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
 
@@ -1851,6 +1885,9 @@ packages:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==}
     engines: {node: '>=10'}
 
+  pako@3.0.2:
+    resolution: {integrity: sha512-uBv6IT2aT1A78iU6dpNEbf6+CyhlV/6g9JlJs9kpgjFGFhruIICVRysF/W0SLzXg5+hCl+KroH7e4YUyfEmgLg==}
+
   path-exists@4.0.0:
     resolution: {integrity: sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w==}
     engines: {node: '>=8'}
@@ -2070,6 +2107,22 @@ packages:
     resolution: {integrity: sha512-vavAMRXOgBVNF6nyEEmL3DBK19iRpDcoIwW+swQ+CbGiu7lju6t+JklA1MHweoWtadgt4ISVUsXLyDq34ddcwA==}
     engines: {node: '>=4'}
 
+  styled-components@6.6.0:
+    resolution: {integrity: sha512-drKKsqvDBxVRn4ySU67iQ5nQBuo/1xyYeBfdhDde112PkqrS3+95KPnpDs5hFRcmrW+q6+gbyywYYYR14oWFtw==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      css-to-react-native: '>= 3.2.0'
+      react: '>= 16.8.0'
+      react-dom: '>= 16.8.0'
+      react-native: '>= 0.68.0'
+    peerDependenciesMeta:
+      css-to-react-native:
+        optional: true
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+
   styled-jsx@5.1.6:
     resolution: {integrity: sha512-qSVyDTeMotdvQYoHWLNGwRFJHC+i+ZvdBRYosOFgC+Wg1vx4frN2/RG/NA7SYqqvKNLf39P2LSRA2pu6n0XYZA==}
     engines: {node: '>= 12.0.0'}
@@ -2082,6 +2135,9 @@ packages:
         optional: true
       babel-plugin-macros:
         optional: true
+
+  stylis@4.3.6:
+    resolution: {integrity: sha512-yQ3rwFWRfwNUY7H5vpU0wfdkNSnvnJinhF9830Swlaxl03zsOjCfmX0ugac+3LtK0lYSgwL/KXc8oYL3mG4YFQ==}
 
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
@@ -2170,6 +2226,10 @@ packages:
 
   uuid@14.0.2:
     resolution: {integrity: sha512-xZe/16rV4aa+HGSOCiY2YeLT1OybRLrrkL/Rqaq7p7GMVXjFh+6wN4oMYgjFmnSnhY8t6Xpdl2l9qmnHYuMHwQ==}
+    hasBin: true
+
+  uuid@14.0.3:
+    resolution: {integrity: sha512-Sc5u1VVln93y1Xnz4R+CunOZc7R9LUcTmhj7Rc7Eg3HVcf7rVn2FOoa812fe0W8p3jD7xeoGSYbfqCGGH2B6xw==}
     hasBin: true
 
   webidl-conversions@3.0.1:
@@ -2392,6 +2452,12 @@ snapshots:
     dependencies:
       tslib: 2.8.1
     optional: true
+
+  '@emotion/is-prop-valid@1.4.0':
+    dependencies:
+      '@emotion/memoize': 0.9.0
+
+  '@emotion/memoize@0.9.0': {}
 
   '@eslint-community/eslint-utils@4.10.1(eslint@10.9.1(jiti@2.7.0))':
     dependencies:
@@ -2626,6 +2692,34 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
+  '@schematichq/schematic-components@2.34.0(@schematichq/schematic-react@1.14.0(react@19.2.8))(@stripe/react-stripe-js@6.12.0(@stripe/stripe-js@9.17.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@stripe/stripe-js@9.17.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3)':
+    dependencies:
+      '@schematichq/schematic-icons': 0.8.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@stripe/react-stripe-js': 6.12.0(@stripe/stripe-js@9.17.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@stripe/stripe-js': 9.17.0
+      i18next: 26.4.4(typescript@6.0.3)
+      lodash: 4.18.1
+      pako: 3.0.2
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+      styled-components: 6.6.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      uuid: 14.0.3
+    optionalDependencies:
+      '@schematichq/schematic-react': 1.14.0(react@19.2.8)
+    transitivePeerDependencies:
+      - css-to-react-native
+      - react-native
+      - typescript
+
+  '@schematichq/schematic-icons@0.8.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+    dependencies:
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+      styled-components: 6.6.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+    transitivePeerDependencies:
+      - css-to-react-native
+      - react-native
+
   '@schematichq/schematic-js@1.14.0':
     dependencies:
       cross-fetch: 4.1.0
@@ -2761,6 +2855,8 @@ snapshots:
   '@types/react@19.2.14':
     dependencies:
       csstype: 3.2.3
+
+  '@types/stylis@4.2.7': {}
 
   '@typescript-eslint/eslint-plugin@8.68.0(@typescript-eslint/parser@8.68.0(eslint@10.9.1(jiti@2.7.0))(typescript@6.0.3))(eslint@10.9.1(jiti@2.7.0))(typescript@6.0.3)':
     dependencies:
@@ -3675,6 +3771,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  i18next@26.4.4(typescript@6.0.3):
+    optionalDependencies:
+      typescript: 6.0.3
+
   ieee754@1.2.1: {}
 
   ignore@5.3.2: {}
@@ -4066,6 +4166,8 @@ snapshots:
     dependencies:
       p-limit: 3.1.0
 
+  pako@3.0.2: {}
+
   path-exists@4.0.0: {}
 
   path-key@3.1.1: {}
@@ -4354,12 +4456,24 @@ snapshots:
 
   strip-bom@3.0.0: {}
 
+  styled-components@6.6.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
+    dependencies:
+      '@emotion/is-prop-valid': 1.4.0
+      '@types/stylis': 4.2.7
+      csstype: 3.2.3
+      react: 19.2.8
+      stylis: 4.3.6
+    optionalDependencies:
+      react-dom: 19.2.8(react@19.2.8)
+
   styled-jsx@5.1.6(@babel/core@7.29.7)(react@19.2.8):
     dependencies:
       client-only: 0.0.1
       react: 19.2.8
     optionalDependencies:
       '@babel/core': 7.29.7
+
+  stylis@4.3.6: {}
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
@@ -4488,6 +4602,8 @@ snapshots:
       punycode: 2.3.1
 
   uuid@14.0.2: {}
+
+  uuid@14.0.3: {}
 
   webidl-conversions@3.0.1: {}
 
