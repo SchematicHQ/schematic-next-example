@@ -1,0 +1,239 @@
+/*
+ * A complete restyle of the packaged <Invoices> element through its class
+ * names, kept on disk and left unimported so it can be swapped in for
+ * <SchematicStyles />. Nothing compiles it, so when the element's markup
+ * changes this sheet does not fail — check it against the class names in
+ * schematic-js/components/src/elements/styles/invoices.ts and the markup
+ * section of schematic-js/components/src/elements/docs/invoices.md.
+ *
+ * The root carries the same class list in every state; `data-state` is
+ * "pending", "error", or "ready".
+ */
+
+.schematic-invoices {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  color: var(--fg);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--body);
+  line-height: var(--text-base--line-height, 1.5);
+  padding: 2.8125rem;
+}
+
+.schematic-invoices .schematic-header {
+  align-items: baseline;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.schematic-invoices .schematic-header__title {
+  font-size: var(--text-xl, 1.25rem);
+  line-height: var(--text-xl--line-height, calc(1.75 / 1.25));
+  margin: 0;
+}
+
+.schematic-invoices__list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+}
+
+.schematic-invoices__row {
+  align-items: center;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+}
+
+.schematic-invoices__row:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.schematic-invoices__date {
+  text-align: start;
+}
+
+.schematic-invoices__link {
+  color: var(--fg);
+  text-decoration: none;
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.schematic-invoices__link:hover {
+  color: var(--accent);
+}
+
+.schematic-invoices__amount {
+  cursor: help;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  /* Keeps a lone amount at the end when the date is hidden. */
+  margin-inline-start: auto;
+  text-align: end;
+}
+
+.schematic-invoices__credit {
+  color: var(--muted-fg);
+}
+
+.schematic-invoices__empty {
+  color: var(--muted-fg);
+  font-size: var(--text-sm, 0.875rem);
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
+  padding: 2.25rem 0;
+  text-align: center;
+}
+
+.schematic-invoices__actions {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.schematic-invoices__see-more,
+.schematic-invoices__load-more,
+.schematic-invoices .schematic-status__retry {
+  align-items: center;
+  background: none;
+  border: 1px solid var(--border-2);
+  border-radius: 0.75rem;
+  color: var(--fg);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: var(--text-sm, 0.875rem);
+  font-weight: 600;
+  gap: 0.5rem;
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
+  padding: 0.375rem 0.875rem;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.schematic-invoices__see-more:hover,
+.schematic-invoices__load-more:hover,
+.schematic-invoices .schematic-status__retry:hover {
+  background: var(--muted);
+}
+
+.schematic-invoices__load-more:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.schematic-invoices__see-more:focus-visible,
+.schematic-invoices__load-more:focus-visible,
+.schematic-invoices .schematic-status__retry:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* A chevron drawn from two borders; it turns when the list is expanded. */
+.schematic-invoices__chevron {
+  border-block-end: 2px solid currentColor;
+  border-inline-end: 2px solid currentColor;
+  display: inline-block;
+  height: 0.5em;
+  transform: translateY(-0.125em) rotate(45deg);
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0.5em;
+}
+
+.schematic-invoices__see-more[aria-expanded="true"]
+  .schematic-invoices__chevron {
+  transform: translateY(0.125em) rotate(-135deg);
+}
+
+/* The error state: a message beside a retry button, in place of the rows. */
+.schematic-invoices .schematic-status {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+/* A failure with rows still on screen sits under them as a note. */
+.schematic-invoices .schematic-status__message,
+.schematic-invoices .schematic-status-note {
+  color: var(--danger);
+  font-size: var(--text-sm, 0.875rem);
+  line-height: var(--text-sm--line-height, calc(1.25 / 0.875));
+  margin: 0;
+}
+
+.schematic-invoices .schematic-status-note {
+  margin-top: 1.25rem;
+}
+
+/* The loading label, read by assistive technology and never seen. */
+.schematic-invoices .schematic-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.schematic-invoices .schematic-skeleton {
+  animation: schematic-invoices-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.schematic-invoices .schematic-skeleton__heading {
+  background: var(--muted);
+  border-radius: 0.375rem;
+  height: 1.25rem;
+  margin-bottom: 0.75rem;
+  width: 8rem;
+}
+
+.schematic-invoices .schematic-skeleton__row {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.schematic-invoices .schematic-skeleton__cell {
+  background: var(--muted);
+  border-radius: 0.25rem;
+  height: 1rem;
+}
+
+.schematic-invoices .schematic-skeleton__cell[data-column="date"] {
+  width: 7rem;
+}
+
+.schematic-invoices .schematic-skeleton__cell[data-column="amount"] {
+  width: 4rem;
+}
+
+@keyframes schematic-invoices-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .schematic-invoices .schematic-skeleton {
+    animation: none;
+  }
+}

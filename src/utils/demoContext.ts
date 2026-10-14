@@ -4,9 +4,6 @@
 // identifies as a single fixed company/user against a (typically local)
 // Schematic API. The demo environment must seed entitlements for the
 // company key below (`id: "demo-co"`).
-//
-// Mirrors the dashai demo pattern (lib/server-identity.ts + data/demoIdentity.ts),
-// but uses simple stable `id` keys since this app isn't bound to Metronome.
 
 export const isDemoMode = (): boolean =>
   process.env.NEXT_PUBLIC_DEMO_MODE === "true";
