@@ -42,7 +42,7 @@ function PriceLine({ row }: { row: MeteredFeatureRow }) {
         <>
           <span>
             Additional: {details.unitPrice}/
-            {details.packageSize > 1 && `${details.packageSize} `}
+            {details.packageSize !== null && `${details.packageSize} `}
             {details.units}
             {period}
           </span>

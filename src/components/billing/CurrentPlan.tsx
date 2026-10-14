@@ -53,6 +53,12 @@ function noticeText(notice: PlanNotice): string | null {
       if (notice.endsIn === null) {
         return null;
       }
+      if (notice.endsIn === "soon") {
+        return "Your trial ends in less than a minute.";
+      }
+      if (notice.endsIn === "ended") {
+        return "Your trial has ended.";
+      }
       const [one, many] = UNITS[notice.endsIn.unit];
       return `Your trial ends in ${notice.endsIn.amount} ${notice.endsIn.amount === 1 ? one : many}.`;
     }
@@ -248,8 +254,8 @@ function PlanList<Row>({
   );
 }
 
-const Used = ({ amount, tip }: { amount: number; tip?: string }) =>
-  amount > 0 ? (
+const Used = ({ amount, tip }: { amount: string | null; tip?: string }) =>
+  amount !== null ? (
     <span className="text-sm text-muted-fg tabular-nums" title={tip}>
       {amount} used{tip !== undefined && " ↻"}
     </span>

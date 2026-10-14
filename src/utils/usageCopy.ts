@@ -56,7 +56,7 @@ export function usageText(
       .map((segment) => {
         switch (segment.kind) {
           case "unitPricePerPeriod":
-            return segment.size > 1
+            return segment.size !== null
               ? `${segment.cost}/${segment.size} ${segment.units}/${shortPeriod(segment.period)}`
               : `${segment.cost}/${segment.units}/${shortPeriod(segment.period)}`;
           case "used":
