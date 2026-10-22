@@ -21,6 +21,8 @@ overrides:
   brace-expansion@^5.0.0: ^5.0.12
   # @tailwindcss/node and postcss 8.5.26 still resolve 1.2.1 (GHSA-68fv-2mgg-jv7q).
   source-map-js: ^1.2.2
+  # axios still resolves 1.16.0 (GHSA-q3jh-wrc6-jgq8, GHSA-8r9p-f939-6h3c).
+  follow-redirects: ^1.16.1
 
 allowBuilds:
   # Native bindings that ship prebuilt per-platform packages as optional
