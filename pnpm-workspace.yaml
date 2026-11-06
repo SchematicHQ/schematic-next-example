@@ -21,8 +21,11 @@ overrides:
   brace-expansion@^5.0.0: ^5.0.12
   # @tailwindcss/node and postcss 8.5.26 still resolve 1.2.1 (GHSA-68fv-2mgg-jv7q).
   source-map-js: ^1.2.2
-  # axios still resolves 1.16.0 (GHSA-q3jh-wrc6-jgq8, GHSA-8r9p-f939-6h3c).
-  follow-redirects: ^1.16.1
+  # axios still resolves 1.16.0 (GHSA-q3jh-wrc6-jgq8, GHSA-8r9p-f939-6h3c),
+  # and 1.16.1 has GHSA-mrwp-f3q8-3g9p.
+  follow-redirects: ^1.16.2
+  # eslint and @typescript-eslint still want minimatch 10 (GHSA-g3hv-75wg-m249).
+  minimatch@^10.0.0: ^11.0.1
 
 allowBuilds:
   # Native bindings that ship prebuilt per-platform packages as optional
